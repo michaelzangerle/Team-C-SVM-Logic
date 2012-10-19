@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/svm.logic.abstraction/svm.logic.abstraction.iml" filepath="$PROJECT_DIR$/svm.logic.abstraction/svm.logic.abstraction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/svm.logic.implementation/svm.logic.implementation.iml" filepath="$PROJECT_DIR$/svm.logic.implementation/svm.logic.implementation.iml" />
+    </modules>
+  </component>
+</project>
+
