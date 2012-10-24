@@ -1,4 +1,6 @@
-package test;
+package svm.logic.test;
+
+import test.IAddress;
 
 /**
  * Projectteam

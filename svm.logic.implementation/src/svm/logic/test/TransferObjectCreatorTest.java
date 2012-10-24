@@ -1,4 +1,4 @@
-package test;
+package svm.logic.test;
 
 import junit.framework.TestCase;
 import svm.logic.implementation.tranferobjects.TransferPerson;
