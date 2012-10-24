@@ -1,3 +1,11 @@
+import svm.logic.abstraction.exceptions.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.interfaces.ITransferAddress;
+import svm.logic.abstraction.transferobjects.interfaces.ITransferPerson;
+import svm.logic.implementation.tranferobjects.TransferPerson;
+import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import test.IPerson;
+import test.Person;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mike
@@ -8,6 +16,19 @@
 public class Main {
 
     public static void main(String[] args) {
-        System.out.print("Main");
+
+        IPerson p = new Person();
+        ITransferPerson tp = null;
+        try {
+            tp = (ITransferPerson) TransferObjectCreator.getInstance(TransferPerson.class, p);
+            System.out.println(tp.getName());
+            ITransferAddress a=tp.getAddress();
+            System.out.println(a.getPlz());
+        } catch (IllegalGetInstanceException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+
+
     }
 }
