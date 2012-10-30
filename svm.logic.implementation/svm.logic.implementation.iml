@@ -17,7 +17,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="junit-4.10" level="project" />
+    <orderEntry type="library" name="svm.domain.abstraction" level="project" />
   </component>
 </module>
 
