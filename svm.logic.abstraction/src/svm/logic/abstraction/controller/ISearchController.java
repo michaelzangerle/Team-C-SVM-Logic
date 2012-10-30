@@ -1,6 +1,6 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.interfaces.ITransferPerson;
+import svm.logic.abstraction.transferobjects.ITransferPerson;
 
 import java.util.List;
 

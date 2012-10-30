@@ -1,6 +1,6 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.interfaces.ITransferSubTeam;
+import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 
 import java.util.List;
 

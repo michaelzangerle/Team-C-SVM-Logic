@@ -1,7 +1,7 @@
 package svm.logic.implementation.controller;
 
 import svm.logic.abstraction.controller.ISearchController;
-import svm.logic.abstraction.transferobjects.interfaces.ITransferPerson;
+import svm.logic.abstraction.transferobjects.ITransferPerson;
 
 import java.util.List;
 

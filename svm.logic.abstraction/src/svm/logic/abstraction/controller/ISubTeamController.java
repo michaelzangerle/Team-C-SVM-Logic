@@ -1,7 +1,7 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.interfaces.ITransferMember;
-import svm.logic.abstraction.transferobjects.interfaces.ITransferSubTeam;
+import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 
 /**
  * ProjectTeam: Team C

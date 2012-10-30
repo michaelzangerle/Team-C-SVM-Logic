@@ -1,4 +1,4 @@
-package svm.logic.abstraction.transferobjects.interfaces;
+package svm.logic.abstraction.transferobjects;
 
 
 import svm.logic.abstraction.exceptions.IllegalGetInstanceException;

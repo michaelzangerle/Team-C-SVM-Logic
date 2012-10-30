@@ -1,8 +1,8 @@
 package test;
 
 import svm.logic.abstraction.exceptions.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.interfaces.ITransferAddress;
-import svm.logic.abstraction.transferobjects.interfaces.ITransferPerson;
+import svm.logic.abstraction.transferobjects.ITransferAddress;
+import svm.logic.abstraction.transferobjects.ITransferPerson;
 import svm.logic.implementation.tranferobjects.TransferPerson;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 

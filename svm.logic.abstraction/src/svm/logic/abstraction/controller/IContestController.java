@@ -1,6 +1,6 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.interfaces.*;
+import svm.logic.abstraction.transferobjects.*;
 
 import java.util.Date;
 import java.util.List;
