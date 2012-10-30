@@ -1,4 +1,4 @@
-package svm.logic.abstraction.exceptions;
+package svm.logic.abstraction.exception;
 
 /**
  * Projectteam
@@ -13,3 +13,4 @@ public class IllegalGetInstanceException extends Exception {
 
 
 }
+
