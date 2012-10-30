@@ -14,7 +14,7 @@ public class TransferPerson implements ITransferPerson {
 
     IPerson person;
 
-    @Override
+      @Override
     public void setObject(Object obj)
     {
         this.person=(IPerson)obj;
