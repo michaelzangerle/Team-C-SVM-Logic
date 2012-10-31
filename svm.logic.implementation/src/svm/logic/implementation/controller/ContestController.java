@@ -54,12 +54,13 @@ public class ContestController implements IContestController {
         this.sessionId = DomainFacade.generateSessionId();
         DomainFacade.reattachObjectToSession(this.sessionId, contest);
 
-        this.transferContest = (ITransferContest) TransferObjectCreator.getInstance(TransferContest.class,contest);
+        this.transferContest = (ITransferContest) TransferObjectCreator.getInstance(TransferContest.class, contest);
     }
 
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
         DomainFacade.startTransaction(this.sessionId);
+        DomainFacade.getContestModelDAO().saveOrUpdate(sessionId, contest);
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
     }

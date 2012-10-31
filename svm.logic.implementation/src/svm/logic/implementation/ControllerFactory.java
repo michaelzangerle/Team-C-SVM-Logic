@@ -10,6 +10,7 @@ import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.controller.ContestConfirmationController;
 import svm.logic.implementation.controller.ContestController;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 /**
  * ProjectTeam: Team C
@@ -34,7 +35,7 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController() throws IllegalAccessException, InstantiationException {
+    public IContestController getContestController() throws IllegalAccessException, InstantiationException, NoSessionFoundException {
         return new ContestController(DomainFacade.getContestModelDAO().generateObject());
     }
 
