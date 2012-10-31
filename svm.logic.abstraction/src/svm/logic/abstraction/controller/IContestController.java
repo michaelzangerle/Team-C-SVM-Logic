@@ -97,6 +97,6 @@ public interface IContestController extends IController {
      *
      * @return
      */
-    ITransferLegue getLegue();
+    ITransferLeague getLeague();
 
 }

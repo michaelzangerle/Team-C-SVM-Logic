@@ -67,7 +67,7 @@ public class ContestController implements IContestController {
     }
 
     @Override
-    public ITransferLegue getLegue() {
+    public ITransferLeague getLeague() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
