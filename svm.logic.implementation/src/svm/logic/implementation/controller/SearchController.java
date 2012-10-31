@@ -78,7 +78,7 @@ public class SearchController implements ISearchController {
      * @throws IllegalGetInstanceException
      */
     @Override
-    public List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException {
+    public List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException {
         List<ITransferDepartment> result = new LinkedList<ITransferDepartment>();
         for (IDepartment department : DomainFacade.getDepartmentModelDAO().getAll(sessionId)) {
             result.add((ITransferDepartment) TransferObjectCreator.getInstance(TransferDepartment.class, department));
