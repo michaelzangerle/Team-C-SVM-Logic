@@ -1,5 +1,6 @@
 package svm.logic.abstraction.controller;
 
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public interface ISearchController extends IController {
 
-    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException;
+    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException;
 
-    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException;
+    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException, IllegalGetInstanceException;
 
-    List<ITransferDepartment> getDepartments();
+    List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException;
 }
