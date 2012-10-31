@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="svm.domain.abstraction" level="project" />
+    <orderEntry type="module" module-name="svm.logic.implementation" />
   </component>
 </module>
 
