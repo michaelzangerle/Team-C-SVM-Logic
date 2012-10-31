@@ -1,6 +1,6 @@
 package svm.logic.implementation.tranferobjects;
 
-import svm.logic.abstraction.exceptions.IllegalGetInstanceException;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferAddress;
 import svm.logic.abstraction.transferobjects.ITransferPerson;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
@@ -14,10 +14,9 @@ public class TransferPerson implements ITransferPerson {
 
     IPerson person;
 
-      @Override
-    public void setObject(Object obj)
-    {
-        this.person=(IPerson)obj;
+    @Override
+    public void setObject(Object obj) {
+        this.person = (IPerson) obj;
     }
 
 
@@ -28,6 +27,6 @@ public class TransferPerson implements ITransferPerson {
 
     @Override
     public ITransferAddress getAddress() throws IllegalGetInstanceException {
-        return(ITransferAddress)TransferObjectCreator.getInstance(TransferAddress.class,person.getAddress());
+        return (ITransferAddress) TransferObjectCreator.getInstance(TransferAddress.class, person.getAddress());
     }
 }

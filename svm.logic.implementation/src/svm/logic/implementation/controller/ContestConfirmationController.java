@@ -10,6 +10,7 @@ import java.util.List;
  * Date: 30.10.12
  */
 public class ContestConfirmationController implements IContestConfirmationController {
+
     @Override
     public List<ITransferTeam> getTeamForNotConfirmedContests(int personId) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.

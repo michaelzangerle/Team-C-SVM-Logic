@@ -1,6 +1,6 @@
 package test;
 
-import svm.logic.abstraction.exceptions.IllegalGetInstanceException;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferAddress;
 import svm.logic.abstraction.transferobjects.ITransferPerson;
 import svm.logic.implementation.tranferobjects.TransferPerson;
@@ -22,12 +22,11 @@ public class Main {
         try {
             tp = (ITransferPerson) TransferObjectCreator.getInstance(TransferPerson.class, p);
             System.out.println(tp.getName());
-            ITransferAddress a=tp.getAddress();
+            ITransferAddress a = tp.getAddress();
             System.out.println(a.getPlz());
         } catch (IllegalGetInstanceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
 
 
     }
