@@ -1,12 +1,14 @@
 package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
+import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,13 +37,18 @@ public class SearchController implements ISearchController {
     @Override
     public List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException {
         // TODO ITransferDepartment to IDepartment
-        // TODO DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, null);
+        DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, null);
         return null;
     }
 
     @Override
-    public List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) {
-        return null;
+    public List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException {
+        List<ITransferMember> result = new LinkedList<ITransferMember>();
+        for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, birthDateFrom, birthDateTo)) {
+            // TODO Wrappen
+        }
+
+        return result;
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface ISearchController extends IController {
 
     List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException;
 
-    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo);
+    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException;
 
     List<ITransferDepartment> getDepartments();
 }

@@ -2,6 +2,7 @@ package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.IContactDetails;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferContactDetails;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
@@ -10,7 +11,7 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
  * Projectteam: Team C
  * Date: 31.10.12
  */
-public class TransferContactDetails implements ITransferContactDetails {
+public class TransferContactDetails implements ITransferContactDetails, IHasModel<IContactDetails> {
 
     private IContactDetails contactDetails;
 
@@ -67,5 +68,10 @@ public class TransferContactDetails implements ITransferContactDetails {
     @Override
     public ITransferLocation getLocation() throws IllegalGetInstanceException {
         return (ITransferLocation) TransferObjectCreator.getInstance(ITransferLocation.class, contactDetails.getLocation());
+    }
+
+    @Override
+    public IContactDetails getModel() {
+        return this.contactDetails;
     }
 }
