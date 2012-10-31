@@ -20,7 +20,11 @@ public class ControllerFactory {
     private static ControllerFactory instance;
 
     public static ControllerFactory getInstance() {
+        if (instance == null) instance = new ControllerFactory();
         return instance;
+    }
+
+    private ControllerFactory() {
     }
 
     /**
