@@ -1,13 +1,14 @@
 package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.ILocation;
+import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 
 /**
  * Projectteam: Team C
  * Date: 31.10.12
  */
-public class TransferLocation implements ITransferLocation {
+public class TransferLocation implements ITransferLocation, IHasModel<ILocation> {
 
 
     private ILocation location;
@@ -55,5 +56,10 @@ public class TransferLocation implements ITransferLocation {
     @Override
     public void setObject(Object o) {
         this.location = (ILocation) o;
+    }
+
+    @Override
+    public ILocation getModel() {
+        return this.location;
     }
 }

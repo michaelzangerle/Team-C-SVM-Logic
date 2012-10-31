@@ -2,10 +2,7 @@ package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransfer;
-import svm.logic.abstraction.transferobjects.ITransferAddress;
-import svm.logic.abstraction.transferobjects.ITransferContactDetails;
-import svm.logic.abstraction.transferobjects.ITransferContest;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import test.IPerson;
 
@@ -15,7 +12,7 @@ import java.util.Date;
  * Projectteam: Team C
  * Date: 31.10.12
  */
-public class TransferContest implements ITransferContest {
+public class TransferContest implements ITransferContest, IHasModel<IContest>{
 
     private IContest contest;
 
@@ -47,5 +44,10 @@ public class TransferContest implements ITransferContest {
     @Override
     public ITransferContactDetails getContactDetails() throws IllegalGetInstanceException {
         return (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class,contest.getContactDetails());
+    }
+
+    @Override
+    public IContest getModel() {
+        return this.contest;
     }
 }

@@ -1,8 +1,19 @@
 package svm.logic.implementation.controller;
 
+import svm.domain.abstraction.DomainFacade;
+import svm.domain.abstraction.modelInterfaces.IContestHasTeam;
+import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IContestConfirmationController;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferContestHasTeams;
+import svm.logic.implementation.tranferobjects.TransferContestHasTeams;
+import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import svm.persistence.abstraction.exceptions.ExistingTransactionException;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
+import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,28 +22,59 @@ import java.util.List;
  */
 public class ContestConfirmationController implements IContestConfirmationController {
 
+    private List<ITransferContestHasTeams> transferContestHasTeams;
+    private IMember member;
+    private Integer sessionId;
+
+    public ContestConfirmationController(IMember member) {
+        this.member = member;
+    }
+
+
     @Override
-    public List<ITransferTeam> getTeamForNotConfirmedContests(int personId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void start() throws NoSessionFoundException, IllegalGetInstanceException {
+        this.sessionId = DomainFacade.generateSessionId();
+        DomainFacade.reattachObjectToSession(this.sessionId, member);
+
+        transferContestHasTeams = new LinkedList<ITransferContestHasTeams>();
+
+        for (IContestHasTeam tmp : member.getContestsHasTeamsForPerson()) {
+            this.transferContestHasTeams.add((ITransferContestHasTeams) TransferObjectCreator.getInstance(TransferContestHasTeams.class, tmp));
+        }
     }
 
     @Override
-    public List<ITransferTeam> confirmParticipationOfATeamInAContest(int teamId, int contestId, boolean confirm, String comment, boolean paid) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
+        DomainFacade.startTransaction(this.sessionId);
+        DomainFacade.commitTransaction(this.sessionId);
+        DomainFacade.closeSession(this.sessionId);
     }
 
     @Override
-    public void start() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void abort() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
+        DomainFacade.startTransaction(this.sessionId);
+        DomainFacade.abortTransaction(this.sessionId);
+        DomainFacade.closeSession(this.sessionId);
     }
 
     @Override
-    public void commit() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public List<ITransferContestHasTeams> getTeamsForNotConfirmedContests() throws IllegalGetInstanceException {
+
+        List<ITransferContestHasTeams> result = new LinkedList<ITransferContestHasTeams>();
+
+        for (IContestHasTeam tmp : member.getContestsHasTeamsForPerson()) {
+            result.add((ITransferContestHasTeams) TransferObjectCreator.getInstance(TransferContestHasTeams.class, tmp));
+        }
+
+        return result;
+
     }
 
     @Override
-    public void abort() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void confirmParticipationOfATeamInAContest(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid) {
+        IContestHasTeam contestHasTeam = ((IHasModel<IContestHasTeam>) this.transferContestHasTeams).getModel();
+        contestHasTeam.setComment(comment);
+        contestHasTeam.setConfirmed(confirm);
+        contestHasTeam.setPaid(paid);
     }
 }

@@ -1,6 +1,7 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.ITransferContestHasTeams;
 
 import java.util.List;
 
@@ -17,13 +18,13 @@ public interface IContestConfirmationController extends IController {
      *
      * @return
      */
-    List<ITransferTeam> getTeamForNotConfirmedContests(int personId);
+    List<ITransferContestHasTeams> getTeamsForNotConfirmedContests() throws IllegalGetInstanceException;
 
     /**
      * Confirms or cancels a participation of a team in a contests
      *
      * @return
      */
-    List<ITransferTeam> confirmParticipationOfATeamInAContest(int teamId, int contestId, boolean confirm, String comment, boolean paid);
+    void confirmParticipationOfATeamInAContest(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid);
 
 }
