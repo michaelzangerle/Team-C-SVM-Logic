@@ -5,6 +5,7 @@ import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.ControllerFactory;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 /**
  * ProjectTeam: Team C
@@ -19,7 +20,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IContestController getContestController() throws IllegalAccessException, InstantiationException {
+    public static IContestController getContestController() throws IllegalAccessException, InstantiationException, NoSessionFoundException {
         return ControllerFactory.getInstance().getContestController();
     }
 

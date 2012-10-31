@@ -46,6 +46,9 @@ public class ContestConfirmationController implements IContestConfirmationContro
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
         DomainFacade.startTransaction(this.sessionId);
+
+        // TODO
+        //DomainFacade.getContestModelDAO().saveOrUpdate(this.sessionId,this.contest);
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
     }
