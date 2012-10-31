@@ -25,6 +25,6 @@ public interface IContestConfirmationController extends IController {
      *
      * @return
      */
-    void confirmParticipationOfATeamInAContest(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid);
+    void confirmParticipationOfATeam(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid);
 
 }

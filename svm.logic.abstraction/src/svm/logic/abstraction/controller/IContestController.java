@@ -42,7 +42,7 @@ public interface IContestController extends IController {
      */
     void setContestFee(float val) throws DomainParameterCheckException, DomainAttributeException;
 
-    // TODO contact details?
-
     ITransferContest getTransferContest();
+
+    // TODO contact details
 }
