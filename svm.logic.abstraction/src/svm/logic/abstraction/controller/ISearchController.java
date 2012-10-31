@@ -1,7 +1,10 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.transferobjects.ITransferPerson;
+import svm.logic.abstraction.transferobjects.ITransferDepartment;
+import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,7 +13,9 @@ import java.util.List;
  */
 public interface ISearchController extends IController {
 
-    // TODO transfer member instead of transfer person
-    List<ITransferPerson> getMembersByName();
+    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException;
 
+    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo);
+
+    List<ITransferDepartment> getDepartments();
 }
