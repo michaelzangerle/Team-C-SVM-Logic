@@ -1,7 +1,15 @@
 package svm.logic.abstraction;
 
+import svm.domain.abstraction.exception.DomainAttributeException;
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.controller.IContestController;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.implementation.controller.ContestController;
+import svm.persistence.abstraction.exceptions.ExistingTransactionException;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
+import svm.persistence.abstraction.exceptions.NoTransactionException;
+
+import java.util.Date;
 
 /**
  * Projectteam: Team C
@@ -9,9 +17,20 @@ import svm.logic.implementation.controller.ContestController;
  */
 public class ContestControllerMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException {
 
-        IContestController contestController = new ContestController();
+        IContestController contestController = LogicFacade.getContestController();
+        contestController.start();
+
+        contestController.setContestStartDate(new Date());
+        contestController.setContestEndDate(new Date());
+        contestController.setContestName("Testcontets");
+        contestController.setContestFee(150);
+
+
+        contestController.commit();
+
+
 
     }
 

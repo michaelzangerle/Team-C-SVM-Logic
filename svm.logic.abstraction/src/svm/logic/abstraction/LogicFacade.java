@@ -19,7 +19,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController() throws IllegalAccessException, InstantiationException {
+    public static IContestController getContestController() throws IllegalAccessException, InstantiationException {
         return ControllerFactory.getInstance().getContestController();
     }
 
@@ -31,7 +31,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController(ITransferContest contest) throws IllegalAccessException, InstantiationException {
+    public static IContestController getContestController(ITransferContest contest) throws IllegalAccessException, InstantiationException {
         return ControllerFactory.getInstance().getContestController(contest);
     }
 
@@ -43,7 +43,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestConfirmationController getContestConfirmationController(ITransferMember member) {
+    public static IContestConfirmationController getContestConfirmationController(ITransferMember member) {
         return ControllerFactory.getInstance().getContestConfirmationController(member);
     }
 }
