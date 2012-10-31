@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="svm.logic.implementation">
+    <output-path>$PROJECT_DIR$/out/artifacts/</output-path>
+    <root id="archive" name="svm.logic.implementation.jar">
+      <element id="module-output" name="svm.logic.implementation" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.abstraction.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.implementation.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
