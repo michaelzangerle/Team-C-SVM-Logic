@@ -5,12 +5,14 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import java.io.Serializable;
+
 /**
  * Basis Interface for the controllers
  * Projectteam: Team C
  * Date: 30.10.12
  */
-public interface IController {
+public interface IController extends Serializable{
 
     /**
      * Inits the controller (open session, ...)
