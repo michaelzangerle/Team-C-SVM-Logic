@@ -2,10 +2,10 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.logic.abstraction.transferobjects.*;
+import svm.logic.abstraction.transferobjects.ITransferContest;
+import svm.logic.abstraction.transferobjects.ITransferLocation;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Interface for the contest controller
@@ -42,7 +42,80 @@ public interface IContestController extends IController {
      */
     void setContestFee(float val) throws DomainParameterCheckException, DomainAttributeException;
 
+    /**
+     * Returns a specific contest
+     *
+     * @return
+     */
     ITransferContest getTransferContest();
 
-    // TODO contact details
+    /**
+     * Sets the phone1 in the contact details for a contest
+     *
+     * @param val
+     */
+    void setPhone1(String val);
+
+    /**
+     * Sets the phone2 in the contact details for a contest
+     *
+     * @param val
+     */
+    void setPhone2(String val);
+
+    /**
+     * Sets the email1 in the contact details for a contest
+     *
+     * @param val
+     */
+    void setEmail1(String val);
+
+    /**
+     * Sets the email2 in the contact details for a contest
+     *
+     * @param val
+     */
+    void setEmail2(String val);
+
+    /**
+     * Sets the fax in the contact details for a contest
+     *
+     * @param val
+     */
+    void setFax(String val);
+
+    /**
+     * Sets the street in the contact details for a contest
+     *
+     * @param val
+     */
+    void setStreet(String val);
+
+    /**
+     * Sets the street number in the contact details for a contest
+     *
+     * @param val
+     */
+    void setStreetNumber(String val);
+
+    /**
+     * Sets the latitude in the contact details for a contest
+     *
+     * @param val
+     */
+    void setLat(Long val);
+
+    /**
+     * Sets the longitude in the contact details for a contest
+     *
+     * @param val
+     */
+    void setLong(Long val);
+
+    /**
+     * Sets the location in the contact details for a contest
+     *
+     * @param location
+     */
+    void setLocation(ITransferLocation location);
 }
