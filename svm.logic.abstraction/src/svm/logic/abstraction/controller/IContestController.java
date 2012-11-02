@@ -54,68 +54,69 @@ public interface IContestController extends IController {
      *
      * @param val
      */
-    void setPhone1(String val);
+    void setPhone1(String val) throws DomainAttributeException;
 
     /**
      * Sets the phone2 in the contact details for a contest
      *
      * @param val
      */
-    void setPhone2(String val);
+    void setPhone2(String val) throws DomainAttributeException;
 
     /**
      * Sets the email1 in the contact details for a contest
      *
      * @param val
      */
-    void setEmail1(String val);
+    void setEmail1(String val) throws DomainAttributeException;
 
     /**
      * Sets the email2 in the contact details for a contest
      *
      * @param val
      */
-    void setEmail2(String val);
+    void setEmail2(String val) throws DomainAttributeException;
 
     /**
      * Sets the fax in the contact details for a contest
      *
      * @param val
      */
-    void setFax(String val);
+    void setFax(String val) throws DomainAttributeException;
 
     /**
      * Sets the street in the contact details for a contest
      *
      * @param val
      */
-    void setStreet(String val);
+    void setStreet(String val) throws DomainAttributeException;
 
     /**
      * Sets the street number in the contact details for a contest
      *
      * @param val
      */
-    void setStreetNumber(String val);
+    void setStreetNumber(String val) throws DomainAttributeException;
 
     /**
      * Sets the latitude in the contact details for a contest
      *
      * @param val
      */
-    void setLat(Long val);
+    void setLat(String val) throws DomainAttributeException;
 
     /**
      * Sets the longitude in the contact details for a contest
      *
      * @param val
      */
-    void setLong(Long val);
+    void setLong(String val) throws DomainAttributeException;
 
     /**
      * Sets the location in the contact details for a contest
      *
      * @param location
      */
-    void setLocation(ITransferLocation location);
+    void setLocation(ITransferLocation location) throws DomainAttributeException;
+
 }
