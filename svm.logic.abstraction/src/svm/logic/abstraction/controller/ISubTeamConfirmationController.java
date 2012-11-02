@@ -23,7 +23,7 @@ public interface ISubTeamConfirmationController extends IController {
     /**
      * Sets the confirmation flag and a comment for a specific subteam-contest relation
      *
-     * @param subTeamID
+     * @param subTeam
      * @param confirmation
      * @param comment
      */
