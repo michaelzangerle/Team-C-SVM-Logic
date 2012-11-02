@@ -1,6 +1,8 @@
 package svm.logic.abstraction.controller;
 
+import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
+import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
 
 import java.util.List;
 
@@ -19,19 +21,13 @@ public interface ISubTeamConfirmationController extends IController {
     List<ITransferSubTeam> getSubTeamsOfMember();
 
     /**
-     * Returns the subteams of a member which are not in the past
-     *
-     * @return
-     */
-    List<ITransferSubTeam> getCurrentSubTeamsOfMember();
-
-    /**
      * Sets the confirmation flag and a comment for a specific subteam-contest relation
      *
      * @param subTeamID
      * @param confirmation
      * @param comment
      */
-    void setConfirmationForSubTeam(int subTeamID, boolean confirmation, String comment);
+    void setConfirmationForSubTeam(ITransferSubTeamHasMember subTeam, boolean confirmation, String comment);
 
+    ITransferMember getMember();
 }
