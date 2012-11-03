@@ -44,7 +44,7 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
 
         List<ITransferSubTeamHasMember> result = new LinkedList<ITransferSubTeamHasMember>();
 
-        for (ISubTeamsHasMembers tmp : this.member.getContestsHasSubTeamsForPerson()) {
+        for (ISubTeamsHasMembers tmp : this.member.getSubTeamsHasMembersForPerson()) {
             result.add((ITransferSubTeamHasMember) TransferObjectCreator.getInstance(TransferSubTeamHasMember.class, tmp));
         }
 
