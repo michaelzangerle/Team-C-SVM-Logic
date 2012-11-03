@@ -6,13 +6,14 @@ import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
 import java.io.Serializable;
+import java.rmi.Remote;
 
 /**
  * Basis Interface for the controllers
  * Projectteam: Team C
  * Date: 30.10.12
  */
-public interface IController extends Serializable{
+public interface IController extends Serializable,Remote{
 
     /**
      * Inits the controller (open session, ...)

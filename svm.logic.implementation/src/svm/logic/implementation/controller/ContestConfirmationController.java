@@ -50,8 +50,7 @@ public class ContestConfirmationController implements IContestConfirmationContro
 
         DomainFacade.startTransaction(this.sessionId);
 
-        // TODO
-        //DomainFacade.getContestHasTeamModelDAO().saveOrUpdate(this.sessionId,tmp);
+        DomainFacade.getContestsHasTeamsDAO().saveOrUpdate(this.sessionId,tmp);
 
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
