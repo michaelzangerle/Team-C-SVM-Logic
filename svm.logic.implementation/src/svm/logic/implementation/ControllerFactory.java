@@ -50,6 +50,29 @@ public class ControllerFactory {
     }
 
     /**
+     * Create new Contest
+     *
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public IMemberController getMemberController() throws IllegalAccessException, InstantiationException, NoSessionFoundException {
+        return new MemberController(DomainFacade.getMemberModelDAO().generateObject());
+    }
+
+    /**
+     * Change Contest
+     *
+     * @param member
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public IMemberController getMemberController(ITransferMember member) {
+        return new MemberController(((IHasModel<IMember>) member).getModel());
+    }
+
+    /**
      * Confirm a Contest for Member
      *
      * @param member
@@ -61,25 +84,20 @@ public class ControllerFactory {
         return new ContestConfirmationController(((IHasModel<IMember>) member).getModel());
     }
 
-    public ISubTeamConfirmationController getSubTeamConfirmationController (ITransferMember member)
-    {
+    public ISubTeamConfirmationController getSubTeamConfirmationController(ITransferMember member) {
         return new SubTeamConfirmationController(((IHasModel<IMember>) member).getModel());
     }
 
-    public ISubTeamController getSubTeamController(ITransferSubTeam subTeam)
-    {
+    public ISubTeamController getSubTeamController(ITransferSubTeam subTeam) {
         return new SubTeamController(((IHasModel<ISubTeam>) subTeam).getModel());
     }
 
     public ISubTeamController getSubTeamController(ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
-        return new SubTeamController(((IHasModel<ITeam>) team).getModel(),((IHasModel<IContest>) contest).getModel());
+        return new SubTeamController(((IHasModel<ITeam>) team).getModel(), ((IHasModel<IContest>) contest).getModel());
     }
 
-    public IMemberController getMemberController(ITransferMember member){
-        return new MemberController(((IHasModel<IMember>)member).getModel());
-    }
 
-    public ISearchController getSearchController(){
+    public ISearchController getSearchController() {
         return new SearchController();
     }
 }

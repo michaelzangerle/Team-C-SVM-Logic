@@ -39,6 +39,29 @@ public class LogicFacade {
     }
 
     /**
+     * Create new Contest
+     *
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public static IMemberController getMemberController() throws NoSessionFoundException, InstantiationException, IllegalAccessException {
+        return ControllerFactory.getInstance().getMemberController();
+    }
+
+    /**
+     * Change Contest
+     *
+     * @param contest
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public static IMemberController getMemberController(ITransferMember member){
+        return ControllerFactory.getInstance().getMemberController(member);
+    }
+
+    /**
      * Confirm a Contest for Member
      *
      * @param member
@@ -81,9 +104,7 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getSubTeamController(team,contest);
     }
 
-    public static IMemberController getMemberController(ITransferMember member){
-        return ControllerFactory.getInstance().getMemberController( member);
-    }
+
 
     public static ISearchController getSearchController(){
         return ControllerFactory.getInstance().getSearchController();
