@@ -56,9 +56,9 @@ public class LogicFacade {
      * Sub Team Confirmation Controller
      * @return ISubTeamConfirmationController
      */
-    public static ISubTeamConfirmationController getSubTeamConfirmationController ()
+    public static ISubTeamConfirmationController getSubTeamConfirmationController (ITransferMember member)
     {
-        return ControllerFactory.getInstance().getSubTeamConfirmationController();
+        return ControllerFactory.getInstance().getSubTeamConfirmationController(member);
     }
 
     /**

@@ -67,9 +67,9 @@ public class ControllerFactory {
         return new ContestConfirmationController(((IHasModel<IMember>) member).getModel());
     }
 
-    public ISubTeamConfirmationController getSubTeamConfirmationController ()
+    public ISubTeamConfirmationController getSubTeamConfirmationController (ITransferMember member)
     {
-        return new SubTeamConfirmationController();
+        return new SubTeamConfirmationController(((IHasModel<IMember>) member).getModel());
     }
 
     public ISubTeamController getSubTeamController(ITransferSubTeam subTeam)
