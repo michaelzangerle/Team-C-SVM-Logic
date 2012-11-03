@@ -24,9 +24,8 @@ public class ContestControllerMain {
 
         contestController.setContestStartDate(new Date());
         contestController.setContestEndDate(new Date());
-        contestController.setContestName("Testcontets");
+        contestController.setContestName("Testcontest");
         contestController.setContestFee(150);
-
 
         contestController.commit();
 

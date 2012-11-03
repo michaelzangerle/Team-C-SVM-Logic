@@ -1,14 +1,12 @@
 package svm.logic.abstraction;
 
-import svm.logic.abstraction.controller.IContestConfirmationController;
-import svm.logic.abstraction.controller.IContestController;
-import svm.logic.abstraction.controller.ISubTeamConfirmationController;
-import svm.logic.abstraction.controller.ISubTeamController;
+import svm.logic.abstraction.controller.*;
 import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.logic.implementation.ControllerFactory;
+import svm.logic.implementation.controller.SearchController;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 /**
@@ -81,5 +79,13 @@ public class LogicFacade {
      */
     public static ISubTeamController getSubTeamController (ITransferTeam team,ITransferContest contest) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
         return ControllerFactory.getInstance().getSubTeamController(team,contest);
+    }
+
+    public static IMemberController getMemberController(ITransferMember member){
+        return ControllerFactory.getInstance().getMemberController( member);
+    }
+
+    public ISearchController getSearchController(){
+        return ControllerFactory.getInstance().getSearchController();
     }
 }

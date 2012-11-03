@@ -5,15 +5,9 @@ import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.domain.abstraction.modelInterfaces.ITeam;
-import svm.logic.abstraction.controller.IContestConfirmationController;
-import svm.logic.abstraction.controller.IContestController;
-import svm.logic.abstraction.controller.ISubTeamConfirmationController;
-import svm.logic.abstraction.controller.ISubTeamController;
+import svm.logic.abstraction.controller.*;
 import svm.logic.abstraction.transferobjects.*;
-import svm.logic.implementation.controller.ContestConfirmationController;
-import svm.logic.implementation.controller.ContestController;
-import svm.logic.implementation.controller.SubTeamConfirmationController;
-import svm.logic.implementation.controller.SubTeamController;
+import svm.logic.implementation.controller.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 /**
@@ -79,5 +73,13 @@ public class ControllerFactory {
 
     public ISubTeamController getSubTeamController(ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
         return new SubTeamController(((IHasModel<ITeam>) team).getModel(),((IHasModel<IContest>) contest).getModel());
+    }
+
+    public IMemberController getMemberController(ITransferMember member){
+        return new MemberController(((IHasModel<IMember>)member).getModel());
+    }
+
+    public ISearchController getSearchController(){
+        return new SearchController();
     }
 }
