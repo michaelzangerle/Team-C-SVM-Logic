@@ -73,12 +73,6 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void setFee(float fee) {
-        // TODO
-        //this.member.set
-    }
-
-    @Override
     public void setPhone1(String val) throws DomainAttributeException {
         this.member.getContactDetails().setPhone1(val);
     }

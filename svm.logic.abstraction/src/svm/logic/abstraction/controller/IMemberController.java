@@ -29,7 +29,6 @@ public interface IMemberController extends IController {
 
     void setEntryDate(Date entryDate) throws DomainParameterCheckException;
 
-    void setFee(float fee);
 
     /**
      * Sets the phone1 in the contact details for a member

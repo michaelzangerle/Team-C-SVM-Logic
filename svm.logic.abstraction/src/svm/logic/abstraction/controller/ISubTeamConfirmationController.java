@@ -18,7 +18,7 @@ public interface ISubTeamConfirmationController extends IController {
      *
      * @return
      */
-    List<ITransferSubTeam> getSubTeamsOfMember();
+    List<ITransferSubTeamHasMember> getSubTeamsOfMember();
 
     /**
      * Sets the confirmation flag and a comment for a specific subteam-contest relation

@@ -38,9 +38,9 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     }
 
     @Override
-    public List<ITransferSubTeam> getSubTeamsOfMember() {
+    public List<ITransferSubTeamHasMember> getSubTeamsOfMember() {
         // TODO
-        // return this.member.get
+        //this.member.get
         return null;
     }
 
