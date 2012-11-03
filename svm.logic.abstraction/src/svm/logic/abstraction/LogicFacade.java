@@ -85,7 +85,7 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getMemberController( member);
     }
 
-    public ISearchController getSearchController(){
+    public static ISearchController getSearchController(){
         return ControllerFactory.getInstance().getSearchController();
     }
 }
