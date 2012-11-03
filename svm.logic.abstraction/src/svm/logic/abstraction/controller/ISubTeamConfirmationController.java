@@ -1,5 +1,6 @@
 package svm.logic.abstraction.controller;
 
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
@@ -18,7 +19,7 @@ public interface ISubTeamConfirmationController extends IController {
      *
      * @return
      */
-    List<ITransferSubTeamHasMember> getSubTeamsOfMember();
+    List<ITransferSubTeamHasMember> getSubTeamsOfMember() throws IllegalGetInstanceException;
 
     /**
      * Sets the confirmation flag and a comment for a specific subteam-contest relation

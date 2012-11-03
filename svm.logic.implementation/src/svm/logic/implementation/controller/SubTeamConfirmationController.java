@@ -11,11 +11,13 @@ import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.implementation.tranferobjects.TransferSubTeamHasMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,10 +40,16 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     }
 
     @Override
-    public List<ITransferSubTeamHasMember> getSubTeamsOfMember() {
-        // TODO
-        //this.member.get
-        return null;
+    public List<ITransferSubTeamHasMember> getSubTeamsOfMember() throws IllegalGetInstanceException {
+
+        List<ITransferSubTeamHasMember> result = new LinkedList<ITransferSubTeamHasMember>();
+
+        for (ISubTeamsHasMembers tmp : this.member.getContestsHasSubTeamsForPerson()) {
+            result.add((ITransferSubTeamHasMember) TransferObjectCreator.getInstance(TransferSubTeamHasMember.class, tmp));
+        }
+
+        return result;
+
     }
 
     @Override
