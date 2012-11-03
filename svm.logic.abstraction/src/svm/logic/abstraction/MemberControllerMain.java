@@ -33,7 +33,7 @@ public class MemberControllerMain {
         memberController.setEmail1("michael.zangerle@gmail.com");
         memberController.setEmail2("michael.zangerle@outlook.com");
 
-        memberController.setGender("M");
+        memberController.setGender("M");   // TODO Fails because of string / char
 
         memberController.setSocialNumber("0123456789");
 
