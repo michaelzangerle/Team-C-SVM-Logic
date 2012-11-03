@@ -2,13 +2,16 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IDepartment;
+import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
+import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.tranferobjects.TransferDepartment;
+import svm.logic.implementation.tranferobjects.TransferLocation;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -82,6 +85,20 @@ public class SearchController implements ISearchController {
         List<ITransferDepartment> result = new LinkedList<ITransferDepartment>();
         for (IDepartment department : DomainFacade.getDepartmentModelDAO().getAll(sessionId)) {
             result.add((ITransferDepartment) TransferObjectCreator.getInstance(TransferDepartment.class, department));
+        }
+        return result;
+    }
+
+    /**
+     * @return
+     * @throws IllegalGetInstanceException
+     */
+    @Override
+    public List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException {
+        List<ITransferLocation> result = new LinkedList<ITransferLocation>();
+
+        for (ILocation location : DomainFacade.getLocationModelDAO().getAll(sessionId)) {
+            result.add((ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, location));
         }
         return result;
     }

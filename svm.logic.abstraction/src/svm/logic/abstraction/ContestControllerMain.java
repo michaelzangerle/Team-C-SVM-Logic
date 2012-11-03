@@ -23,15 +23,17 @@ public class ContestControllerMain {
 
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException {
 
-        //ISearchController searchController = LogicFacade.getSearchController();
-        //ITransferLocation location = searchController.getLocations().get(0);
+        ISearchController searchController = LogicFacade.getSearchController();
+        searchController.start();
+
+        ITransferLocation location = searchController.getLocations().get(5);
 
         IContestController contestController = LogicFacade.getContestController();
         contestController.start();
 
         contestController.setContestStartDate(new Date());
         contestController.setContestEndDate(new Date());
-        contestController.setContestName("Testcontest");
+        contestController.setContestName("Testcontest3");
         contestController.setContestFee(150);
 
         contestController.setEmail1("michael.zangerle@outlook.com");
@@ -48,7 +50,7 @@ public class ContestControllerMain {
         contestController.setPhone1("0654 123 564 78");
         contestController.setPhone2("0654 123 564 79");
 
-        //contestController.setLocation(location);
+        contestController.setLocation(location);
 
         contestController.commit();
 
