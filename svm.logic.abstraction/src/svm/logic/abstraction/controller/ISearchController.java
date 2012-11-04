@@ -17,6 +17,8 @@ public interface ISearchController extends IController {
 
     List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException;
 
+    List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException;
+
     List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException, IllegalGetInstanceException;
 
     List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException;

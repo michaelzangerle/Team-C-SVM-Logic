@@ -61,6 +61,22 @@ public class SearchController implements ISearchController {
     }
 
     /**
+     * @param firstName
+     * @param lastName
+     * @return
+     * @throws NoSessionFoundException
+     * @throws IllegalGetInstanceException
+     */
+    @Override
+    public List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException {
+        List<ITransferMember> result = new LinkedList<ITransferMember>();
+        for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName)) {
+            result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+        }
+        return result;
+    }
+
+    /**
      * @param birthDateFrom
      * @param birthDateTo
      * @return
