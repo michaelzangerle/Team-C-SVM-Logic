@@ -2,16 +2,13 @@ package svm.logic.abstraction;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.logic.abstraction.LogicFacade;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransfer;
-import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 
 /**
@@ -20,10 +17,10 @@ import java.util.Date;
  */
 public class MemberControllerMain {
 
-    public static void main(String[] args) throws NoSessionFoundException, IllegalAccessException, InstantiationException, IllegalGetInstanceException, DomainAttributeException, DomainParameterCheckException, ExistingTransactionException, NoTransactionException {
+    public static void main(String[] args) throws NoSessionFoundException, IllegalAccessException, InstantiationException, IllegalGetInstanceException, DomainAttributeException, DomainParameterCheckException, ExistingTransactionException, NoTransactionException, RemoteException {
 
 
-        IMemberController memberController =  LogicFacade.getMemberController();
+        IMemberController memberController = LogicFacade.getMemberController();
         memberController.start();
 
         memberController.setFirstName("Michael");

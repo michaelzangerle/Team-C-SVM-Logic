@@ -6,6 +6,7 @@ import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
@@ -15,13 +16,13 @@ import java.util.List;
  */
 public interface ISearchController extends IController {
 
-    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException;
+    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
 
-    List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException;
+    List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
 
-    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException, IllegalGetInstanceException;
+    List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
 
-    List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException;
+    List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException, RemoteException;
 
-    List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException;
+    List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException, RemoteException;
 }

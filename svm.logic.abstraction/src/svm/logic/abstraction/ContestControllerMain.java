@@ -2,17 +2,15 @@ package svm.logic.abstraction;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.implementation.controller.ContestController;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 
 /**
@@ -21,7 +19,7 @@ import java.util.Date;
  */
 public class ContestControllerMain {
 
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException {
 
         ISearchController searchController = LogicFacade.getSearchController();
         searchController.start();
@@ -53,7 +51,6 @@ public class ContestControllerMain {
         contestController.setLocation(location);
 
         contestController.commit();
-
 
 
     }

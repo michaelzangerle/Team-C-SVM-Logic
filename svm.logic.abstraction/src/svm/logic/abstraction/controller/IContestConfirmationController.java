@@ -3,6 +3,7 @@ package svm.logic.abstraction.controller;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferContestHasTeams;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -18,13 +19,13 @@ public interface IContestConfirmationController extends IController {
      *
      * @return
      */
-    List<ITransferContestHasTeams> getTeamsForNotConfirmedContests() throws IllegalGetInstanceException;
+    List<ITransferContestHasTeams> getTeamsForNotConfirmedContests() throws RemoteException, IllegalGetInstanceException;
 
     /**
      * Confirms or cancels a participation of a team in a contests
      *
      * @return
      */
-    void confirmParticipationOfATeam(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid);
+    void confirmParticipationOfATeam(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid) throws RemoteException;
 
 }

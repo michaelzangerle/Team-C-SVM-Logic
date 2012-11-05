@@ -2,13 +2,11 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.controller.ISubTeamConfirmationController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.tranferobjects.TransferSubTeamHasMember;
@@ -53,8 +51,8 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     }
 
     @Override
-    public void setConfirmationForSubTeam(ITransferSubTeamHasMember subteamHasMember, boolean confirmation, String comment) {
-        ISubTeamsHasMembers tmp = ((IHasModel<ISubTeamsHasMembers>)subteamHasMember).getModel();
+    public void setConfirmationForSubTeam(ITransferSubTeamHasMember subTeamHasMember, boolean confirmation, String comment) {
+        ISubTeamsHasMembers tmp = ((IHasModel<ISubTeamsHasMembers>) subTeamHasMember).getModel();
         tmp.setComment(comment);
         tmp.setConfirmed(confirmation);
     }
