@@ -5,6 +5,7 @@ import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.domain.abstraction.modelInterfaces.ILocation;
+import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
@@ -27,9 +28,11 @@ public class ContestController implements IContestController {
     private IContest contest;
     private Integer sessionId;
     private ITransferContest transferContest;
+    private IMember user;
 
-    public ContestController(IContest contest) {
+    public ContestController(IContest contest, IMember user) {
         this.contest = contest;
+        this.user = user;
     }
 
     @Override

@@ -33,8 +33,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController() throws IllegalAccessException, InstantiationException, NoSessionFoundException {
-        return new ContestController(DomainFacade.getContestModelDAO().generateObject());
+    public IContestController getContestController(ITransferMember user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
+        return new ContestController(DomainFacade.getContestModelDAO().generateObject(), ((IHasModel<IMember>) user).getModel());
     }
 
     /**
@@ -45,8 +45,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController(ITransferContest contest) throws IllegalAccessException, InstantiationException {
-        return new ContestController(((IHasModel<IContest>) contest).getModel());
+    public IContestController getContestController(ITransferMember user, ITransferContest contest) throws IllegalAccessException, InstantiationException {
+        return new ContestController(((IHasModel<IContest>) contest).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
     /**
@@ -56,8 +56,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IMemberController getMemberController() throws IllegalAccessException, InstantiationException, NoSessionFoundException {
-        return new MemberController(DomainFacade.getMemberModelDAO().generateObject());
+    public IMemberController getMemberController(ITransferMember user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
+        return new MemberController(DomainFacade.getMemberModelDAO().generateObject(), ((IHasModel<IMember>) user).getModel());
     }
 
     /**
@@ -68,8 +68,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IMemberController getMemberController(ITransferMember member) {
-        return new MemberController(((IHasModel<IMember>) member).getModel());
+    public IMemberController getMemberController(ITransferMember user, ITransferMember member) {
+        return new MemberController(((IHasModel<IMember>) member).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
     /**
@@ -80,31 +80,31 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestConfirmationController getContestConfirmationController(ITransferMember member) {
-        return new ContestConfirmationController(((IHasModel<IMember>) member).getModel());
+    public IContestConfirmationController getContestConfirmationController(ITransferMember user, ITransferMember member) {
+        return new ContestConfirmationController(((IHasModel<IMember>) member).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
-    public ISubTeamConfirmationController getSubTeamConfirmationController(ITransferMember member) {
-        return new SubTeamConfirmationController(((IHasModel<IMember>) member).getModel());
+    public ISubTeamConfirmationController getSubTeamConfirmationController(ITransferMember user, ITransferMember member) {
+        return new SubTeamConfirmationController(((IHasModel<IMember>) member).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
-    public ISubTeamController getSubTeamController(ITransferSubTeam subTeam) {
-        return new SubTeamController(((IHasModel<ISubTeam>) subTeam).getModel());
+    public ISubTeamController getSubTeamController(ITransferMember user, ITransferSubTeam subTeam) {
+        return new SubTeamController(((IHasModel<ISubTeam>) subTeam).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
-    public ISubTeamController getSubTeamController(ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
-        return new SubTeamController(((IHasModel<ITeam>) team).getModel(), ((IHasModel<IContest>) contest).getModel());
+    public ISubTeamController getSubTeamController(ITransferMember user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
+        return new SubTeamController(((IHasModel<ITeam>) team).getModel(), ((IHasModel<IContest>) contest).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 
-    public ISearchController getSearchController() {
-        return new SearchController();
+    public ISearchController getSearchController(ITransferMember user) {
+        return new SearchController(((IHasModel<IMember>) user).getModel());
     }
 
     public ILoginController getLoginController() {
         return new LoginController();
     }
 
-    public ITeamContestController getTeamContestController(ITransferContest contest) {
-        return new TeamContestController(((IHasModel<IContest>) contest).getModel());
+    public ITeamContestController getTeamContestController(ITransferMember user, ITransferContest contest) {
+        return new TeamContestController(((IHasModel<IContest>) contest).getModel(), ((IHasModel<IMember>) user).getModel());
     }
 }
