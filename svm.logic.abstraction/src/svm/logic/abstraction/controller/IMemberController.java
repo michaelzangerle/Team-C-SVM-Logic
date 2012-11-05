@@ -4,6 +4,7 @@ import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -100,4 +101,6 @@ public interface IMemberController extends IController {
      * @param location
      */
     void setLocation(ITransferLocation location) throws DomainAttributeException, RemoteException;
+
+    void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException;
 }

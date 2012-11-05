@@ -149,7 +149,7 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void setPaidCurrentYear(){
+    public void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException {
         this.member.setPaidCurrentYear();
     }
 }
