@@ -2,15 +2,14 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
+import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.domain.abstraction.modelInterfaces.IDepartment;
 import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferDepartment;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.*;
+import svm.logic.implementation.tranferobjects.TransferContest;
 import svm.logic.implementation.tranferobjects.TransferDepartment;
 import svm.logic.implementation.tranferobjects.TransferLocation;
 import svm.logic.implementation.tranferobjects.TransferMember;
@@ -136,4 +135,15 @@ public class SearchController implements ISearchController {
         }
         return result;
     }
+
+    @Override
+    public List<ITransferContest> getContests() throws IllegalGetInstanceException, NoSessionFoundException {
+        List<ITransferContest> result = new LinkedList<ITransferContest>();
+
+        for (IContest contest : DomainFacade.getContestModelDAO().getAll(sessionId)) {
+            result.add((ITransferContest) TransferObjectCreator.getInstance(TransferContest.class, contest));
+        }
+        return result;
+    }
+
 }
