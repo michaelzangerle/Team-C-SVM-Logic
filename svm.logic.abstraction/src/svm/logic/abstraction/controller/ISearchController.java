@@ -1,5 +1,6 @@
 package svm.logic.abstraction.controller;
 
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
@@ -17,6 +18,8 @@ import java.util.List;
 public interface ISearchController extends IController {
 
     List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
+
+    List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department, Boolean paid) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, DomainParameterCheckException;
 
     List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
 
