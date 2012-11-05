@@ -1,6 +1,7 @@
 package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainException;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferMatch;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 
@@ -16,13 +17,13 @@ public interface ITeamContestController extends IController {
 
     void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException;
 
-    void addTeam(ITransferTeam team) throws RemoteException;
+    void addTeam(ITransferTeam team) throws RemoteException, DomainException;
 
-    void removeTeam(ITransferTeam team) throws RemoteException;
+    void removeTeam(ITransferTeam team) throws RemoteException, DomainException;
 
     List<ITransferMatch> getMatches() throws RemoteException;
 
-    List<ITransferTeam> getTeams() throws RemoteException;
+    List<ITransferTeam> getTeams() throws RemoteException, IllegalGetInstanceException;
 
     void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException;
 }

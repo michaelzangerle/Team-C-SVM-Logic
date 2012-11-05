@@ -3,16 +3,15 @@ package svm.logic.implementation.controller;
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainException;
 import svm.domain.abstraction.modelInterfaces.IContest;
+import svm.domain.abstraction.modelInterfaces.IExternalTeam;
 import svm.domain.abstraction.modelInterfaces.IMatch;
 import svm.domain.abstraction.modelInterfaces.ITeam;
 import svm.logic.abstraction.controller.ITeamContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferMatch;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferContest;
-import svm.logic.implementation.tranferobjects.TransferTeam;
+import svm.logic.implementation.tranferobjects.TransferExternalTeam;
+import svm.logic.implementation.tranferobjects.TransferInternalTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -40,17 +39,26 @@ public class TeamContestController implements ITeamContestController {
 
     @Override
     public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException {
+        if (home instanceof ITransferExternalTeam) {
+            IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
 
-        // TODO
-        //ITeam team1 = ((IHasModel<ITeam>) home).getModel();
-        //ITeam team2 = ((IHasModel<ITeam>) away).getModel();
+        } else if (home instanceof ITransferInternalTeam) {
+            ITeam a = ((IHasModel<ITeam>) home).getModel();
+        }
+
+        if (away instanceof ITransferExternalTeam) {
+            IExternalTeam b = ((IHasModel<IExternalTeam>) away).getModel();
+
+        } else if (away instanceof ITransferInternalTeam) {
+            ITeam b = ((IHasModel<ITeam>) away).getModel();
+        }
 
         IMatchModelDAO matchDao = DomainFacade.getMatchModelDAO();
         IMatch match = matchDao.generateObject();
         match.setStart(start);
-        match.setEnd(end);
-        match.setContestants(team1, team2);
 
+        match.setEnd(end);
+        match.setContestants(a, b);
         this.contest.addMatch(match);
     }
 
@@ -61,21 +69,33 @@ public class TeamContestController implements ITeamContestController {
     }
 
     @Override
-    public void addTeam(ITransferTeam team) throws RemoteException {
-        ITeam m = ((IHasModel<ITeam>) team).getModel();
-        // TODO
-        //this.contest.add
+    public void addTeam(ITransferTeam team) throws RemoteException, DomainException {
+
+        if (team instanceof ITransferExternalTeam) {
+            IExternalTeam t = ((IHasModel<IExternalTeam>) team).getModel();
+            this.contest.addExternalTeam(t);
+
+        } else if (team instanceof ITransferInternalTeam) {
+            ITeam t = ((IHasModel<ITeam>) team).getModel();
+            this.contest.addInternalTeam(t);
+        }
     }
 
     @Override
-    public void removeTeam(ITransferTeam team) throws RemoteException {
-        ITeam m = ((IHasModel<ITeam>) team).getModel();
-        // TODO
-        //this.contest.add
+    public void removeTeam(ITransferTeam team) throws RemoteException, DomainException {
+
+        if (team instanceof ITransferExternalTeam) {
+            IExternalTeam t = ((IHasModel<IExternalTeam>) team).getModel();
+            this.contest.removeExternalTeam(t);
+
+        } else if (team instanceof ITransferInternalTeam) {
+            ITeam t = ((IHasModel<ITeam>) team).getModel();
+            this.contest.removeInternalTeam(t);
+        }
     }
 
     @Override
-    public List<ITransferTeam> getTeams() throws RemoteException {
+    public List<ITransferTeam> getTeams() throws RemoteException, IllegalGetInstanceException {
         List<ITransferTeam> result = new LinkedList<ITransferTeam>();
         List<ITeam> internalTeams = this.contest.getTeams();
         List<ITeam> externalTeams = this.contest.getExternalTeams();
@@ -84,7 +104,7 @@ public class TeamContestController implements ITeamContestController {
             result.add((ITransferInternalTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, t));
         }
 
-        for (ITeam t : externalTeamsTeams) {
+        for (ITeam t : externalTeams) {
             result.add((ITransferExternalTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, t));
         }
 

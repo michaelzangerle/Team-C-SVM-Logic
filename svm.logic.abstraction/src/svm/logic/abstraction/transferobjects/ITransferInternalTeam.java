@@ -4,5 +4,5 @@ package svm.logic.abstraction.transferobjects;
  * Projectteam: Team C
  * Date: 30.10.12
  */
-public interface ITransferInternalTeam extends ITransfer {
+public interface ITransferInternalTeam extends ITransferTeam {
 }
