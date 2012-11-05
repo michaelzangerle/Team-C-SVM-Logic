@@ -113,7 +113,7 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getLoginController();
     }
 
-    public static ITeamContestController getTeamContestController(ITransferMember user, ITransferContest contest) {
-        return ControllerFactory.getInstance().getTeamContestController(user, contest);
+    public static IContestController getTeamContestController(ITransferMember user, ITransferContest contest) throws InstantiationException, IllegalAccessException {
+        return ControllerFactory.getInstance().getContestController(user, contest);
     }
 }
