@@ -1,5 +1,6 @@
 package svm.logic.implementation.tranferobjects;
 
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
@@ -7,7 +8,9 @@ import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * ProjectTeam: Team C
@@ -104,6 +107,11 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     @Override
     public ITransferLocation getLocation() throws IllegalGetInstanceException {
         return (TransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
+    }
+
+    @Override
+    public boolean getPaid() throws DomainParameterCheckException {
+        return this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
     }
 
     @Override

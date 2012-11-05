@@ -147,4 +147,9 @@ public class MemberController implements IMemberController {
         DomainFacade.abortTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
     }
+
+    @Override
+    public void setPaidCurrentYear(){
+        this.member.setPaidCurrentYear();
+    }
 }

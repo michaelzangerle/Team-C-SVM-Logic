@@ -1,5 +1,6 @@
 package svm.logic.abstraction.transferobjects;
 
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 
 import java.util.Date;
@@ -42,4 +43,6 @@ public interface ITransferMember extends ITransfer {
     String getLong();
 
     ITransferLocation getLocation() throws IllegalGetInstanceException;
+
+    boolean getPaid() throws DomainParameterCheckException;
 }
