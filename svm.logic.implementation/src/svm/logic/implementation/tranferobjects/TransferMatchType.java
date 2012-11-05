@@ -14,4 +14,9 @@ public class TransferMatchType implements ITransferMatchType {
     public void setObject(Object o) {
         this.matchType = (IMatchType) o;
     }
+
+    @Override
+    public String getName(){
+        return this.matchType.getName();
+    }
 }

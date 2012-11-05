@@ -5,4 +5,5 @@ package svm.logic.abstraction.transferobjects;
  * Date: 05.11.12
  */
 public interface ITransferMatchType extends ITransfer{
+    String getName();
 }
