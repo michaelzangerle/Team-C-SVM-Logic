@@ -131,7 +131,7 @@ public class SearchController implements ISearchController {
     public List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException {
         List<ITransferLocation> result = new LinkedList<ITransferLocation>();
 
-        for (ILocation location : DomainFacade.getLocationModelDAO().getAll(sessionId)) {
+        for (ILocation location : DomainFacade.getLocationModelDAO().get(sessionId, "AT", "Vorarlberg")) {
             result.add((ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, location));
         }
         return result;
