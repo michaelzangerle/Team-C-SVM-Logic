@@ -2,6 +2,7 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
@@ -28,4 +29,6 @@ public interface ISearchController extends IController {
     List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException, RemoteException;
 
     List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException, RemoteException;
+
+    List<ITransferContest> getContests() throws IllegalGetInstanceException, NoSessionFoundException;
 }
