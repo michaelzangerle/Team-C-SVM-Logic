@@ -1,6 +1,7 @@
 package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.domain.abstraction.modelInterfaces.IDepartment;
 import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
@@ -16,6 +17,7 @@ import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +58,17 @@ public class SearchController implements ISearchController {
         List<ITransferMember> result = new LinkedList<ITransferMember>();
         for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, ((IHasModel<IDepartment>) department).getModel())) {
             result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+        }
+        return result;
+    }
+
+    @Override
+    public List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department, Boolean paid) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, DomainParameterCheckException {
+        List<ITransferMember> result = new LinkedList<ITransferMember>();
+        for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, ((IHasModel<IDepartment>) department).getModel())) {
+            if (member.hasPaidFee(new Date().getYear()) == paid) {
+                result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+            }
         }
         return result;
     }
