@@ -50,13 +50,11 @@ public class SubTeamController implements ISubTeamController {
 
     @Override
     public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException {
-        // TODO AddMember
         this.subTeam.addMember(((IHasModel<IMember>) member).getModel());
     }
 
     @Override
     public void removeMember(ITransferMember member) {
-        // TODO RemoveMember
         this.subTeam.removeMember(((IHasModel<IMember>) member).getModel());
     }
 
@@ -64,13 +62,12 @@ public class SubTeamController implements ISubTeamController {
     public void start() throws NoSessionFoundException, IllegalGetInstanceException {
         this.sessionId = DomainFacade.generateSessionId();
         DomainFacade.reattachObjectToSession(sessionId, ((IHasModel) this.subTeam).getModel());
-        TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
+        this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
     }
 
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
         DomainFacade.startTransaction(sessionId);
-        // TODO SubTeamModelDAO
         DomainFacade.getSubTeamModelDAO().saveOrUpdate(sessionId, this.subTeam);
         DomainFacade.commitTransaction(sessionId);
         DomainFacade.closeSession(sessionId);
