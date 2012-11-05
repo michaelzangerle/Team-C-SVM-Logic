@@ -96,8 +96,11 @@ public class ControllerFactory {
         return new SubTeamController(((IHasModel<ITeam>) team).getModel(), ((IHasModel<IContest>) contest).getModel());
     }
 
-
     public ISearchController getSearchController() {
         return new SearchController();
+    }
+
+    public ILoginController getLoginController() {
+        return new LoginController();
     }
 }
