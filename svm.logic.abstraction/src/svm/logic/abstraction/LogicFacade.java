@@ -92,7 +92,7 @@ public class LogicFacade {
     }
 
     /**
-     * Subteam Controller
+     * SubTeam Controller
      *
      * @param team    ITransferTeam
      * @param contest ITransferContest
@@ -109,7 +109,7 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getSearchController();
     }
 
-    public ILoginController getLoginController() {
+    public static ILoginController getLoginController() {
         return ControllerFactory.getInstance().getLoginController();
     }
 }
