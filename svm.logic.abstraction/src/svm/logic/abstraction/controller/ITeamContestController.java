@@ -2,6 +2,7 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.transferobjects.ITransferMatch;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public interface ITeamContestController extends IController {
 
-    void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException;
+    void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException;
 
     void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException;
 
@@ -26,5 +27,5 @@ public interface ITeamContestController extends IController {
 
     List<ITransferTeam> getTeams() throws RemoteException, IllegalGetInstanceException;
 
-    void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException;
+    void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException;
 }

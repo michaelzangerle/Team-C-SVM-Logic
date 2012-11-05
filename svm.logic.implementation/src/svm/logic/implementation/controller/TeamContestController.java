@@ -9,6 +9,7 @@ import svm.domain.abstraction.modelInterfaces.ITeam;
 import svm.domain.abstraction.modeldao.IMatchModelDAO;
 import svm.logic.abstraction.controller.ITeamContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferContest;
 import svm.logic.implementation.tranferobjects.TransferExternalTeam;
@@ -40,32 +41,39 @@ public class TeamContestController implements ITeamContestController {
 
 
     @Override
-    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException {
-        if (home instanceof ITransferExternalTeam) {
-            IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
-
-        } else if (home instanceof ITransferInternalTeam) {
-            ITeam a = ((IHasModel<ITeam>) home).getModel();
-        }
-
-        if (away instanceof ITransferExternalTeam) {
-            IExternalTeam b = ((IHasModel<IExternalTeam>) away).getModel();
-
-        } else if (away instanceof ITransferInternalTeam) {
-            ITeam b = ((IHasModel<ITeam>) away).getModel();
-        }
+    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException {
 
         IMatchModelDAO matchDao = DomainFacade.getMatchModelDAO();
         IMatch match = matchDao.generateObject();
         match.setStart(start);
-
         match.setEnd(end);
-        match.setContestants(a, b);
+
+        if (home instanceof ITransferExternalTeam && away instanceof ITransferExternalTeam) {
+            IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
+            IExternalTeam b = ((IHasModel<IExternalTeam>) away).getModel();
+            match.setContestants(a, b);
+        } else if (home instanceof ITransferInternalTeam && away instanceof ITransferInternalTeam) {
+            ITeam a = ((IHasModel<ITeam>) home).getModel();
+            ITeam b = ((IHasModel<ITeam>) away).getModel();
+            match.setContestants(a, b);
+        } else if (home instanceof ITransferInternalTeam && away instanceof ITransferExternalTeam) {
+            ITeam a = ((IHasModel<ITeam>) home).getModel();
+            IExternalTeam b = ((IHasModel<IExternalTeam>) away).getModel();
+            match.setContestants(a, b);
+        } else if (home instanceof ITransferExternalTeam && away instanceof ITransferInternalTeam) {
+            IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
+            ITeam b = ((IHasModel<ITeam>) away).getModel();
+            match.setContestants(a, b);
+        } else {
+            throw new LogicException("Wehter internal nor external team!");
+        }
+
+
         this.contest.addMatch(match);
     }
 
     @Override
-    public void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException {
+    public void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException {
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.addResult(home, away);
     }
@@ -119,7 +127,7 @@ public class TeamContestController implements ITeamContestController {
         List<IMatch> matches = this.contest.getMatches();
         List<ITransferMatch> result = new LinkedList<ITransferMatch>();
 
-        for (IMatch m : matches){
+        for (IMatch m : matches) {
 
             result.add((ITransferMatch) TransferObjectCreator.getInstance(TransferMatch.class, m));
         }

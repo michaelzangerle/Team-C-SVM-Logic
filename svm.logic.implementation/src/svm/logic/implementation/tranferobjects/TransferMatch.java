@@ -43,12 +43,12 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     @Override
     public ITransferContactDetails getContactDetails() throws IllegalGetInstanceException {
         IContactDetails contactDetails = this.match.getContactDetails();
-        return (ITransferContactDetails) TransferObjectCreator.getInstance(ContactDetails.class, contactDetails);
+        return (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contactDetails);
     }
 
     @Override
-    public ITransferMatchType getMatchType() {
-        return this.match.getMatchType();
+    public ITransferMatchType getMatchType() throws IllegalGetInstanceException {
+        return (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface ITransferMatch extends ITransfer {
 
     ITransferContactDetails getContactDetails() throws IllegalGetInstanceException;
 
-    ITransferMatchType getMatchType();
+    ITransferMatchType getMatchType() throws IllegalGetInstanceException;
 
     String getDescription();
 
