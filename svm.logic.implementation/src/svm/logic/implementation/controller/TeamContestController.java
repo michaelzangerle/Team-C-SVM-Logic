@@ -72,6 +72,12 @@ public class TeamContestController implements ITeamContestController {
     }
 
     @Override
+    public void setDateForMatch(ITransferMatch match, Date start) {
+        IMatch m = ((IHasModel<IMatch>) match).getModel();
+        m.setStart(start);
+    }
+
+    @Override
     public void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException {
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.addResult(home, away);

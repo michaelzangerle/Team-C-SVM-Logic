@@ -28,4 +28,6 @@ public interface ITeamContestController extends IController {
     List<ITransferTeam> getTeams() throws RemoteException, IllegalGetInstanceException;
 
     void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException;
+
+    void setDateForMatch(ITransferMatch match, Date date);
 }
