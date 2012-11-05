@@ -112,4 +112,8 @@ public class LogicFacade {
     public static ILoginController getLoginController() {
         return ControllerFactory.getInstance().getLoginController();
     }
+
+    public static ITeamContestController getTeamContestController(ITransferContest contest) {
+        return ControllerFactory.getInstance().getTeamContestController(contest);
+    }
 }

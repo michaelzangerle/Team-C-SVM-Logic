@@ -103,4 +103,8 @@ public class ControllerFactory {
     public ILoginController getLoginController() {
         return new LoginController();
     }
+
+    public ITeamContestController getTeamContestController(ITransferContest contest) {
+        return new TeamContestController(((IHasModel<IContest>) contest).getModel());
+    }
 }
