@@ -64,7 +64,7 @@ public class TeamContestController implements ITeamContestController {
             ITeam b = ((IHasModel<ITeam>) away).getModel();
             match.setContestants(a, b);
         } else {
-            throw new LogicException("Wehter internal nor external team!");
+            throw new LogicException("Neither internal nor external team!");
         }
 
 
