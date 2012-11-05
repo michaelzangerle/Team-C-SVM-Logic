@@ -27,9 +27,11 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     private IMember member;
     private Integer sessionId;
     private ITransferMember transferMember;
+    private IMember user;
 
-    public SubTeamConfirmationController(IMember member) {
+    public SubTeamConfirmationController(IMember member, IMember user) {
         this.member = member;
+        this.user = user;
     }
 
     @Override

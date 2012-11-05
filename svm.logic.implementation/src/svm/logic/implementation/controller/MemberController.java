@@ -27,8 +27,10 @@ public class MemberController implements IMemberController {
     private IMember member;
     private Integer sessionId;
     private ITransferMember transferMember;
+    private IMember user;
 
-    public MemberController(IMember member) {
+    public MemberController(IMember member, IMember user) {
+        this.user = user;
         this.member = member;
     }
 

@@ -29,6 +29,11 @@ import java.util.List;
 public class SearchController implements ISearchController {
 
     private Integer sessionId;
+    private IMember user;
+
+    public SearchController(IMember user){
+        this.user = user;
+    }
 
     @Override
     public void start() {

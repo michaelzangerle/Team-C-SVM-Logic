@@ -25,8 +25,10 @@ public class ContestConfirmationController implements IContestConfirmationContro
     private List<ITransferContestHasTeams> transferContestHasTeams;
     private IMember member;
     private Integer sessionId;
+    private IMember user;
 
-    public ContestConfirmationController(IMember member) {
+    public ContestConfirmationController(IMember member, IMember user) {
+        this.user = user;
         this.member = member;
     }
 

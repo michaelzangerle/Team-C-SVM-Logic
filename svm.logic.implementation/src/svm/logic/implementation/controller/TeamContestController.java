@@ -2,10 +2,7 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainException;
-import svm.domain.abstraction.modelInterfaces.IContest;
-import svm.domain.abstraction.modelInterfaces.IExternalTeam;
-import svm.domain.abstraction.modelInterfaces.IMatch;
-import svm.domain.abstraction.modelInterfaces.ITeam;
+import svm.domain.abstraction.modelInterfaces.*;
 import svm.domain.abstraction.modeldao.IMatchModelDAO;
 import svm.logic.abstraction.controller.ITeamContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
@@ -34,9 +31,11 @@ public class TeamContestController implements ITeamContestController {
     private Integer sessionId;
     private IContest contest;
     private ITransferContest transferContest;
+    private IMember user;
 
-    public TeamContestController(IContest contest) {
+    public TeamContestController(IContest contest, IMember user) {
         this.contest = contest;
+        this.user = user;
     }
 
 
