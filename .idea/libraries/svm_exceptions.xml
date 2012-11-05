@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="svm.exceptions">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/svm.logic.implementation/lib/svm.exceptions.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
