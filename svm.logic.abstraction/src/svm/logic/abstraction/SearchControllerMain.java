@@ -19,7 +19,10 @@ import java.util.GregorianCalendar;
 public class SearchControllerMain {
 
     public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException {
-        ISearchController search = LogicFacade.getSearchController();
+
+        ITransferMember user = LogicFacade.getLoginController().getMember();
+
+        ISearchController search = LogicFacade.getSearchController(user);
         search.start();
         int date = 1;
         int month = Calendar.SEPTEMBER;

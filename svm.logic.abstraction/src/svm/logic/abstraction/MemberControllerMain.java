@@ -4,6 +4,7 @@ import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
@@ -19,8 +20,9 @@ public class MemberControllerMain {
 
     public static void main(String[] args) throws NoSessionFoundException, IllegalAccessException, InstantiationException, IllegalGetInstanceException, DomainAttributeException, DomainParameterCheckException, ExistingTransactionException, NoTransactionException, RemoteException {
 
+        ITransferMember user = LogicFacade.getLoginController().getMember();
 
-        IMemberController memberController = LogicFacade.getMemberController();
+        IMemberController memberController = LogicFacade.getMemberController(user);
         memberController.start();
 
         memberController.setFirstName("Michael");
