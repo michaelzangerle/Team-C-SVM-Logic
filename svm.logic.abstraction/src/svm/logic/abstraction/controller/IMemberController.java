@@ -103,4 +103,6 @@ public interface IMemberController extends IController {
     void setLocation(ITransferLocation location) throws DomainAttributeException, RemoteException;
 
     void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException;
+
+    void setUsername(String name) throws DomainAttributeException;
 }

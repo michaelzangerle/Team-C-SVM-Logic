@@ -152,4 +152,9 @@ public class MemberController implements IMemberController {
     public void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException {
         this.member.setPaidCurrentYear();
     }
+
+    @Override
+    public void setUsername(String name) throws DomainAttributeException {
+        this.member.setUserName(name);
+    }
 }

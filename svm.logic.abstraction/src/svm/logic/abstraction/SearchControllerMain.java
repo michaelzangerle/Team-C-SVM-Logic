@@ -1,5 +1,6 @@
 package svm.logic.abstraction;
 
+import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferMember;
@@ -20,7 +21,12 @@ public class SearchControllerMain {
 
     public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException {
 
-        ITransferMember user = LogicFacade.getLoginController().getMember();
+        ILoginController lc = LogicFacade.getLoginController();
+        lc.start();
+        lc.login("mary.sluis","");
+
+
+        ITransferMember user = lc.getMember();
 
         ISearchController search = LogicFacade.getSearchController(user);
         search.start();
