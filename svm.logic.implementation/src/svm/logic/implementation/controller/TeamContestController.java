@@ -6,12 +6,14 @@ import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.domain.abstraction.modelInterfaces.IExternalTeam;
 import svm.domain.abstraction.modelInterfaces.IMatch;
 import svm.domain.abstraction.modelInterfaces.ITeam;
+import svm.domain.abstraction.modeldao.IMatchModelDAO;
 import svm.logic.abstraction.controller.ITeamContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferContest;
 import svm.logic.implementation.tranferobjects.TransferExternalTeam;
 import svm.logic.implementation.tranferobjects.TransferInternalTeam;
+import svm.logic.implementation.tranferobjects.TransferMatch;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -38,7 +40,7 @@ public class TeamContestController implements ITeamContestController {
 
 
     @Override
-    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException {
+    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException {
         if (home instanceof ITransferExternalTeam) {
             IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
 
@@ -69,7 +71,7 @@ public class TeamContestController implements ITeamContestController {
     }
 
     @Override
-    public void addTeam(ITransferTeam team) throws RemoteException, DomainException {
+    public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException {
 
         if (team instanceof ITransferExternalTeam) {
             IExternalTeam t = ((IHasModel<IExternalTeam>) team).getModel();
@@ -98,13 +100,13 @@ public class TeamContestController implements ITeamContestController {
     public List<ITransferTeam> getTeams() throws RemoteException, IllegalGetInstanceException {
         List<ITransferTeam> result = new LinkedList<ITransferTeam>();
         List<ITeam> internalTeams = this.contest.getTeams();
-        List<ITeam> externalTeams = this.contest.getExternalTeams();
+        List<IExternalTeam> externalTeams = this.contest.getExternalTeams();
 
         for (ITeam t : internalTeams) {
             result.add((ITransferInternalTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, t));
         }
 
-        for (ITeam t : externalTeams) {
+        for (IExternalTeam t : externalTeams) {
             result.add((ITransferExternalTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, t));
         }
 
@@ -113,8 +115,16 @@ public class TeamContestController implements ITeamContestController {
 
 
     @Override
-    public List<ITransferMatch> getMatches() throws RemoteException {
-        return this.contest.getMatches();
+    public List<ITransferMatch> getMatches() throws RemoteException, IllegalGetInstanceException {
+        List<IMatch> matches = this.contest.getMatches();
+        List<ITransferMatch> result = new LinkedList<ITransferMatch>();
+
+        for (IMatch m : matches){
+
+            result.add((ITransferMatch) TransferObjectCreator.getInstance(TransferMatch.class, m));
+        }
+
+        return result;
     }
 
 
