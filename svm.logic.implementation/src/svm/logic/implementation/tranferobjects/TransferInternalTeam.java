@@ -2,13 +2,14 @@ package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.ITeam;
 import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferInternalTeam;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 
 /**
  * Projectteam: Team C
  * Date: 05.11.12
  */
-public class TransferInternalTeam implements ITransferTeam, IHasModel<ITeam> {
+public class TransferInternalTeam extends TransferTeam implements ITransferInternalTeam {
     ITeam teamEntity;
 
     public TransferInternalTeam(ITeam teamEntity) {

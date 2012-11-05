@@ -2,7 +2,7 @@ package svm.logic.abstraction.transferobjects;
 
 /**
  * Projectteam: Team C
- * Date: 30.10.12
+ * Date: 05.11.12
  */
-public interface ITransferExternalTeam extends ITransferTeam {
+public interface ITransferMatchType extends ITransfer{
 }
