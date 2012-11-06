@@ -2,17 +2,11 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.domain.abstraction.modelInterfaces.IContest;
-import svm.domain.abstraction.modelInterfaces.IDepartment;
-import svm.domain.abstraction.modelInterfaces.ILocation;
-import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.domain.abstraction.modelInterfaces.*;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.*;
-import svm.logic.implementation.tranferobjects.TransferContest;
-import svm.logic.implementation.tranferobjects.TransferDepartment;
-import svm.logic.implementation.tranferobjects.TransferLocation;
-import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.implementation.tranferobjects.*;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
@@ -142,6 +136,20 @@ public class SearchController implements ISearchController {
 
         for (IContest contest : DomainFacade.getContestModelDAO().getAll(sessionId)) {
             result.add((ITransferContest) TransferObjectCreator.getInstance(TransferContest.class, contest));
+        }
+        return result;
+    }
+
+    @Override
+    public List<ITransferTeam> getTeams() throws IllegalGetInstanceException, NoSessionFoundException {
+        List<ITransferTeam> result = new LinkedList<ITransferTeam>();
+
+        for (ITeam team : DomainFacade.getTeamModelDAO().getAll(sessionId)) {
+            result.add((ITransferInternalTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, team));
+        }
+
+        for (IExternalTeam extTeam : DomainFacade.getExternalTeamModelDAO().getAll(sessionId)) {
+            result.add((ITransferExternalTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, extTeam));
         }
         return result;
     }

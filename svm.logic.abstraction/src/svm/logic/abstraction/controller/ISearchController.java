@@ -2,10 +2,7 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferDepartment;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import java.rmi.RemoteException;
@@ -31,4 +28,6 @@ public interface ISearchController extends IController {
     List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException, RemoteException;
 
     List<ITransferContest> getContests() throws IllegalGetInstanceException, NoSessionFoundException;
+
+    List<ITransferTeam> getTeams() throws IllegalGetInstanceException, NoSessionFoundException;
 }
