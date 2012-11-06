@@ -140,4 +140,6 @@ public interface IContestController extends IController {
     void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException;
 
     void addResult(ITransferMatch match, Float home, Float away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException;
+
+    void setResult(ITransferMatch match, Float home, Float away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException;
 }

@@ -184,6 +184,12 @@ public class ContestController implements IContestController {
     }
 
     @Override
+    public void setResult(ITransferMatch match, Float home, Float away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException {
+        IMatch m = ((IHasModel<IMatch>) match).getModel();
+        m.setResult(home, away);
+    }
+
+    @Override
     public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException {
 
         if (team instanceof ITransferExternalTeam) {
