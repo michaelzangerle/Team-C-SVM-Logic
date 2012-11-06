@@ -20,4 +20,10 @@ public class TransferDepartment implements ITransferDepartment, IHasModel<IDepar
     public void setObject(Object o) {
         this.department = (IDepartment) o;
     }
+
+    @Override
+    public String toString() {
+
+        return this.department.getName();
+    }
 }

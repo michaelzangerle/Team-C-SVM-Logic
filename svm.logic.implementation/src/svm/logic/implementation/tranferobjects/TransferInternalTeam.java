@@ -30,4 +30,10 @@ public class TransferInternalTeam extends TransferTeam implements ITransferInter
     public void setObject(Object o) {
         this.teamEntity = (ITeam) o;
     }
+
+    @Override
+    public String toString() {
+        return this.teamEntity.getName();
+    }
+
 }

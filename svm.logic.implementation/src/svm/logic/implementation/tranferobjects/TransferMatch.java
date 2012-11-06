@@ -10,6 +10,7 @@ import svm.logic.abstraction.transferobjects.ITransferMatch;
 import svm.logic.abstraction.transferobjects.ITransferMatchType;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -70,4 +71,14 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     public IMatch getModel() {
         return this.match;
     }
+
+    @Override
+    public String toString() {
+
+        String format = "dd.MM.YY hh:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+
+       return this.match.getName() + " ("+sdf.format(this.match.getStart())+")";
+    }
+
 }

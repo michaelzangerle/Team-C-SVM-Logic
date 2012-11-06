@@ -19,4 +19,11 @@ public class TransferMatchType implements ITransferMatchType {
     public String getName(){
         return this.matchType.getName();
     }
+
+    @Override
+    public String toString() {
+
+
+        return this.matchType.getName();
+    }
 }

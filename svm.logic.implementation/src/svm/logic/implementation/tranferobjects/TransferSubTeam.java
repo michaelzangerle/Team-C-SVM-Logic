@@ -20,4 +20,9 @@ public class TransferSubTeam implements ITransferSubTeam, IHasModel<ISubTeam> {
     public ISubTeam getModel() {
         return subTeam;
     }
+
+    @Override
+    public String toString() {
+        return this.subTeam.getName();
+    }
 }

@@ -62,4 +62,10 @@ public class TransferLocation implements ITransferLocation, IHasModel<ILocation>
     public ILocation getModel() {
         return this.location;
     }
+
+    @Override
+    public String toString() {
+        return this.location.getPostalCode() + " " + this.location.getPlaceName() + " " + this.location.getCountryCode();
+    }
+
 }

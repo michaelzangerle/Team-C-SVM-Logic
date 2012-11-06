@@ -1,15 +1,13 @@
 package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.IExternalTeam;
-import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferExternalTeam;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
 
 /**
  * Projectteam: Team C
  * Date: 05.11.12
  */
-public class TransferExternalTeam extends TransferTeam implements ITransferExternalTeam{
+public class TransferExternalTeam extends TransferTeam implements ITransferExternalTeam {
     IExternalTeam externalTeamEntity;
 
     public TransferExternalTeam(IExternalTeam externalTeamEntity) {
@@ -30,4 +28,10 @@ public class TransferExternalTeam extends TransferTeam implements ITransferExter
     public void setObject(Object o) {
         this.externalTeamEntity = (IExternalTeam) o;
     }
+
+    @Override
+    public String toString() {
+        return this.externalTeamEntity.getName();
+    }
+
 }

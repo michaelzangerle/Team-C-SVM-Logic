@@ -7,6 +7,7 @@ import svm.logic.abstraction.transferobjects.ITransferContactDetails;
 import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -45,6 +46,15 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
     @Override
     public ITransferContactDetails getContactDetails() throws IllegalGetInstanceException {
         return (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
+    }
+
+    @Override
+    public String toString() {
+
+        String format = "dd.MM.YY hh:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+
+        return this.contest.getName()+" ("+sdf.format(this.contest.getStart())+")";
     }
 
     @Override

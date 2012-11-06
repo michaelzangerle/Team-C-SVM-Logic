@@ -11,4 +11,5 @@ public abstract class TransferTeam implements ITransferTeam, IHasModel {
 
     @Override
     public abstract String getName();
+
 }

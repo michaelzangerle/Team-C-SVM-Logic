@@ -118,4 +118,9 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     public void setObject(Object o) {
         this.member = (IMember) o;
     }
+
+    @Override
+    public String toString() {
+        return this.member.getFirstName()+ " "+this.member.getLastName();
+    }
 }
