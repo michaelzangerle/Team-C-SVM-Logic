@@ -1,10 +1,10 @@
 package svm.logic.abstraction;
 
+import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
@@ -20,11 +20,11 @@ import java.util.GregorianCalendar;
  */
 public class SearchControllerMain {
 
-    public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException {
+    public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException, DomainParameterCheckException {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("mary.sluis","");
+        lc.login("mary.sluis", "");
 
 
         ITransferMember user = lc.getMember();
@@ -35,7 +35,7 @@ public class SearchControllerMain {
         int month = Calendar.SEPTEMBER;
         int year = 1953;
         Date d = new GregorianCalendar(year, month, date).getTime();
-        for (ITransferTeam member : search.getTeams()) {
+        for (ITransferMember member : search.getMembers("Pa", "", search.getDepartments().get(1), false)) {
             System.out.println(member.toString());
         }
 
