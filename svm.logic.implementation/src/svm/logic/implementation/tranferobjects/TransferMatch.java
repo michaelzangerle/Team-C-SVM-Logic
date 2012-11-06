@@ -1,17 +1,17 @@
 package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.IContactDetails;
+import svm.domain.abstraction.modelInterfaces.IContestant;
 import svm.domain.abstraction.modelInterfaces.IMatch;
 import svm.domain.implementation.model.ContactDetails;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferContactDetails;
-import svm.logic.abstraction.transferobjects.ITransferMatch;
-import svm.logic.abstraction.transferobjects.ITransferMatchType;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Projectteam: Team C
@@ -63,6 +63,15 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     }
 
     @Override
+    public List<ITransferContestant> getContestants() throws IllegalGetInstanceException {
+        List<ITransferContestant> contestants = new LinkedList<ITransferContestant>();
+        for (IContestant c : this.match.getContestants()){
+            contestants.add((ITransferContestant) TransferObjectCreator.getInstance(TransferContestant.class,c));
+        }
+        return contestants;
+    }
+
+    @Override
     public void setObject(Object o) {
         this.match = (IMatch) o;
     }
@@ -78,7 +87,7 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         String format = "dd.MM.YY hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
 
-       return this.match.getName() + " ("+sdf.format(this.match.getStart())+")";
+        return this.match.getName() + " ("+sdf.format(this.match.getStart())+")";
     }
 
 }
