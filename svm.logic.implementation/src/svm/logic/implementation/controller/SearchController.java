@@ -22,7 +22,7 @@ public class SearchController implements ISearchController {
     private Integer sessionId;
     private IMember user;
 
-    public SearchController(IMember user){
+    public SearchController(IMember user) {
         this.user = user;
     }
 
@@ -61,9 +61,17 @@ public class SearchController implements ISearchController {
     @Override
     public List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department, Boolean paid) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, DomainParameterCheckException {
         List<ITransferMember> result = new LinkedList<ITransferMember>();
-        for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, ((IHasModel<IDepartment>) department).getModel())) {
-            if (member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR)) == paid) {
-                result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+        if (department != null) {
+            for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName, ((IHasModel<IDepartment>) department).getModel())) {
+                if (member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR)) == paid) {
+                    result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+                }
+            }
+        } else {
+            for (IMember member : DomainFacade.getMemberModelDAO().get(sessionId, firstName, lastName)) {
+                if (member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR)) == paid) {
+                    result.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+                }
             }
         }
         return result;
