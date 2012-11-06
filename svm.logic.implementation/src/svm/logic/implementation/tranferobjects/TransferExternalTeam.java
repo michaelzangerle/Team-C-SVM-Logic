@@ -11,6 +11,9 @@ public class TransferExternalTeam extends TransferTeam implements ITransferExter
 
     private IExternalTeam externalTeamEntity;
 
+    public TransferExternalTeam() {
+    }
+
     public TransferExternalTeam(IExternalTeam externalTeamEntity) {
         this.externalTeamEntity = externalTeamEntity;
     }

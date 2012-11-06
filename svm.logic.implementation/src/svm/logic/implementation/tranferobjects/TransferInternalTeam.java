@@ -1,9 +1,7 @@
 package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.modelInterfaces.ITeam;
-import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferInternalTeam;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
 
 /**
  * Projectteam: Team C
@@ -12,6 +10,10 @@ import svm.logic.abstraction.transferobjects.ITransferTeam;
 public class TransferInternalTeam extends TransferTeam implements ITransferInternalTeam {
 
     private ITeam teamEntity;
+
+    public TransferInternalTeam() {
+
+    }
 
     public TransferInternalTeam(ITeam teamEntity) {
         this.teamEntity = teamEntity;
