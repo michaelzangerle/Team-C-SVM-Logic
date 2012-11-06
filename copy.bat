@@ -1,0 +1,1 @@
+robocopy out\artifacts ..\Team-C-SVM-RMI\svm.rmi.implementation\lib
