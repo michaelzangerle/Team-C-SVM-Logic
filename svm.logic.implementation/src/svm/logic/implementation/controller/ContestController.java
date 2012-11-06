@@ -240,7 +240,7 @@ public class ContestController implements IContestController {
         List<ITransferMatch> result = new LinkedList<ITransferMatch>();
 
         for (IMatch m : matches) {
-
+            System.out.println(m.getName());
             result.add((ITransferMatch) TransferObjectCreator.getInstance(TransferMatch.class, m));
         }
 
