@@ -25,6 +25,11 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     }
 
     @Override
+    public String getUsername() {
+        return this.member.getUserName();
+    }
+
+    @Override
     public String getFirstName() {
         return member.getFirstName();  //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -10,6 +10,9 @@ import java.util.Date;
  * Date: 30.10.12
  */
 public interface ITransferMember extends ITransfer {
+
+    String getUsername();
+
     String getFirstName();
 
     String getLastName();
