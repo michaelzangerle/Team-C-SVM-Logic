@@ -135,9 +135,9 @@ public interface IContestController extends IController {
 
     void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException;
 
-    void addResult(ITransferMatch match, Integer home, Integer away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException;
-
     void setDateForMatch(ITransferMatch match, Date start);
 
     void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException;
+
+    void addResult(ITransferMatch match, Float home, Float away) throws RemoteException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException;
 }
