@@ -8,6 +8,7 @@ import svm.logic.abstraction.transferobjects.ITransferMatchType;
  * Date: 05.11.12
  */
 public class TransferMatchType implements ITransferMatchType {
+
     private IMatchType matchType;
 
     @Override

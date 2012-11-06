@@ -46,7 +46,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public Date getBirthDate() {
-        return this.getBirthDate();
+        return this.member.getBirthDate();
     }
 
     @Override

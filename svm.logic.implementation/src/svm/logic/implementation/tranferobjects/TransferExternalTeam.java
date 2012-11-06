@@ -8,7 +8,8 @@ import svm.logic.abstraction.transferobjects.ITransferExternalTeam;
  * Date: 05.11.12
  */
 public class TransferExternalTeam extends TransferTeam implements ITransferExternalTeam {
-    IExternalTeam externalTeamEntity;
+
+    private IExternalTeam externalTeamEntity;
 
     public TransferExternalTeam(IExternalTeam externalTeamEntity) {
         this.externalTeamEntity = externalTeamEntity;

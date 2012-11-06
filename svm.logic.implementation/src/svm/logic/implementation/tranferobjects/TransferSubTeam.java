@@ -9,6 +9,7 @@ import svm.logic.abstraction.transferobjects.ITransferSubTeam;
  * Date: 01.11.12
  */
 public class TransferSubTeam implements ITransferSubTeam, IHasModel<ISubTeam> {
+
     private ISubTeam subTeam;
 
     @Override
