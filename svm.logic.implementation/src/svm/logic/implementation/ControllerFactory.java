@@ -27,7 +27,7 @@ public class ControllerFactory {
     }
 
     /**
-     * Create new Contest
+     * Create new Contest controller
      *
      * @return
      * @throws IllegalAccessException
@@ -38,7 +38,7 @@ public class ControllerFactory {
     }
 
     /**
-     * Change Contest
+     * create new contest controller
      *
      * @param contest
      * @return

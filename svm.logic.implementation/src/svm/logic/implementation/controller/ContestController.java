@@ -64,7 +64,6 @@ public class ContestController implements IContestController {
     public void start() throws NoSessionFoundException, IllegalGetInstanceException {
         this.sessionId = DomainFacade.generateSessionId();
         DomainFacade.reattachObjectToSession(this.sessionId, contest);
-
         this.transferContest = (ITransferContest) TransferObjectCreator.getInstance(TransferContest.class, contest);
     }
 
