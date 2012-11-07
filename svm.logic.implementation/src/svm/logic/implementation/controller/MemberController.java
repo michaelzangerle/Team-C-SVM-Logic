@@ -16,6 +16,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
 import java.util.Date;
 
 /**
@@ -185,7 +186,7 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException, NotAllowException {
+    public void setPaidCurrentYear() throws NoSessionFoundException, InstantiationException, IllegalAccessException, NotAllowException, NotSupportedException {
         if(!user.isAllowedForMemberChanging())
             throw new NotAllowException("Wrong privilege");
         this.member.setPaidCurrentYear();
@@ -199,7 +200,7 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void addPrivilege(ITransferUserPrivilege privilege) throws NotAllowException {
+    public void addPrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, NoSessionFoundException, DomainAttributeException, IllegalAccessException, InstantiationException {
         if(!user.isAllowedForMemberChanging())
             throw new NotAllowException("Wrong privilege");
 
@@ -207,7 +208,7 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void removePrivilege(ITransferUserPrivilege privilege) throws NotAllowException {
+    public void removePrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, DomainAttributeException {
         if(!user.isAllowedForMemberChanging())
             throw new NotAllowException("Wrong privilege");
 
