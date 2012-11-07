@@ -58,6 +58,18 @@ public class LoginController implements ILoginController {
     }
 
     @Override
+    public boolean loginWithoutLdap(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException {
+        List<IMember> members = DomainFacade.getMemberModelDAO().get(sessionId, userName);
+        if (members.size() == 1) {
+            this.member = members.get(0);
+            this.transferMember = (ITransferAuth) TransferObjectCreator.getInstance(TransferAuth.class, member);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public ITransferAuth getMember() throws RemoteException {
         return transferMember;
     }

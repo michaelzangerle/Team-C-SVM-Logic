@@ -15,4 +15,6 @@ public interface ILoginController extends IController {
     boolean login(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException;
 
     ITransferAuth getMember() throws RemoteException;
+
+    boolean loginWithoutLdap(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException;
 }
