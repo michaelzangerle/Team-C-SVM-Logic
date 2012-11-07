@@ -13,6 +13,7 @@ import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 
 /**
  * Projectteam: Team C
@@ -31,26 +32,26 @@ public class MemberControllerMain {
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferMember member = searchController.getMembers("Patrik", "Jost").get(0);
+        ITransferMember member = searchController.getMembers("Patrick", "Jost").get(0);
         searchController.abort();
 
         IMemberController memberController = LogicFacade.getMemberController(user, member);
         memberController.start();
 
 
-//        memberController.setFirstName("Mike");
-//        memberController.setLastName("Zangerle");
-//        memberController.setBirthDate(new Date());
-//
-//        memberController.setEmail1("michael.zangerle@gmail.com");
-//        memberController.setEmail2("michael.zangerle@outlook.com");
-//
-//        memberController.setGender("M");   // TODO Fails because of string / char
-//
-//        memberController.setSocialNumber("0123456789");
-//
-//        memberController.setStreet("Dorf");
-//        memberController.setStreetNumber("46");
+        memberController.setFirstName("Mike");
+        memberController.setLastName("Zangerle");
+        memberController.setBirthDate(new Date());
+
+        memberController.setEmail1("michael.zangerle@gmail.com");
+        memberController.setEmail2("michael.zangerle@outlook.com");
+
+        memberController.setGender("M");   // TODO Fails because of string / char
+
+        memberController.setSocialNumber("0123456789");
+
+        memberController.setStreet("Dorf");
+        memberController.setStreetNumber("46");
         memberController.setPaidCurrentYear();
 
         memberController.commit();

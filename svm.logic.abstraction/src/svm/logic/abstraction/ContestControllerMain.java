@@ -32,7 +32,7 @@ public class ContestControllerMain {
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferContest contest = searchController.getContests().get(0);
+        ITransferContest contest = searchController.getContests().get(2);
         searchController.abort();
 
         IContestController contestController = LogicFacade.getContestController(user, contest);
