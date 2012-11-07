@@ -81,6 +81,7 @@ public class ContestConfirmationController implements IContestConfirmationContro
 
     @Override
     public void confirmParticipationOfATeam(ITransferContestHasTeams transferTeamHasContest, boolean confirm, String comment, boolean paid) {
+       //TODO user privilegs add
         IContestHasTeam contestHasTeam = ((IHasModel<IContestHasTeam>) this.transferContestHasTeams).getModel();
         contestHasTeam.setComment(comment);
         contestHasTeam.setConfirmed(confirm);
