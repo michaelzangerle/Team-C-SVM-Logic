@@ -27,6 +27,4 @@ public interface ITransferMatch extends ITransfer {
 
     String getRemarks();
 
-    List<ITransferContestant> getContestants() throws IllegalGetInstanceException;
-
 }
