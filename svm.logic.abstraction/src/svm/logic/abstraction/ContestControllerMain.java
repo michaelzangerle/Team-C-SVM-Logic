@@ -38,34 +38,11 @@ public class ContestControllerMain {
         IContestController contestController = LogicFacade.getContestController(user, contest);
         contestController.start();
 
-//        contestController.setContestStartDate(new Date());
-//        contestController.setContestEndDate(new Date());
-//        contestController.setContestName("Testcontest3");
-//        contestController.setContestFee(150);
-//
-//        contestController.setEmail1("michael.zangerle@outlook.com");
-//        contestController.setEmail2("michael.zangerle@gmail.com");
-//
-//        contestController.setFax("0654 123 789");
-//
-//        contestController.setLat("4");
-//        contestController.setLong("10");
-//
-//        contestController.setStreet("Dorf");
-//        contestController.setStreetNumber("45");
-//
-//        contestController.setPhone1("0654 123 564 78");
-//        contestController.setPhone2("0654 123 564 79");
-//
-//        contestController.setLocation(location);
-
-        for (ITransferTeam c : contestController.getTeams()) {
-            System.out.println(c.getName());
+        for (ITransferTeam t : contestController.getTeams()) {
+            System.out.println(t.getName());
         }
 
         contestController.commit();
-
-
     }
 
 }
