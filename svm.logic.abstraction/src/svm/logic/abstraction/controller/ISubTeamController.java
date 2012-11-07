@@ -6,7 +6,7 @@ import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
-import javax.transaction.NotSupportedException;
+import svm.persistence.abstraction.exceptions.NotSupportedException;
 import java.rmi.RemoteException;
 
 /**

@@ -5,7 +5,7 @@ import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.ControllerFactory;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
-import javax.transaction.NotSupportedException;
+import svm.persistence.abstraction.exceptions.NotSupportedException;
 
 /**
  * ProjectTeam: Team C
