@@ -10,6 +10,7 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
+import svm.logic.implementation.ldap.*;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -43,6 +44,10 @@ public class LoginController implements ILoginController {
 
     @Override
     public boolean login(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException {
+
+      if(!LdapChecker.authentication(userName,password))
+          return false;
+
         List<IMember> members = DomainFacade.getMemberModelDAO().get(sessionId, userName);
         if (members.size() == 1) {
             this.member = members.get(0);
