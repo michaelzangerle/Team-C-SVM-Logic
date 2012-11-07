@@ -13,6 +13,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 import java.util.Date;
 
@@ -22,7 +23,7 @@ import java.util.Date;
  */
 public class MemberControllerMain {
 
-    public static void main(String[] args) throws NoSessionFoundException, IllegalAccessException, InstantiationException, IllegalGetInstanceException, DomainAttributeException, DomainParameterCheckException, ExistingTransactionException, NoTransactionException, RemoteException, NotAllowException {
+    public static void main(String[] args) throws NoSessionFoundException, IllegalAccessException, InstantiationException, IllegalGetInstanceException, DomainAttributeException, DomainParameterCheckException, ExistingTransactionException, NoTransactionException, RemoteException, NotAllowException, NotSupportedException {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
@@ -33,7 +34,7 @@ public class MemberControllerMain {
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferMember member = searchController.getMembers("Mike", "Zangerle").get(0);
+        ITransferMember member = searchController.getMembers("Michael", "Zangerle").get(0);
         searchController.abort();
 
         IMemberController memberController = LogicFacade.getMemberController(user);

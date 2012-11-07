@@ -5,6 +5,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -19,7 +20,7 @@ public interface IController extends Serializable, Remote {
     /**
      * Inits the controller (open session, ...)
      */
-    void start() throws NoSessionFoundException, IllegalGetInstanceException, RemoteException;
+    void start() throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, NotSupportedException, InstantiationException, IllegalAccessException;
 
     /**
      * Saves changes to db (save and close session, ...)

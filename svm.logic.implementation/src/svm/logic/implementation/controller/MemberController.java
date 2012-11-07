@@ -30,6 +30,11 @@ public class MemberController implements IMemberController {
     private ITransferMember transferMember;
     private ITransferAuth user;
 
+
+    public MemberController(ITransferAuth user){
+        this.user = user;
+    }
+
     public MemberController(IMember member, ITransferAuth user) {
         this.user = user;
         this.member = member;
@@ -164,8 +169,11 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void start() throws NoSessionFoundException, IllegalGetInstanceException {
+    public void start() throws NoSessionFoundException, IllegalGetInstanceException, NotSupportedException, InstantiationException, IllegalAccessException {
         this.sessionId = DomainFacade.generateSessionId();
+        if (this.member == null) {
+            member = DomainFacade.getMemberModelDAO().generateObject(sessionId);
+        }
         DomainFacade.reattachObjectToSession(this.sessionId, member);
         this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member);
     }

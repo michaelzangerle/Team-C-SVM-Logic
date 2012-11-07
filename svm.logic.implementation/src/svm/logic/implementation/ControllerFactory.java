@@ -10,6 +10,8 @@ import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.controller.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import javax.transaction.NotSupportedException;
+
 /**
  * ProjectTeam: Team C
  * Date: 31.10.12
@@ -33,8 +35,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IContestController getContestController(ITransferAuth user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
-        return new ContestController(DomainFacade.getContestModelDAO().generateObject(), user);
+    public IContestController getContestController(ITransferAuth user) throws IllegalAccessException, InstantiationException, NoSessionFoundException, NotSupportedException {
+        return new ContestController(user);
     }
 
     /**
@@ -56,8 +58,8 @@ public class ControllerFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public IMemberController getMemberController(ITransferAuth user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
-        return new MemberController(DomainFacade.getMemberModelDAO().generateObject(), user);
+    public IMemberController getMemberController(ITransferAuth user) throws IllegalAccessException, InstantiationException, NoSessionFoundException, NotSupportedException {
+        return new MemberController(user);
     }
 
     /**

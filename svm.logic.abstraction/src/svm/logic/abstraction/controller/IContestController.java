@@ -12,6 +12,7 @@ import svm.logic.abstraction.transferobjects.ITransferMatch;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +139,7 @@ public interface IContestController extends IController {
 
     void setDateForMatch(ITransferMatch match, Date start) throws NotAllowException;
 
-    void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException, NotAllowException;
+    void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, NotSupportedException;
 
     void setResult(ITransferMatch match, Integer home, Integer away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException, NotAllowException;
 }
