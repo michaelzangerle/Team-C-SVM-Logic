@@ -1,6 +1,5 @@
 package svm.logic.implementation.tranferobjects;
 
-import svm.domain.abstraction.modelInterfaces.IContestant;
 import svm.domain.abstraction.modelInterfaces.IMatch;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.*;
@@ -8,7 +7,6 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,6 +25,10 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     private String description;
     private String remarks;
     private List<ITransferContestant> contestants;
+    private ITransferTeam home;
+    private ITransferTeam away;
+    private Integer resultHome;
+    private Integer resultAway;
 
     @Override
     public String getName() {
@@ -69,11 +71,6 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     }
 
     @Override
-    public List<ITransferContestant> getContestants() throws IllegalGetInstanceException {
-        return contestants;
-    }
-
-    @Override
     public void setObject(Object o) throws IllegalGetInstanceException {
         this.match = (IMatch) o;
         name = match.getName();
@@ -81,15 +78,25 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         end = match.getEnd();
         cancelled = match.getCancelled();
         contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, this.match.getContactDetails());
-        ;
         matchType = (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());
-        ;
         description = match.getDescription();
         remarks = match.getRemarks();
-        contestants = new LinkedList<ITransferContestant>();
-        for (IContestant c : this.match.getContestants()) {
-            contestants.add((ITransferContestant) TransferObjectCreator.getInstance(TransferContestant.class, c));
-        }
+        home = getHomeTeam();
+        away = getAwayTeam();
+        resultHome = match.getHomeResult();
+        resultAway = match.getAwayResult();
+    }
+
+    private ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
+        return (match.getHomeExternal() != null) ?
+                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getHomeExternal())) :
+                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getHomeInternal()));
+    }
+
+    private ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
+        return (match.getHomeExternal() != null) ?
+                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getAwayExternal())) :
+                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getAwayInternal()));
     }
 
     @Override
@@ -105,5 +112,6 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
         return this.match.getName() + " (" + sdf.format(this.match.getStart()) + ")";
     }
+
 
 }
