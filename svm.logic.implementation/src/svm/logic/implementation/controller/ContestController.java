@@ -19,8 +19,8 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
-
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -196,9 +196,10 @@ public class ContestController implements IContestController {
             throw new NotAllowException("Wrong privileges");
 
         IMatchModelDAO matchDao = DomainFacade.getMatchModelDAO();
-        IMatch match = matchDao.generateObject();
+        IMatch match = matchDao.generateObject(sessionId);
         match.setStart(start);
         match.setEnd(end);
+        match.setName(home.getName() + " - " + away.getName());
 
         if (home instanceof ITransferExternalTeam && away instanceof ITransferExternalTeam) {
             IExternalTeam a = ((IHasModel<IExternalTeam>) home).getModel();
@@ -220,7 +221,7 @@ public class ContestController implements IContestController {
             throw new LogicException("Neither internal nor external team!");
         }
 
-
+        match.setContest(this.contest);
         this.contest.addMatch(match);
     }
 
@@ -302,7 +303,6 @@ public class ContestController implements IContestController {
         List<ITransferMatch> result = new LinkedList<ITransferMatch>();
 
         for (IMatch m : matches) {
-            System.out.println(m.getName());
             result.add((ITransferMatch) TransferObjectCreator.getInstance(TransferMatch.class, m));
         }
 
