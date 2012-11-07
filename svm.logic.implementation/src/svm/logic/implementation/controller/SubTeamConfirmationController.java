@@ -42,7 +42,6 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
 
     @Override
     public List<ITransferSubTeamHasMember> getSubTeamsOfMember() throws IllegalGetInstanceException {
-
         List<ITransferSubTeamHasMember> result = new LinkedList<ITransferSubTeamHasMember>();
 
         for (ISubTeamsHasMembers tmp : this.member.getSubTeamsHasMembersForPerson()) {
@@ -55,6 +54,7 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
 
     @Override
     public void setConfirmationForSubTeam(ITransferSubTeamHasMember subTeamHasMember, boolean confirmation, String comment) {
+        //TODO UserPrivileges
         ISubTeamsHasMembers tmp = ((IHasModel<ISubTeamsHasMembers>) subTeamHasMember).getModel();
         tmp.setComment(comment);
         tmp.setConfirmed(confirmation);

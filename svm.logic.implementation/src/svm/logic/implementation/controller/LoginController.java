@@ -44,7 +44,6 @@ public class LoginController implements ILoginController {
 
     @Override
     public boolean login(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException {
-
       if(!LdapChecker.authentication(userName,password))
           return false;
 
