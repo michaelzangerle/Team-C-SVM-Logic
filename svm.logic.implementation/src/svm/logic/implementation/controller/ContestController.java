@@ -275,12 +275,12 @@ public class ContestController implements IContestController {
         List<IExternalTeam> externalTeams = this.contest.getExternalTeams();
 
         for (ITeam t : internalTeams) {
-            System.out.println(t.getName());
+
             result.add((ITransferInternalTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, t));
         }
 
         for (IExternalTeam t : externalTeams) {
-            System.out.println(t.getName());
+
             result.add((ITransferExternalTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, t));
         }
 
