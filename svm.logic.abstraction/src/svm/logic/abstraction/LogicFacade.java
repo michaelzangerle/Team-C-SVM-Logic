@@ -1,10 +1,7 @@
 package svm.logic.abstraction;
 
 import svm.logic.abstraction.controller.*;
-import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferSubTeam;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.ControllerFactory;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
@@ -21,7 +18,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IContestController getContestController(ITransferMember user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
+    public static IContestController getContestController(ITransferAuth user) throws IllegalAccessException, InstantiationException, NoSessionFoundException {
         return ControllerFactory.getInstance().getContestController(user);
     }
 
@@ -33,7 +30,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IContestController getContestController(ITransferMember user, ITransferContest contest) throws IllegalAccessException, InstantiationException {
+    public static IContestController getContestController(ITransferAuth user, ITransferContest contest) throws IllegalAccessException, InstantiationException {
         return ControllerFactory.getInstance().getContestController(user, contest);
     }
 
@@ -44,7 +41,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IMemberController getMemberController(ITransferMember user) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
+    public static IMemberController getMemberController(ITransferAuth user) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
         return ControllerFactory.getInstance().getMemberController(user);
     }
 
@@ -56,7 +53,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IMemberController getMemberController(ITransferMember user, ITransferMember member) {
+    public static IMemberController getMemberController(ITransferAuth user, ITransferMember member) {
         return ControllerFactory.getInstance().getMemberController(user, member);
     }
 
@@ -68,7 +65,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static IContestConfirmationController getContestConfirmationController(ITransferMember user, ITransferMember member) {
+    public static IContestConfirmationController getContestConfirmationController(ITransferAuth user, ITransferMember member) {
         return ControllerFactory.getInstance().getContestConfirmationController(user, member);
     }
 
@@ -77,7 +74,7 @@ public class LogicFacade {
      *
      * @return ISubTeamConfirmationController
      */
-    public static ISubTeamConfirmationController getSubTeamConfirmationController(ITransferMember user, ITransferMember member) {
+    public static ISubTeamConfirmationController getSubTeamConfirmationController(ITransferAuth user, ITransferMember member) {
         return ControllerFactory.getInstance().getSubTeamConfirmationController(user, member);
     }
 
@@ -87,7 +84,7 @@ public class LogicFacade {
      * @param subTeam ITransferSubTeam
      * @return ISubTeamController
      */
-    public static ISubTeamController getSubTeamController(ITransferMember user, ITransferSubTeam subTeam) {
+    public static ISubTeamController getSubTeamController(ITransferAuth user, ITransferSubTeam subTeam) {
         return ControllerFactory.getInstance().getSubTeamController(user, subTeam);
     }
 
@@ -101,11 +98,11 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static ISubTeamController getSubTeamController(ITransferMember user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
+    public static ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
         return ControllerFactory.getInstance().getSubTeamController(user, team, contest);
     }
 
-    public static ISearchController getSearchController(ITransferMember user) {
+    public static ISearchController getSearchController(ITransferAuth user) {
         return ControllerFactory.getInstance().getSearchController(user);
     }
 
@@ -113,7 +110,7 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getLoginController();
     }
 
-    public static IContestController getTeamContestController(ITransferMember user, ITransferContest contest) throws InstantiationException, IllegalAccessException {
+    public static IContestController getTeamContestController(ITransferAuth user, ITransferContest contest) throws InstantiationException, IllegalAccessException {
         return ControllerFactory.getInstance().getContestController(user, contest);
     }
 }

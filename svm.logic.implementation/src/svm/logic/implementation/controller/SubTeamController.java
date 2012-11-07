@@ -10,6 +10,7 @@ import svm.logic.abstraction.controller.ISubTeamController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.implementation.tranferobjects.TransferSubTeam;
@@ -27,16 +28,16 @@ public class SubTeamController implements ISubTeamController {
     private ISubTeam subTeam;
     private ITransferSubTeam transferSubTeam;
     private Integer sessionId;
-    private IMember user;
+    private ITransferAuth user;
 
-    public SubTeamController(ITeam team, IContest contest, IMember user) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
+    public SubTeamController(ITeam team, IContest contest, ITransferAuth user) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
         this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject();
         this.subTeam.setContest(contest);
         this.subTeam.setTeam(team);
         this.user = user;
     }
 
-    public SubTeamController(ISubTeam subTeam, IMember user) {
+    public SubTeamController(ISubTeam subTeam, ITransferAuth user) {
         this.subTeam = subTeam;
         this.user = user;
     }

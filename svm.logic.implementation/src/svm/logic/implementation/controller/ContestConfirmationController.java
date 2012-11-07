@@ -6,6 +6,7 @@ import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IContestConfirmationController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferContestHasTeams;
 import svm.logic.implementation.tranferobjects.TransferContestHasTeams;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
@@ -25,9 +26,9 @@ public class ContestConfirmationController implements IContestConfirmationContro
     private List<ITransferContestHasTeams> transferContestHasTeams;
     private IMember member;
     private Integer sessionId;
-    private IMember user;
+    private ITransferAuth user;
 
-    public ContestConfirmationController(IMember member, IMember user) {
+    public ContestConfirmationController(IMember member, ITransferAuth user) {
         this.user = user;
         this.member = member;
     }

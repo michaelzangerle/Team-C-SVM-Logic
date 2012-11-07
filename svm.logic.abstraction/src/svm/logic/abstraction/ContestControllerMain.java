@@ -6,8 +6,8 @@ import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -26,7 +26,7 @@ public class ContestControllerMain {
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
         lc.login("mary.sluis", "");
-        ITransferMember user = lc.getMember();
+        ITransferAuth user = lc.getMember();
         lc.abort();
 
         ISearchController searchController = LogicFacade.getSearchController(user);

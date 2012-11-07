@@ -4,6 +4,7 @@ import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -27,7 +28,7 @@ public class SearchControllerMain {
         lc.login("mary.sluis", "");
 
 
-        ITransferMember user = lc.getMember();
+        ITransferAuth user = lc.getMember();
 
         ISearchController search = LogicFacade.getSearchController(user);
         search.start();

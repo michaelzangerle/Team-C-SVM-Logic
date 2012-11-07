@@ -8,6 +8,7 @@ import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
@@ -27,9 +28,9 @@ public class MemberController implements IMemberController {
     private IMember member;
     private Integer sessionId;
     private ITransferMember transferMember;
-    private IMember user;
+    private ITransferAuth user;
 
-    public MemberController(IMember member, IMember user) {
+    public MemberController(IMember member, ITransferAuth user) {
         this.user = user;
         this.member = member;
     }

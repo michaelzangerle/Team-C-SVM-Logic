@@ -20,9 +20,9 @@ import java.util.*;
 public class SearchController implements ISearchController {
 
     private Integer sessionId;
-    private IMember user;
+    private ITransferAuth user;
 
-    public SearchController(IMember user) {
+    public SearchController(ITransferAuth user) {
         this.user = user;
     }
 

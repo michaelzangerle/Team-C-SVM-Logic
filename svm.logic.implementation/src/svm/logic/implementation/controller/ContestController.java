@@ -33,9 +33,9 @@ public class ContestController implements IContestController {
     private IContest contest;
     private Integer sessionId;
     private ITransferContest transferContest;
-    private IMember user;
+    private ITransferAuth user;
 
-    public ContestController(IContest contest, IMember user) {
+    public ContestController(IContest contest, ITransferAuth user) {
         this.contest = contest;
         this.user = user;
     }

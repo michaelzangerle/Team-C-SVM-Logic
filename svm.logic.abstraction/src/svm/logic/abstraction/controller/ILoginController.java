@@ -1,7 +1,7 @@
 package svm.logic.abstraction.controller;
 
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import java.rmi.RemoteException;
@@ -14,5 +14,5 @@ public interface ILoginController extends IController {
 
     boolean login(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException;
 
-    ITransferMember getMember() throws RemoteException;
+    ITransferAuth getMember() throws RemoteException;
 }

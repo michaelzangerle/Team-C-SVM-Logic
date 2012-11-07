@@ -6,6 +6,7 @@ import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.controller.ISubTeamConfirmationController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
@@ -27,9 +28,9 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     private IMember member;
     private Integer sessionId;
     private ITransferMember transferMember;
-    private IMember user;
+    private ITransferAuth user;
 
-    public SubTeamConfirmationController(IMember member, IMember user) {
+    public SubTeamConfirmationController(IMember member, ITransferAuth user) {
         this.member = member;
         this.user = user;
     }

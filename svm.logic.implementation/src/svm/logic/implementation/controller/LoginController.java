@@ -4,8 +4,8 @@ import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.abstraction.transferobjects.ITransferAuth;
+import svm.logic.implementation.tranferobjects.TransferAuth;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -21,7 +21,7 @@ import java.util.List;
 public class LoginController implements ILoginController {
     private IMember member;
     private Integer sessionId;
-    private ITransferMember transferMember;
+    private ITransferAuth transferMember;
 
     public LoginController() {
     }
@@ -46,7 +46,7 @@ public class LoginController implements ILoginController {
         List<IMember> members = DomainFacade.getMemberModelDAO().get(sessionId, userName);
         if (members.size() == 1) {
             this.member = members.get(0);
-            this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member);
+            this.transferMember = (ITransferAuth) TransferObjectCreator.getInstance(TransferAuth.class, member);
             return true;
         } else {
             return false;
@@ -54,7 +54,7 @@ public class LoginController implements ILoginController {
     }
 
     @Override
-    public ITransferMember getMember() throws RemoteException {
+    public ITransferAuth getMember() throws RemoteException {
         return transferMember;
     }
 }
