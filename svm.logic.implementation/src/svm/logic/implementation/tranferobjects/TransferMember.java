@@ -18,6 +18,25 @@ import java.util.GregorianCalendar;
  */
 public class TransferMember implements ITransferMember, IHasModel<IMember> {
     private IMember member;
+    private String firstName;
+    private ITransferLocation location;
+    private String userName;
+    private String lastName;
+    private String title;
+    private String socialNumber;
+    private Date birthDate;
+    private String gender;
+    private Date entryDate;
+    private String phone1;
+    private String phone2;
+    private String fax;
+    private String email1;
+    private String email2;
+    private String street;
+    private String streetNumber;
+    private String coordLat;
+    private String coordLong;
+    private boolean hasPaidFee;
 
     @Override
     public IMember getModel() {
@@ -26,102 +45,122 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public String getUsername() {
-        return this.member.getUserName();
+        return userName;
     }
 
     @Override
     public String getFirstName() {
-        return member.getFirstName();  //To change body of implemented methods use File | Settings | File Templates.
+        return firstName;
     }
 
     @Override
     public String getLastName() {
-        return member.getLastName();  //To change body of implemented methods use File | Settings | File Templates.
+        return lastName;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public String getTitle() {
-        return this.member.getTitle();
+        return title;
     }
 
     @Override
     public String getSocialNumber() {
-        return this.member.getSocialNumber();
+        return socialNumber;
     }
 
     @Override
     public Date getBirthDate() {
-        return this.member.getBirthDate();
+        return birthDate;
     }
 
     @Override
     public String getGender() {
-        return this.member.getGender();
+        return gender;
     }
 
     @Override
     public Date getEntryDate() {
-        return this.member.getEntryDate();
+        return entryDate;
     }
 
     @Override
     public String getPhone1() {
-       return this.member.getContactDetails().getPhone1();
+       return phone1;
     }
 
     @Override
     public String getPhone2() {
-        return this.member.getContactDetails().getPhone2();
+        return phone2;
     }
 
     @Override
     public String getEmail1() {
-        return this.member.getContactDetails().getEmail1();
+        return email1;
     }
 
     @Override
     public String getEmail2() {
-        return this.member.getContactDetails().getEmail2();
+        return email2;
     }
 
     @Override
     public String getFax() {
-        return this.member.getContactDetails().getFax();
+        return fax;
     }
 
     @Override
     public String getStreet() {
-        return this.member.getContactDetails().getStreet();
+        return street;
     }
 
     @Override
     public String getStreetNumber() {
-        return this.member.getContactDetails().getStreetNumber();
+        return streetNumber;
     }
 
     @Override
     public String getLat() {
-        return this.member.getContactDetails().getCoordLat();
+        return coordLat;
     }
 
     @Override
     public String getLong() {
-        return this.member.getContactDetails().getCoordLong();
+        return coordLong;
     }
 
     @Override
     public ITransferLocation getLocation() throws IllegalGetInstanceException {
-        return (TransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
+        return location;
     }
 
     @Override
     public boolean getPaid() throws DomainParameterCheckException {
-        return this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
+        //return this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
+        return hasPaidFee;
     }
 
     @Override
-    public void setObject(Object o) {
+    public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.member = (IMember) o;
+        this.firstName = member.getFirstName();
+        this.location = (TransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
+        this.userName = member.getUserName();
+        this.lastName = member.getLastName();
+        this.title = member.getTitle();
+        this.socialNumber = member.getSocialNumber();
+        this.birthDate = member.getBirthDate();
+        this.gender = member.getGender();
+        this.entryDate = member.getEntryDate();
+        this.phone1 = member.getContactDetails().getPhone1();
+        this.phone2 = member.getContactDetails().getPhone2();
+        this.fax = member.getContactDetails().getFax();
+        this.email1 = member.getContactDetails().getEmail1();
+        this.email2 = member.getContactDetails().getEmail2();
+        this.street = member.getContactDetails().getStreet();
+        this.streetNumber = member.getContactDetails().getStreetNumber();
+        this.coordLat = member.getContactDetails().getCoordLat();
+        this.coordLong = member.getContactDetails().getCoordLong();
+        this.hasPaidFee = this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
     }
 
     @Override

@@ -10,15 +10,17 @@ import svm.logic.abstraction.transferobjects.ITransferMatchType;
 public class TransferMatchType implements ITransferMatchType {
 
     private IMatchType matchType;
+    private String name;
 
     @Override
     public void setObject(Object o) {
         this.matchType = (IMatchType) o;
+        name = matchType.getName();
     }
 
     @Override
     public String getName(){
-        return this.matchType.getName();
+        return name;
     }
 
     @Override

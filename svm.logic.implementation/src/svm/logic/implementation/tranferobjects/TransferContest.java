@@ -17,35 +17,45 @@ import java.util.Date;
 public class TransferContest implements ITransferContest, IHasModel<IContest> {
 
     private IContest contest;
+    private String name;
+    private Date start;
+    private Date end;
+    private float fee;
+    private ITransferContactDetails contactDetails;
 
     @Override
-    public void setObject(Object obj) {
+    public void setObject(Object obj) throws IllegalGetInstanceException {
         this.contest = (IContest) obj;
+        this.name = contest.getName();
+        this.start = contest.getStart();
+        this.end = contest.getEnd();
+        this.fee = contest.getFee();
+        this.contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
     }
 
     @Override
     public String getName() {
-        return this.contest.getName();
+        return name;
     }
 
     @Override
     public Date getStart() {
-        return this.contest.getStart();
+        return start;
     }
 
     @Override
     public Date getEnd() {
-        return this.contest.getEnd();
+        return end;
     }
 
     @Override
     public float getFee() {
-        return this.contest.getFee();
+        return fee;
     }
 
     @Override
     public ITransferContactDetails getContactDetails() throws IllegalGetInstanceException {
-        return (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
+        return contactDetails;
     }
 
     @Override

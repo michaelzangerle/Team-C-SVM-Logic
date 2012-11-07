@@ -12,50 +12,66 @@ public class TransferLocation implements ITransferLocation, IHasModel<ILocation>
 
 
     private ILocation location;
+    private String countryCode;
+    private String postalCode;
+    private String placeName;
+    private String district;
+    private String province;
+    private String community;
+    private String latitude;
+    private String longitude;
 
     @Override
     public String getCountryCode() {
-        return location.getCountryCode();
+        return countryCode;
     }
 
     @Override
     public String getPostalCode() {
-        return location.getPostalCode();
+        return postalCode;
     }
 
     @Override
     public String getPlaceName() {
-        return location.getPlaceName();
+        return placeName;
     }
 
     @Override
     public String getDistrict() {
-        return location.getDistrict();
+        return district;
     }
 
     @Override
     public String getProvince() {
-        return location.getProvince();
+        return province;
     }
 
     @Override
     public String getCommunity() {
-        return location.getCommunity();
+        return community;
     }
 
     @Override
     public String getLatitude() {
-        return location.getLatitude();
+        return latitude;
     }
 
     @Override
     public String getLongitude() {
-        return location.getLongitude();
+        return longitude;
     }
 
     @Override
     public void setObject(Object o) {
         this.location = (ILocation) o;
+        this.countryCode = location.getCountryCode();
+        this.postalCode = location.getPostalCode();
+        this.placeName = location.getPlaceName();
+        this.district = location.getDistrict();
+        this.province = location.getProvince();
+        this.community = location.getCommunity();
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
     }
 
     @Override

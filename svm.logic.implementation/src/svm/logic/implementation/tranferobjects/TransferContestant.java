@@ -11,6 +11,7 @@ import svm.logic.abstraction.transferobjects.ITransferContestant;
 public class TransferContestant implements ITransferContestant, IHasModel<IContestant> {
 
     private IContestant contestant;
+    private float result;
 
     @Override
     public IContestant getModel() {
@@ -19,11 +20,12 @@ public class TransferContestant implements ITransferContestant, IHasModel<IConte
 
     @Override
     public float getResult() {
-        return contestant.getResult();
+        return result;
     }
 
     @Override
     public void setObject(Object o) {
         this.contestant = (IContestant) o;
+        this.result = contestant.getResult();
     }
 }

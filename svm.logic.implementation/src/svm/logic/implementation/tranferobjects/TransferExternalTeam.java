@@ -10,6 +10,7 @@ import svm.logic.abstraction.transferobjects.ITransferExternalTeam;
 public class TransferExternalTeam extends TransferTeam implements ITransferExternalTeam {
 
     private IExternalTeam externalTeamEntity;
+    private String name;
 
     public TransferExternalTeam() {
     }
@@ -20,7 +21,7 @@ public class TransferExternalTeam extends TransferTeam implements ITransferExter
 
     @Override
     public String getName() {
-        return externalTeamEntity.getName();
+        return name;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class TransferExternalTeam extends TransferTeam implements ITransferExter
     @Override
     public void setObject(Object o) {
         this.externalTeamEntity = (IExternalTeam) o;
+        this.name = externalTeamEntity.getName();
     }
 
     @Override

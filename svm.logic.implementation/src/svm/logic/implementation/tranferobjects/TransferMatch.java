@@ -20,6 +20,15 @@ import java.util.List;
 public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
     private IMatch match;
+    private String name;
+    private Date start;
+    private Date end;
+    private boolean cancelled;
+    private ITransferContactDetails contactDetails;
+    private ITransferMatchType matchType;
+    private String description;
+    private String remarks;
+    private List<ITransferContestant> contestants;
 
     @Override
     public String getName() {
@@ -28,52 +37,59 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
     @Override
     public Date getStart() {
-        return this.match.getStart();
+        return start;
     }
 
     @Override
     public Date getEnd() {
-        return this.match.getEnd();
+        return end;
     }
 
     @Override
     public boolean isCanceled() {
-        return this.match.getCancelled();
+        return cancelled;
     }
 
     @Override
     public ITransferContactDetails getContactDetails() throws IllegalGetInstanceException {
-        IContactDetails contactDetails = this.match.getContactDetails();
-        return (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contactDetails);
+        return contactDetails;
     }
 
     @Override
     public ITransferMatchType getMatchType() throws IllegalGetInstanceException {
-        return (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());
+        return matchType;
     }
 
     @Override
     public String getDescription() {
-        return this.match.getDescription();
+        return description;
     }
 
     @Override
     public String getRemarks() {
-        return this.match.getRemarks();
+        return remarks;
     }
 
     @Override
     public List<ITransferContestant> getContestants() throws IllegalGetInstanceException {
-        List<ITransferContestant> contestants = new LinkedList<ITransferContestant>();
-        for (IContestant c : this.match.getContestants()){
-            contestants.add((ITransferContestant) TransferObjectCreator.getInstance(TransferContestant.class,c));
-        }
         return contestants;
     }
 
     @Override
-    public void setObject(Object o) {
+    public void setObject(Object o) throws IllegalGetInstanceException {
         this.match = (IMatch) o;
+        name = match.getName();
+        start = match.getStart();
+        end = match.getEnd();
+        cancelled = match.getCancelled();
+        contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, this.match.getContactDetails());;
+        matchType = (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());;
+        description = match.getDescription();
+        remarks = match.getRemarks();
+        contestants = new LinkedList<ITransferContestant>();
+        for (IContestant c : this.match.getContestants()){
+            contestants.add((ITransferContestant) TransferObjectCreator.getInstance(TransferContestant.class,c));
+        }
     }
 
     @Override

@@ -11,25 +11,31 @@ import svm.logic.abstraction.transferobjects.ITransferContestHasTeams;
 public class TransferContestHasTeams implements ITransferContestHasTeams, IHasModel<IContestHasTeam> {
 
     private IContestHasTeam contestHasTeams;
+    private boolean confirmed;
+    private String comment;
+    private boolean paid;
 
     @Override
     public void setObject(Object o) {
         this.contestHasTeams = (IContestHasTeam) o;
+        confirmed = contestHasTeams.isConfirmed();
+        comment = contestHasTeams.getComment();
+        paid = contestHasTeams.isPaid();
     }
 
     @Override
     public boolean getConfirmed() {
-        return this.contestHasTeams.isConfirmed();
+        return confirmed;
     }
 
     @Override
     public String getComment() {
-        return this.contestHasTeams.getComment();
+        return comment;
     }
 
     @Override
     public boolean getPaid() {
-        return this.contestHasTeams.isPaid();
+        return paid;
     }
 
     @Override
