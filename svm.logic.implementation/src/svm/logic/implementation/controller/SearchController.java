@@ -159,4 +159,10 @@ public class SearchController implements ISearchController {
         }
         return result;
     }
+
+    @Override
+    public List<ITransferUserPrivilege> getUserPrivileges() {
+        // TODO
+        return null;
+    }
 }

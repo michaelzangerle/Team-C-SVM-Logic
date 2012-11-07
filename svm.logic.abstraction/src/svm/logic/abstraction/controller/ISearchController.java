@@ -30,4 +30,6 @@ public interface ISearchController extends IController {
     List<ITransferContest> getContests() throws IllegalGetInstanceException, NoSessionFoundException;
 
     List<ITransferTeam> getTeams() throws IllegalGetInstanceException, NoSessionFoundException;
+
+    List<ITransferUserPrivilege> getUserPrivileges();
 }
