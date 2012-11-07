@@ -104,7 +104,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
 
     @Override
     public boolean isAllowedForContestChanging() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER))
             return true;
         else
             return false;
