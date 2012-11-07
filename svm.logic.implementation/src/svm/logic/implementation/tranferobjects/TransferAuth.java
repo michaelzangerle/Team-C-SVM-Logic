@@ -30,6 +30,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private boolean isAllowedForContestViewing = false;
     private boolean isAllowedForContestChanging = false;
     private boolean isAllowedForContestDeleting = false;
+    private boolean isAllowedForContestAdding=false;
 
 
     @Override
@@ -144,7 +145,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
             isAllowedForContestDeleting = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            isAllowedForMemberAdding = true;
+            isAllowedForContestAdding = true;
 
     }
 
