@@ -23,7 +23,7 @@ public class TransferContactDetails implements ITransferContactDetails, IHasMode
     private String streetNumber;
     private String coordLat;
     private String coordLong;
-    private ITransferLocation  location;
+    private ITransferLocation location;
 
     @Override
     public void setObject(Object obj) throws IllegalGetInstanceException {

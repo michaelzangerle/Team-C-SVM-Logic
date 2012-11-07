@@ -1,6 +1,5 @@
 package svm.logic.implementation.tranferobjects;
 
-import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;

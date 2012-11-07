@@ -6,14 +6,12 @@ import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 
 /**
  * Projectteam: Team C
@@ -25,19 +23,18 @@ public class MemberControllerMain {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("mary.sluis","");
+        lc.login("mary.sluis", "");
         ITransferMember user = lc.getMember();
         lc.abort();
 
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferMember member = searchController.getMembers("Patrik","Jost").get(0);
+        ITransferMember member = searchController.getMembers("Patrik", "Jost").get(0);
         searchController.abort();
 
-        IMemberController memberController = LogicFacade.getMemberController(member,user);
+        IMemberController memberController = LogicFacade.getMemberController(member, user);
         memberController.start();
-
 
 
 //        memberController.setFirstName("Mike");

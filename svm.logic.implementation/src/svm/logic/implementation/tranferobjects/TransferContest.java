@@ -64,7 +64,7 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
         String format = "dd.MM.YY hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
 
-        return this.contest.getName()+" ("+sdf.format(this.contest.getStart())+")";
+        return this.contest.getName() + " (" + sdf.format(this.contest.getStart()) + ")";
     }
 
     @Override

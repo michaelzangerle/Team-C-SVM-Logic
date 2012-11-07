@@ -29,7 +29,7 @@ public class SubTeamController implements ISubTeamController {
     private Integer sessionId;
     private IMember user;
 
-    public SubTeamController(ITeam team, IContest contest,IMember user) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
+    public SubTeamController(ITeam team, IContest contest, IMember user) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
         this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject();
         this.subTeam.setContest(contest);
         this.subTeam.setTeam(team);

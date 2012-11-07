@@ -48,11 +48,11 @@ public class ContestConfirmationController implements IContestConfirmationContro
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
 
-        IContestHasTeam tmp = ((IHasModel<IContestHasTeam>)this.transferContestHasTeams).getModel();
+        IContestHasTeam tmp = ((IHasModel<IContestHasTeam>) this.transferContestHasTeams).getModel();
 
         DomainFacade.startTransaction(this.sessionId);
 
-        DomainFacade.getContestsHasTeamsDAO().saveOrUpdate(this.sessionId,tmp);
+        DomainFacade.getContestsHasTeamsDAO().saveOrUpdate(this.sessionId, tmp);
 
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);

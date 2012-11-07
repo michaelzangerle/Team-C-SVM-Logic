@@ -7,5 +7,4 @@ package svm.logic.abstraction.transferobjects;
 public interface ITransferExternalTeam extends ITransferTeam {
 
 
-
 }

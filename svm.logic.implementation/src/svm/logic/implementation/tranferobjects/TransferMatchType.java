@@ -19,7 +19,7 @@ public class TransferMatchType implements ITransferMatchType {
     }
 
     @Override
-    public String getName(){
+    public String getName() {
         return name;
     }
 

@@ -35,7 +35,6 @@ public class MemberController implements IMemberController {
     }
 
 
-
     @Override
     public ITransferMember getMember() {
         return this.transferMember;

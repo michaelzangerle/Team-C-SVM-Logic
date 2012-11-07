@@ -2,13 +2,11 @@ package svm.logic.abstraction;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -16,7 +14,6 @@ import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 
 /**
  * Projectteam: Team C
@@ -28,7 +25,7 @@ public class ContestControllerMain {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("mary.sluis","");
+        lc.login("mary.sluis", "");
         ITransferMember user = lc.getMember();
         lc.abort();
 
@@ -38,7 +35,7 @@ public class ContestControllerMain {
         ITransferContest contest = searchController.getContests().get(0);
         searchController.abort();
 
-        IContestController contestController = LogicFacade.getContestController(user,contest);
+        IContestController contestController = LogicFacade.getContestController(user, contest);
         contestController.start();
 
 //        contestController.setContestStartDate(new Date());
@@ -62,7 +59,7 @@ public class ContestControllerMain {
 //
 //        contestController.setLocation(location);
 
-        for (ITransferTeam c : contestController.getTeams()){
+        for (ITransferTeam c : contestController.getTeams()) {
             System.out.println(c.getName());
         }
 

@@ -85,7 +85,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public String getPhone1() {
-       return phone1;
+        return phone1;
     }
 
     @Override
@@ -165,6 +165,6 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public String toString() {
-        return this.member.getFirstName()+ " "+this.member.getLastName();
+        return this.member.getFirstName() + " " + this.member.getLastName();
     }
 }
