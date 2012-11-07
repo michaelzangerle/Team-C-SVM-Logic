@@ -21,6 +21,17 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private String lastName;
     private String title;
 
+    private boolean isAllowedForSearching = false;
+    private boolean isAllowedForMemberViewing = false;
+    private boolean isAllowedForMemberChanging = false;
+    private boolean isAllowedForMemberDeleting = false;
+    private boolean isAllowedForMemberAdding = false;
+    private boolean isAllowedForMemberAddingPrivileges = false;
+    private boolean isAllowedForContestViewing = false;
+    private boolean isAllowedForContestChanging = false;
+    private boolean isAllowedForContestDeleting = false;
+
+
     @Override
     public IMember getModel() {
         return this.member;
@@ -48,82 +59,52 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
 
     @Override
     public boolean isAllowedForSearching() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)|member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForSearching;
     }
 
     @Override
     public boolean isAllowedForMemberViewing() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)||member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberViewing;
     }
 
     @Override
     public boolean isAllowedForMemberChanging() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberChanging;
     }
 
     @Override
     public boolean isAllowedForMemberDeleting() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberDeleting;
     }
 
     @Override
     public boolean isAllowedForMemberAdding() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberAdding;
     }
 
     @Override
     public boolean isAllowedForMemberAddingPrivileges() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberAddingPrivileges;
     }
 
     @Override
     public boolean isAllowedForContestViewing() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
-            return true;
-        else
-            return false;
+        return isAllowedForContestViewing;
     }
 
     @Override
     public boolean isAllowedForContestChanging() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForContestChanging;
     }
 
     @Override
     public boolean isAllowedForContestDeleting() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForContestDeleting;
     }
 
     @Override
     public boolean isAllowedForContestAdding() {
-        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
-            return true;
-        else
-            return false;
+        return isAllowedForMemberAdding;
     }
 
     @Override
@@ -134,6 +115,37 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         this.userName = member.getUserName();
         this.lastName = member.getLastName();
         this.title = member.getTitle();
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) | member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForSearching = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER) || member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+            isAllowedForMemberViewing = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForMemberChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForMemberDeleting = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForMemberAdding = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForMemberAddingPrivileges = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForContestViewing = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForContestChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForContestDeleting = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            isAllowedForMemberAdding = true;
+
     }
 
     @Override
