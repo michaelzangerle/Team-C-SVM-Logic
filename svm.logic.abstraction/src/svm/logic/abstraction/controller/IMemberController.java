@@ -2,6 +2,7 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
+import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferUserPrivilege;
@@ -18,7 +19,7 @@ public interface IMemberController extends IController {
 
     ITransferMember getMember();
 
-    void setTitle(String title) throws DomainAttributeException, RemoteException;
+    void setTitle(String title) throws DomainAttributeException, RemoteException, NotAllowException;
 
     void setFirstName(String firstName) throws DomainAttributeException, RemoteException;
 

@@ -7,6 +7,7 @@ import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
@@ -39,11 +40,12 @@ public class MemberController implements IMemberController {
     }
 
     @Override
-    public void setTitle(String title) throws DomainAttributeException {
+    public void setTitle(String title) throws DomainAttributeException, NotAllowException {
         if (user.isAllowedForMemberChanging())
             this.member.setTitle(title);
-        else
-            throw new NotAllowedException();
+        else {
+            throw new NotAllowException("Keine Berechtigung um den Titel zu aendern!");
+        }
     }
 
     @Override
