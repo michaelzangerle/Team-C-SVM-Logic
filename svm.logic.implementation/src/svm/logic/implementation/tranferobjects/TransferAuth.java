@@ -2,6 +2,7 @@ package svm.logic.implementation.tranferobjects;
 
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.domain.abstraction.modelInterfaces.IUserPrivilege;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
@@ -47,62 +48,82 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
 
     @Override
     public boolean isAllowedForSearching() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)|member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForMemberViewing() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)||member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForMemberChanging() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForMemberDeleting() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForMemberAdding() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForMemberAddingPrivileges() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForContestViewing() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER)||member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForContestChanging() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForContestDeleting() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean isAllowedForContestAdding() {
-        // TODO
-        return false;
+        if(member.isIn(IUserPrivilege.Privileges.ADMIN)||member.isIn(IUserPrivilege.Privileges.MANAGER))
+            return true;
+        else
+            return false;
     }
 
     @Override
