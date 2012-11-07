@@ -187,7 +187,7 @@ public class SearchController implements ISearchController {
     }
 
     @Override
-    public List<ITransferUserPrivilege> getUserPrivileges() throws NotAllowException, IllegalGetInstanceException {
+    public List<ITransferUserPrivilege> getUserPrivileges() throws NotAllowException, IllegalGetInstanceException, NoSessionFoundException {
         if(! user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
