@@ -6,6 +6,7 @@ import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
+import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 
 /**
@@ -18,7 +19,7 @@ public interface ISubTeamController extends IController {
 
     void setName(String name) throws RemoteException;
 
-    void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, RemoteException;
+    void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, RemoteException, NotSupportedException;
 
     void removeMember(ITransferMember member) throws RemoteException;
 }

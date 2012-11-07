@@ -100,7 +100,7 @@ public class LogicFacade {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
+    public static ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, IllegalAccessException, InstantiationException, NotSupportedException {
         return ControllerFactory.getInstance().getSubTeamController(user, team, contest);
     }
 

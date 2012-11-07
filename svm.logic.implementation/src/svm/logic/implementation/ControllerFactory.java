@@ -94,7 +94,7 @@ public class ControllerFactory {
         return new SubTeamController(((IHasModel<ISubTeam>) subTeam).getModel(), user);
     }
 
-    public ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException {
+    public ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException, NotSupportedException {
         return new SubTeamController(((IHasModel<ITeam>) team).getModel(), ((IHasModel<IContest>) contest).getModel(), user);
     }
 

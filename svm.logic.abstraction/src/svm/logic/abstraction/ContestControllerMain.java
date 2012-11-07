@@ -14,6 +14,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 
 /**
@@ -22,11 +23,11 @@ import java.rmi.RemoteException;
  */
 public class ContestControllerMain {
 
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException, NotAllowException {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, DomainParameterCheckException, DomainAttributeException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException, NotAllowException, NotSupportedException {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("mary.sluis", "");
+        lc.login("tf-test", "Pak3bGEh");
         ITransferAuth user = lc.getMember();
         lc.abort();
 

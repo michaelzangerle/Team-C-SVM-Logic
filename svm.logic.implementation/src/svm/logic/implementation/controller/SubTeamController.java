@@ -19,6 +19,8 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
+
 /**
  * ProjectTeam: Team C
  * Date: 01.11.12
@@ -30,7 +32,7 @@ public class SubTeamController implements ISubTeamController {
     private Integer sessionId;
     private ITransferAuth user;
 
-    public SubTeamController(ITeam team, IContest contest, ITransferAuth user) throws NoSessionFoundException, IllegalAccessException, InstantiationException {
+    public SubTeamController(ITeam team, IContest contest, ITransferAuth user) throws NoSessionFoundException, IllegalAccessException, InstantiationException, NotSupportedException {
         this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject();
         this.subTeam.setContest(contest);
         this.subTeam.setTeam(team);
@@ -53,7 +55,7 @@ public class SubTeamController implements ISubTeamController {
     }
 
     @Override
-    public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException {
+    public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, NotSupportedException {
         this.subTeam.addMember(((IHasModel<IMember>) member).getModel());
     }
 

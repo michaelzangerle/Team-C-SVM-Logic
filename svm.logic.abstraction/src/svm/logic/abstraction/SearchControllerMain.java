@@ -11,6 +11,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
+import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,14 +23,13 @@ import java.util.GregorianCalendar;
  */
 public class SearchControllerMain {
 
-    public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException, DomainParameterCheckException, NotAllowException {
+    public static void main(String[] args) throws IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, RemoteException, DomainParameterCheckException, NotAllowException, NotSupportedException, IllegalAccessException, InstantiationException {
 
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("mary.sluis", "");
-
-
+        lc.login("tf-test", "Pak3bGEh");
         ITransferAuth user = lc.getMember();
+        lc.abort();
 
         ISearchController search = LogicFacade.getSearchController(user);
         search.start();

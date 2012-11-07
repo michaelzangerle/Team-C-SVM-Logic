@@ -31,29 +31,32 @@ public class MemberControllerMain {
         ITransferAuth user = lc.getMember();
         lc.abort();
 
-        ISearchController searchController = LogicFacade.getSearchController(user);
-        searchController.start();
-
-        ITransferMember member = searchController.getMembers("Michael", "Zangerle").get(0);
-        searchController.abort();
+//        ISearchController searchController = LogicFacade.getSearchController(user);
+//        searchController.start();
+//
+//        ITransferMember member = searchController.getMembers("Michael", "Zangerle").get(0);
+//        searchController.abort();
 
         IMemberController memberController = LogicFacade.getMemberController(user);
         memberController.start();
 
 
-//        memberController.setFirstName("Mike2");
-//        memberController.setLastName("Zangerle");
-//        memberController.setBirthDate(new Date());
-//
-//        memberController.setEmail1("michael.zangerle@gmail.com");
-//        memberController.setEmail2("michael.zangerle@outlook.com");
-//
-//        memberController.setGender("M");   // TODO Fails because of string / char
-//
-//        memberController.setSocialNumber("0123456789");
-//
-//        memberController.setStreet("Dorf");
-//        memberController.setStreetNumber("46");
+        memberController.setFirstName("Mike2");
+        memberController.setLastName("Zangerle");
+        memberController.setBirthDate(new Date());
+        memberController.setEntryDate(new Date());
+        memberController.setTitle("");
+        memberController.setUsername("mike");
+
+        memberController.setEmail1("michael.zangerle@gmail.com");
+        memberController.setEmail2("michael.zangerle@outlook.com");
+
+        memberController.setGender("M");   // TODO Fails because of string / char
+
+        memberController.setSocialNumber("0123456789");
+
+        memberController.setStreet("Dorf");
+        memberController.setStreetNumber("46");
         //memberController.setPaidCurrentYear();
 
         memberController.commit();
