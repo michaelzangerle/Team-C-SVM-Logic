@@ -32,14 +32,14 @@ public class MemberControllerMain {
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferMember member = searchController.getMembers("Patrick", "Jost").get(0);
+        ITransferMember member = searchController.getMembers("Mike", "").get(0);
         searchController.abort();
 
-        IMemberController memberController = LogicFacade.getMemberController(user, member);
+        IMemberController memberController = LogicFacade.getMemberController(user);
         memberController.start();
 
 
-        memberController.setFirstName("Mike");
+        memberController.setFirstName("Mike2");
         memberController.setLastName("Zangerle");
         memberController.setBirthDate(new Date());
 
@@ -52,7 +52,7 @@ public class MemberControllerMain {
 
         memberController.setStreet("Dorf");
         memberController.setStreetNumber("46");
-        memberController.setPaidCurrentYear();
+        //memberController.setPaidCurrentYear();
 
         memberController.commit();
 

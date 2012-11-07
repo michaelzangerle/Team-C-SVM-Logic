@@ -143,7 +143,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.member = (IMember) o;
         this.firstName = member.getFirstName();
-        this.location = (TransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
+        this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
         this.userName = member.getUserName();
         this.lastName = member.getLastName();
         this.title = member.getTitle();
@@ -165,6 +165,6 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public String toString() {
-        return this.member.getFirstName() + " " + this.member.getLastName();
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

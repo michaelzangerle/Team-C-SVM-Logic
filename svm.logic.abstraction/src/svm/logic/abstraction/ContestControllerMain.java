@@ -32,7 +32,7 @@ public class ContestControllerMain {
         ISearchController searchController = LogicFacade.getSearchController(user);
         searchController.start();
 
-        ITransferContest contest = searchController.getContests().get(2);
+        ITransferContest contest = searchController.getContests().get(0);
         searchController.abort();
 
         IContestController contestController = LogicFacade.getContestController(user, contest);
@@ -42,7 +42,7 @@ public class ContestControllerMain {
             System.out.println(t.getName());
         }
 
-        contestController.commit();
+        contestController.abort();
     }
 
 }

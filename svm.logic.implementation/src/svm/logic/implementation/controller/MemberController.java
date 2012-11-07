@@ -166,7 +166,6 @@ public class MemberController implements IMemberController {
     public void start() throws NoSessionFoundException, IllegalGetInstanceException {
         this.sessionId = DomainFacade.generateSessionId();
         DomainFacade.reattachObjectToSession(this.sessionId, member);
-
         this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member);
     }
 
