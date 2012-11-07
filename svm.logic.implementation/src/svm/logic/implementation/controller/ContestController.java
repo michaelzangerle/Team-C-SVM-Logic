@@ -9,6 +9,7 @@ import svm.domain.abstraction.modeldao.IMatchModelDAO;
 import svm.logic.abstraction.controller.IContestController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
+import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferContest;
 import svm.logic.implementation.tranferobjects.TransferExternalTeam;
@@ -41,22 +42,35 @@ public class ContestController implements IContestController {
     }
 
     @Override
-    public void setContestName(String name) throws DomainAttributeException {
+    public void setContestName(String name) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.setName(name);
+
     }
 
     @Override
-    public void setContestStartDate(Date start) throws DomainParameterCheckException {
+    public void setContestStartDate(Date start) throws DomainParameterCheckException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.setStart(start);
     }
 
     @Override
-    public void setContestEndDate(Date end) throws DomainParameterCheckException {
+    public void setContestEndDate(Date end) throws DomainParameterCheckException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.setEnd(end);
     }
 
     @Override
-    public void setContestFee(float val) throws DomainParameterCheckException, DomainAttributeException {
+    public void setContestFee(float val) throws DomainParameterCheckException, DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.setFee(val);
     }
 
@@ -88,58 +102,90 @@ public class ContestController implements IContestController {
     }
 
     @Override
-    public void setPhone1(String val) throws DomainAttributeException {
+    public void setPhone1(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setPhone1(val);
     }
 
     @Override
-    public void setPhone2(String val) throws DomainAttributeException {
+    public void setPhone2(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setPhone2(val);
     }
 
     @Override
-    public void setEmail1(String val) throws DomainAttributeException {
+    public void setEmail1(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setEmail1(val);
     }
 
     @Override
-    public void setEmail2(String val) throws DomainAttributeException {
+    public void setEmail2(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setEmail2(val);
     }
 
     @Override
-    public void setFax(String val) throws DomainAttributeException {
+    public void setFax(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setFax(val);
     }
 
     @Override
-    public void setStreet(String val) throws DomainAttributeException {
+    public void setStreet(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setStreet(val);
     }
 
     @Override
-    public void setStreetNumber(String val) throws DomainAttributeException {
+    public void setStreetNumber(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setStreetNumber(val);
     }
 
     @Override
-    public void setLat(String val) throws DomainAttributeException {
+    public void setLat(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setCoordLat(val);
     }
 
     @Override
-    public void setLong(String val) throws DomainAttributeException {
+    public void setLong(String val) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         this.contest.getContactDetails().setCoordLong(val);
     }
 
     @Override
-    public void setLocation(ITransferLocation location) throws DomainAttributeException {
+    public void setLocation(ITransferLocation location) throws DomainAttributeException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         ILocation l = ((IHasModel<ILocation>) location).getModel();
         this.contest.getContactDetails().setLocation(l);
     }
 
     @Override
-    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException {
+    public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
 
         IMatchModelDAO matchDao = DomainFacade.getMatchModelDAO();
         IMatch match = matchDao.generateObject();
@@ -171,19 +217,29 @@ public class ContestController implements IContestController {
     }
 
     @Override
-    public void setDateForMatch(ITransferMatch match, Date start) {
+    public void setDateForMatch(ITransferMatch match, Date start) throws NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.setStart(start);
     }
 
     @Override
-    public void setResult(ITransferMatch match, Integer home, Integer away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException {
+    public void setResult(ITransferMatch match, Integer home, Integer away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
+
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.setResult(home, away);
     }
 
     @Override
-    public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException {
+    public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, NotAllowException {
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
 
         if (team instanceof ITransferExternalTeam) {
             IExternalTeam t = ((IHasModel<IExternalTeam>) team).getModel();
@@ -196,7 +252,11 @@ public class ContestController implements IContestController {
     }
 
     @Override
-    public void removeTeam(ITransferTeam team) throws RemoteException, DomainException {
+    public void removeTeam(ITransferTeam team) throws RemoteException, DomainException, NotAllowException {
+
+        if(!user.isAllowedForContestChanging())
+            throw new NotAllowException("Wrong privileges");
+
 
         if (team instanceof ITransferExternalTeam) {
             IExternalTeam t = ((IHasModel<IExternalTeam>) team).getModel();
