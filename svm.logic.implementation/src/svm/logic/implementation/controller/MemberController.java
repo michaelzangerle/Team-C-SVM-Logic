@@ -7,10 +7,7 @@ import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -43,7 +40,10 @@ public class MemberController implements IMemberController {
 
     @Override
     public void setTitle(String title) throws DomainAttributeException {
-        this.member.setTitle(title);
+        if (user.isAllowedForMemberChanging())
+            this.member.setTitle(title);
+        else
+            throw new NotAllowedException();
     }
 
     @Override
@@ -158,5 +158,15 @@ public class MemberController implements IMemberController {
     @Override
     public void setUsername(String name) throws DomainAttributeException {
         this.member.setUserName(name);
+    }
+
+    @Override
+    public void addPrivilege(ITransferUserPrivilege privilege) {
+        // TODO
+    }
+
+    @Override
+    public void removePrivilege(ITransferUserPrivilege privilege) {
+        // TODO
     }
 }
