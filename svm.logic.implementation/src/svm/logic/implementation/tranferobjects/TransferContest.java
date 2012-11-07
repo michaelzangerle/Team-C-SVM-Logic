@@ -30,7 +30,9 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
         this.start = contest.getStart();
         this.end = contest.getEnd();
         this.fee = contest.getFee();
-        this.contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
+        if (!contest.getContactDetails().isNull()) {
+            this.contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import svm.logic.abstraction.transferobjects.ITransferDepartment;
  */
 public class TransferDepartment implements ITransferDepartment, IHasModel<IDepartment> {
     private IDepartment department;
+    private String name;
 
     @Override
     public IDepartment getModel() {
@@ -17,13 +18,18 @@ public class TransferDepartment implements ITransferDepartment, IHasModel<IDepar
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public void setObject(Object o) {
         this.department = (IDepartment) o;
+        this.name = department.getName();
     }
 
     @Override
     public String toString() {
-
-        return this.department.getName();
+        return getName();
     }
 }

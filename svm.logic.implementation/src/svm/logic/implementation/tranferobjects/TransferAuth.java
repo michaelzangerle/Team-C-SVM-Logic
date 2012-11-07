@@ -6,8 +6,6 @@ import svm.domain.abstraction.modelInterfaces.IUserPrivilege;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 /**
  * ProjectTeam: Team C
@@ -16,7 +14,6 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private IMember member;
     private String firstName;
-    private ITransferLocation location;
     private String userName;
     private String lastName;
     private String title;
@@ -30,7 +27,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private boolean isAllowedForContestViewing = false;
     private boolean isAllowedForContestChanging = false;
     private boolean isAllowedForContestDeleting = false;
-    private boolean isAllowedForContestAdding=false;
+    private boolean isAllowedForContestAdding = false;
 
 
     @Override
@@ -112,7 +109,6 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.member = (IMember) o;
         this.firstName = member.getFirstName();
-        this.location = (TransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
         this.userName = member.getUserName();
         this.lastName = member.getLastName();
         this.title = member.getTitle();

@@ -78,7 +78,9 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         end = match.getEnd();
         cancelled = match.getCancelled();
         contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, this.match.getContactDetails());
-        matchType = (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());
+        if (!match.getMatchType().isNull()) {
+            matchType = (ITransferMatchType) TransferObjectCreator.getInstance(TransferMatchType.class, this.match.getMatchType());
+        }
         description = match.getDescription();
         remarks = match.getRemarks();
         home = getHomeTeam();
@@ -88,15 +90,19 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     }
 
     private ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
-        return (match.getHomeExternal() != null) ?
-                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getHomeExternal())) :
-                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getHomeInternal()));
+        if (!match.getAwayExternal().isNull()) {
+            return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getAwayExternal());
+        } else {
+            return (ITransferTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, match.getAwayInternal());
+        }
     }
 
     private ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
-        return (match.getHomeExternal() != null) ?
-                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getAwayExternal())) :
-                ((ITransferTeam) TransferObjectCreator.getInstance(TransferTeam.class, match.getAwayInternal()));
+        if (!match.getHomeExternal().isNull()) {
+            return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getHomeExternal());
+        } else {
+            return (ITransferTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, match.getHomeInternal());
+        }
     }
 
     @Override

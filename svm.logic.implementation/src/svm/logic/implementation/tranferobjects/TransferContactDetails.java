@@ -37,7 +37,9 @@ public class TransferContactDetails implements ITransferContactDetails, IHasMode
         this.streetNumber = contactDetails.getStreetNumber();
         this.coordLat = contactDetails.getCoordLat();
         this.coordLong = contactDetails.getCoordLong();
-        this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, contactDetails.getLocation());
+        if (!contactDetails.getLocation().isNull()) {
+            this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, contactDetails.getLocation());
+        }
     }
 
     @Override

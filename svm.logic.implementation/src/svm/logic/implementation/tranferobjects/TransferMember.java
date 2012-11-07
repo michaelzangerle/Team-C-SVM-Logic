@@ -55,7 +55,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
 
     @Override
     public String getLastName() {
-        return lastName;  //To change body of implemented methods use File | Settings | File Templates.
+        return lastName;
     }
 
     @Override
@@ -143,7 +143,6 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.member = (IMember) o;
         this.firstName = member.getFirstName();
-        this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
         this.userName = member.getUserName();
         this.lastName = member.getLastName();
         this.title = member.getTitle();
@@ -151,16 +150,22 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
         this.birthDate = member.getBirthDate();
         this.gender = member.getGender();
         this.entryDate = member.getEntryDate();
-        this.phone1 = member.getContactDetails().getPhone1();
-        this.phone2 = member.getContactDetails().getPhone2();
-        this.fax = member.getContactDetails().getFax();
-        this.email1 = member.getContactDetails().getEmail1();
-        this.email2 = member.getContactDetails().getEmail2();
-        this.street = member.getContactDetails().getStreet();
-        this.streetNumber = member.getContactDetails().getStreetNumber();
-        this.coordLat = member.getContactDetails().getCoordLat();
-        this.coordLong = member.getContactDetails().getCoordLong();
         this.hasPaidFee = this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
+
+        if (!member.getContactDetails().isNull()) {
+            this.phone1 = member.getContactDetails().getPhone1();
+            this.phone2 = member.getContactDetails().getPhone2();
+            this.fax = member.getContactDetails().getFax();
+            this.email1 = member.getContactDetails().getEmail1();
+            this.email2 = member.getContactDetails().getEmail2();
+            this.street = member.getContactDetails().getStreet();
+            this.streetNumber = member.getContactDetails().getStreetNumber();
+            this.coordLat = member.getContactDetails().getCoordLat();
+            this.coordLong = member.getContactDetails().getCoordLong();
+            if (!member.getContactDetails().getLocation().isNull()) {
+                this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
+            }
+        }
     }
 
     @Override

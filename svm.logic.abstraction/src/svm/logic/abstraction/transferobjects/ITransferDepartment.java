@@ -5,4 +5,5 @@ package svm.logic.abstraction.transferobjects;
  * Date: 30.10.12
  */
 public interface ITransferDepartment extends ITransfer {
+    String getName();
 }

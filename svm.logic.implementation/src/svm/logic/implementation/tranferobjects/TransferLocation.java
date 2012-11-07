@@ -10,7 +10,6 @@ import svm.logic.abstraction.transferobjects.ITransferLocation;
  */
 public class TransferLocation implements ITransferLocation, IHasModel<ILocation> {
 
-
     private ILocation location;
     private String countryCode;
     private String postalCode;

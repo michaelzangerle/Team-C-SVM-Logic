@@ -24,7 +24,7 @@ public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException {
         ILoginController lc = LogicFacade.getLoginController();
         lc.start();
-        lc.login("tf-test", "Pak3bGEh");
+        lc.loginWithoutLdap("tf-test", "Pak3bGEh");
         ITransferAuth user = lc.getMember();
         lc.abort();
 

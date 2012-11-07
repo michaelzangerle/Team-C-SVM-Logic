@@ -25,8 +25,6 @@ public class TransferMatchType implements ITransferMatchType {
 
     @Override
     public String toString() {
-
-
-        return this.matchType.getName();
+        return getName();
     }
 }
