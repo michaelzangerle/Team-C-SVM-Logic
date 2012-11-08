@@ -2,10 +2,7 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainException;
-import svm.domain.abstraction.modelInterfaces.IContest;
-import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.domain.abstraction.modelInterfaces.ISubTeam;
-import svm.domain.abstraction.modelInterfaces.ITeam;
+import svm.domain.abstraction.modelInterfaces.*;
 import svm.logic.abstraction.controller.ISubTeamController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
@@ -13,13 +10,16 @@ import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
+import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.tranferobjects.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
-
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * ProjectTeam: Team C
@@ -27,26 +27,41 @@ import svm.persistence.abstraction.exceptions.NotSupportedException;
  */
 public class SubTeamController implements ISubTeamController {
 
+    private ITeam team;
+    private IContest contest;
+
     private ISubTeam subTeam;
     private ITransferSubTeam transferSubTeam;
     private Integer sessionId;
     private ITransferAuth user;
 
     public SubTeamController(ITeam team, IContest contest, ITransferAuth user) throws NoSessionFoundException, IllegalAccessException, InstantiationException, NotSupportedException {
-        this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject();
-        this.subTeam.setContest(contest);
-        this.subTeam.setTeam(team);
-        this.user = user;
-    }
-
-    public SubTeamController(ISubTeam subTeam, ITransferAuth user) {
-        this.subTeam = subTeam;
+        this.team = team;
+        this.contest = contest;
         this.user = user;
     }
 
     @Override
     public ITransferSubTeam getSubTeam() {
         return transferSubTeam;
+    }
+
+    @Override
+    public List<ITransferMember> getMemberOfTeam() throws IllegalGetInstanceException {
+        List<ITransferMember> members = new LinkedList<ITransferMember>();
+        for (IMember member : subTeam.getTeam().getMembers()) {
+            members.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+        }
+        return members;
+    }
+
+    @Override
+    public List<ITransferMember> getMembersOfSubTeam() throws IllegalGetInstanceException {
+        List<ITransferMember> members = new LinkedList<ITransferMember>();
+        for (ISubTeamsHasMembers member : subTeam.getSubTeamMembers()) {
+            members.add((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member.getMember()));
+        }
+        return members;
     }
 
     @Override
@@ -65,10 +80,26 @@ public class SubTeamController implements ISubTeamController {
     }
 
     @Override
-    public void start() throws NoSessionFoundException, IllegalGetInstanceException {
+    public void start() throws NoSessionFoundException, IllegalGetInstanceException, NotSupportedException, InstantiationException, IllegalAccessException {
         this.sessionId = DomainFacade.generateSessionId();
-        DomainFacade.reattachObjectToSession(sessionId, ((IHasModel) this.subTeam).getModel());
+
+        this.subTeam = findSubTeam();
+        if (this.subTeam == null) {
+            this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject(sessionId);
+            this.subTeam.setTeam(team);
+            this.subTeam.setContest(contest);
+        }
+        DomainFacade.reattachObjectToSession(sessionId, this.subTeam);
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
+    }
+
+    private ISubTeam findSubTeam() throws NoSessionFoundException {
+        for (ISubTeam st : DomainFacade.getSubTeamModelDAO().getAll(sessionId)) {
+            if (st.getTeam().equals(team) && st.getContest().equals(contest)) {
+                return st;
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,15 +1,12 @@
 package svm.logic.implementation;
 
-import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IContest;
 import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.domain.abstraction.modelInterfaces.ITeam;
 import svm.logic.abstraction.controller.*;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.controller.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
-
 import svm.persistence.abstraction.exceptions.NotSupportedException;
 
 /**
@@ -88,10 +85,6 @@ public class ControllerFactory {
 
     public ISubTeamConfirmationController getSubTeamConfirmationController(ITransferAuth user, ITransferMember member) {
         return new SubTeamConfirmationController(((IHasModel<IMember>) member).getModel(), user);
-    }
-
-    public ISubTeamController getSubTeamController(ITransferAuth user, ITransferSubTeam subTeam) {
-        return new SubTeamController(((IHasModel<ISubTeam>) subTeam).getModel(), user);
     }
 
     public ISubTeamController getSubTeamController(ITransferAuth user, ITransferTeam team, ITransferContest contest) throws NoSessionFoundException, InstantiationException, IllegalAccessException, NotSupportedException {
