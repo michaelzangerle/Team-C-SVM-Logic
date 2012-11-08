@@ -46,10 +46,10 @@ public class LoginController implements ILoginController {
     public boolean login(String userName, String password) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException {
       if(!LdapChecker.authentication(userName,password))
       {
-          System.out.println("Login false");
+          System.out.println("Login false ("+userName+")");
           return false;
       }
-        System.out.println("Login ok");
+        System.out.println("Login ok ("+userName+")");
 
         List<IMember> members = DomainFacade.getMemberModelDAO().get(sessionId, userName);
         if (members.size() == 1) {
