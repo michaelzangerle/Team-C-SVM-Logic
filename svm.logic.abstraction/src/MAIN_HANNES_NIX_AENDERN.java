@@ -9,12 +9,14 @@ import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMatch;
+import svm.logic.abstraction.transferobjects.ITransferTeam;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 
 import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 /**
  * ProjectTeam: Team C
@@ -44,10 +46,10 @@ public class MAIN_HANNES_NIX_AENDERN {
             System.out.println(t.getName());
         }
 
-        /*ITransferTeam t1 = contestController.getTeams().get(0);
+        ITransferTeam t1 = contestController.getTeams().get(0);
         ITransferTeam t2 = contestController.getTeams().get(1);
 
-        contestController.addMatch(t1, t2, new Date(), new Date());*/
+        contestController.addMatch(t1, t2, new Date(), new Date());
 
         contestController.commit();
 
