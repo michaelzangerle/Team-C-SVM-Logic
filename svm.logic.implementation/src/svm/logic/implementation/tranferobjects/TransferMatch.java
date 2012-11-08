@@ -28,6 +28,8 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     private ITransferTeam home;
     private ITransferTeam away;
     private Integer resultHome;
+
+
     private Integer resultAway;
 
     @Override
@@ -89,7 +91,8 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         resultAway = match.getAwayResult();
     }
 
-    private ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
+    @Override
+    public ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
         if (!match.getAwayExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getAwayExternal());
         } else {
@@ -97,13 +100,25 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         }
     }
 
-    private ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
+    @Override
+    public ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
         if (!match.getHomeExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getHomeExternal());
         } else {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, match.getHomeInternal());
         }
     }
+
+    @Override
+    public Integer getResultAway() {
+        return resultAway;
+    }
+
+    @Override
+    public Integer getResultHome() {
+        return resultHome;
+    }
+
 
     @Override
     public IMatch getModel() {
@@ -118,6 +133,8 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
         return this.match.getName() + " (" + sdf.format(this.match.getStart()) + ")";
     }
+
+
 
 
 }
