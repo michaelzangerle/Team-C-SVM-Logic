@@ -113,8 +113,8 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         this.lastName = member.getLastName();
         this.title = member.getTitle();
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) | member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            isAllowedForSearching = true;
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) | member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+        isAllowedForSearching = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER) || member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
             isAllowedForMemberViewing = true;
