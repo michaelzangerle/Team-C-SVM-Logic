@@ -116,7 +116,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) | member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
         isAllowedForSearching = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER) || member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForMemberViewing = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
