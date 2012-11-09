@@ -26,8 +26,6 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     private ITransferTeam home;
     private ITransferTeam away;
     private Integer resultHome;
-
-
     private Integer resultAway;
 
     @Override
