@@ -76,12 +76,13 @@ public class MAIN_HANNES_NIX_AENDERN {
         IContestController contestController = LogicFacade.getContestController(user, contest);
         contestController.start();
 
-        /*
         ITransferTeam t1 = contestController.getTeams().get(0);
         ITransferTeam t2 = contestController.getTeams().get(1);
+        ITransferTeam t3 = contestController.getTeams().get(0);
+        ITransferTeam t4 = contestController.getTeams().get(1);
 
         contestController.addMatch(t1, t2, new Date(), new Date());
-         */
+        contestController.addMatch(t3, t4, new Date(), new Date());
 
         for (ITransferMatch match : contestController.getMatches()) System.out.println(match.getName());
 
