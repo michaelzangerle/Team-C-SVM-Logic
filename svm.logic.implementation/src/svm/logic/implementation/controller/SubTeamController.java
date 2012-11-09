@@ -82,24 +82,14 @@ public class SubTeamController implements ISubTeamController {
     @Override
     public void start() throws NoSessionFoundException, IllegalGetInstanceException, NotSupportedException, InstantiationException, IllegalAccessException {
         this.sessionId = DomainFacade.generateSessionId();
-
-        this.subTeam = findSubTeam();
-        if (this.subTeam == null) {
-            this.subTeam = DomainFacade.getSubTeamModelDAO().generateObject(sessionId);
-            this.subTeam.setTeam(team);
-            this.subTeam.setContest(contest);
+        try {
+            this.subTeam = DomainFacade.getSubTeamModelDAO().get(sessionId, team, contest);
+        } catch (DomainException e) {
+            e.printStackTrace();
+            throw new NotSupportedException();
         }
         DomainFacade.reattachObjectToSession(sessionId, this.subTeam);
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
-    }
-
-    private ISubTeam findSubTeam() throws NoSessionFoundException {
-        for (ISubTeam st : DomainFacade.getSubTeamModelDAO().getAll(sessionId)) {
-            if (st.getTeam().equals(team) && st.getContest().equals(contest)) {
-                return st;
-            }
-        }
-        return null;
     }
 
     @Override
