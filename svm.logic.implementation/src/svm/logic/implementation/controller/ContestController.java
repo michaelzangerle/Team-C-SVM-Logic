@@ -232,6 +232,7 @@ public class ContestController implements IContestController {
 
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.setStart(start);
+        m.setEnd(start);
     }
 
     @Override
