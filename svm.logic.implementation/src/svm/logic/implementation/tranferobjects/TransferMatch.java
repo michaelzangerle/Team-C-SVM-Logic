@@ -34,7 +34,7 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
     @Override
     public String getName() {
-        return this.match.getName();
+        return name;
     }
 
     @Override
@@ -85,14 +85,13 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         }
         description = match.getDescription();
         remarks = match.getRemarks();
-        home = getHomeTeam();
-        away = getAwayTeam();
+        home = getHomeTeamTemp();
+        away = getAwayTeamTemp();
         resultHome = match.getHomeResult();
         resultAway = match.getAwayResult();
     }
 
-    @Override
-    public ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
+    public ITransferTeam getAwayTeamTemp() throws IllegalGetInstanceException {
         if (!match.getAwayExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getAwayExternal());
         } else {
@@ -100,8 +99,7 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         }
     }
 
-    @Override
-    public ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
+    public ITransferTeam getHomeTeamTemp() throws IllegalGetInstanceException {
         if (!match.getHomeExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getHomeExternal());
         } else {
@@ -112,6 +110,16 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     @Override
     public Integer getResultAway() {
         return resultAway;
+    }
+
+    @Override
+    public ITransferTeam getHomeTeam() throws IllegalGetInstanceException {
+        return home;
+    }
+
+    @Override
+    public ITransferTeam getAwayTeam() throws IllegalGetInstanceException {
+        return away;
     }
 
     @Override
@@ -133,8 +141,6 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
 
         return this.match.getName() + " (" + sdf.format(this.match.getStart()) + ")";
     }
-
-
 
 
 }
