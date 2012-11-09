@@ -22,8 +22,8 @@ import java.util.Date;
  */
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException {
-        //testSubTeamController();
-        testContestController();
+        testSubTeamController();
+        //testContestController();
     }
 
     public static void testSubTeamController() throws svm.persistence.abstraction.exceptions.NotSupportedException, IllegalGetInstanceException, NoSessionFoundException, IllegalAccessException, InstantiationException, RemoteException, ExistingTransactionException, NoTransactionException, NotAllowException, LogicException, DomainException {

@@ -89,6 +89,8 @@ public class SubTeamController implements ISubTeamController {
             throw new NotSupportedException();
         }
         DomainFacade.reattachObjectToSession(sessionId, this.subTeam);
+        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getTeam());
+        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getContest());
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
     }
 
