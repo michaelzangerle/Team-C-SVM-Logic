@@ -38,7 +38,7 @@ public class TransferInternalTeam extends TransferTeam implements ITransferInter
 
     @Override
     public String toString() {
-        return this.teamEntity.getName();
+        return name;
     }
 
 }
