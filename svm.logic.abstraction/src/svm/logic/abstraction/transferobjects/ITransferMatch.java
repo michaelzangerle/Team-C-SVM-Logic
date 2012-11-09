@@ -3,7 +3,6 @@ package svm.logic.abstraction.transferobjects;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Projectteam: Team C
@@ -27,4 +26,11 @@ public interface ITransferMatch extends ITransfer {
 
     String getRemarks();
 
+    Integer getResultAway();
+
+    ITransferTeam getHomeTeam() throws IllegalGetInstanceException;
+
+    ITransferTeam getAwayTeam() throws IllegalGetInstanceException;
+
+    Integer getResultHome();
 }
