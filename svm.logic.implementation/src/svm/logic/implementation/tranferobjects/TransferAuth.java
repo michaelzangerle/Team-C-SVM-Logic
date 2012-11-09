@@ -25,9 +25,17 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private boolean isAllowedForMemberAdding = false;
     private boolean isAllowedForMemberAddingPrivileges = false;
     private boolean isAllowedForContestViewing = false;
-    private boolean isAllowedForContestChanging = false;
+    private boolean isAllowedForContestDetailsChanging = false;
+    private boolean isAllowedForContestTeamsChanging = false;
+    private boolean isAllowedForContestMatchChanging = false;
+    private boolean isAllowedForContestResultChanging = false;
     private boolean isAllowedForContestDeleting = false;
     private boolean isAllowedForContestAdding = false;
+
+
+
+    private boolean isAllowedForContestSubTeamChanging=false;
+
 
 
     @Override
@@ -91,8 +99,8 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     }
 
     @Override
-    public boolean isAllowedForContestChanging() {
-        return isAllowedForContestChanging;
+    public boolean isAllowedForContestDetailsChanging() {
+        return isAllowedForContestDetailsChanging;
     }
 
     @Override
@@ -106,6 +114,23 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     }
 
     @Override
+    public boolean isAllowedForContestResultChanging() {
+        return isAllowedForContestResultChanging;
+    }
+    @Override
+    public boolean isAllowedForContestMatchChanging() {
+        return isAllowedForContestMatchChanging;
+    }
+    @Override
+    public boolean isAllowedForContestTeamsChanging() {
+        return isAllowedForContestTeamsChanging;
+    }
+     @Override
+    public boolean isAllowedForContestSubTeamChanging() {
+        return isAllowedForContestSubTeamChanging;
+    }
+
+    @Override
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.member = (IMember) o;
         this.firstName = member.getFirstName();
@@ -113,7 +138,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         this.lastName = member.getLastName();
         this.title = member.getTitle();
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY)||member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.CONTEST_TEAM_MANAGER)||member.isIn(IUserPrivilege.Privileges.CONTEST_SUBTEAM_MANAGER))
         isAllowedForSearching = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
@@ -128,19 +153,31 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForMemberAdding = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN))
             isAllowedForMemberAddingPrivileges = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY)||member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER)||member.isIn(IUserPrivilege.Privileges.CONTEST_TEAM_MANAGER)||member.isIn(IUserPrivilege.Privileges.CONTEST_SUBTEAM_MANAGER))
             isAllowedForContestViewing = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
-            isAllowedForContestChanging = true;
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER))
+            isAllowedForContestDetailsChanging = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER))
+            isAllowedForContestResultChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER))
+            isAllowedForContestMatchChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_TEAM_MANAGER))
+            isAllowedForContestTeamsChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_SUBTEAM_MANAGER))
+            isAllowedForContestSubTeamChanging = true;
+
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER))
             isAllowedForContestDeleting = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER))
             isAllowedForContestAdding = true;
 
     }
