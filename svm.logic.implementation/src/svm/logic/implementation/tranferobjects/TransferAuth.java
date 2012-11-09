@@ -113,7 +113,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         this.lastName = member.getLastName();
         this.title = member.getTitle();
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) | member.isIn(IUserPrivilege.Privileges.MATCH_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER)|| member.isIn(IUserPrivilege.Privileges.VIEW_ONLY))
         isAllowedForSearching = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
@@ -131,16 +131,16 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForMemberAddingPrivileges = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForContestViewing = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForContestChanging = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForContestDeleting = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER)|| member.isIn(IUserPrivilege.Privileges.MEMBER_MANAGER))
             isAllowedForContestAdding = true;
 
     }
