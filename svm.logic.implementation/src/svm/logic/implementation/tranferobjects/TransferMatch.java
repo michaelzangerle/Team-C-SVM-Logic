@@ -7,7 +7,6 @@ import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Projectteam: Team C
@@ -24,7 +23,6 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
     private ITransferMatchType matchType;
     private String description;
     private String remarks;
-    private List<ITransferContestant> contestants;
     private ITransferTeam home;
     private ITransferTeam away;
     private Integer resultHome;
@@ -91,7 +89,7 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         resultAway = match.getAwayResult();
     }
 
-    public ITransferTeam getAwayTeamTemp() throws IllegalGetInstanceException {
+    private ITransferTeam getAwayTeamTemp() throws IllegalGetInstanceException {
         if (!match.getAwayExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getAwayExternal());
         } else {
@@ -99,7 +97,7 @@ public class TransferMatch implements ITransferMatch, IHasModel<IMatch> {
         }
     }
 
-    public ITransferTeam getHomeTeamTemp() throws IllegalGetInstanceException {
+    private ITransferTeam getHomeTeamTemp() throws IllegalGetInstanceException {
         if (!match.getHomeExternal().isNull()) {
             return (ITransferTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, match.getHomeExternal());
         } else {
