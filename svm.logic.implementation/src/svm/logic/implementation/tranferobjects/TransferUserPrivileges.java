@@ -14,6 +14,7 @@ public class TransferUserPrivileges implements ITransferUserPrivilege, IHasModel
 
     private IUserPrivilege userPrivilege;
     private String name;
+    private String description;
 
     @Override
     public IUserPrivilege getModel() {
@@ -24,10 +25,21 @@ public class TransferUserPrivileges implements ITransferUserPrivilege, IHasModel
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.userPrivilege = (IUserPrivilege) o;
         name = userPrivilege.getName();
+        description = userPrivilege.getDescription();
     }
 
     @Override
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 }

@@ -6,4 +6,6 @@ package svm.logic.abstraction.transferobjects;
  */
 public interface ITransferUserPrivilege extends ITransfer {
     String getName();
+
+    String getDescription();
 }

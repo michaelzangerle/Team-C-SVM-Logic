@@ -2,15 +2,17 @@ package svm.logic.abstraction.controller;
 
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferUserPrivilege;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
-
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Projectteam: Team C
@@ -112,4 +114,6 @@ public interface IMemberController extends IController {
     void addPrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, NoSessionFoundException, DomainAttributeException, IllegalAccessException, InstantiationException;
 
     void removePrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, DomainAttributeException;
+
+    List<ITransferUserPrivilege> getPrivileges() throws IllegalGetInstanceException;
 }
