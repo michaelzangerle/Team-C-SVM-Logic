@@ -231,7 +231,7 @@ public class ContestController implements IContestController {
 
     @Override
     public void setDateForMatch(ITransferMatch match, Date start) throws NotAllowException {
-        if (!user.isAllowedForContestDetailsChanging())
+        if (!user.isAllowedForContestResultChanging())
             throw new NotAllowException("Wrong privileges");
 
         int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
