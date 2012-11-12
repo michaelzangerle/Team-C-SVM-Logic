@@ -41,7 +41,7 @@ public interface ITransferAuth extends ITransfer {
 
     boolean isAllowedForContestResultChanging();
 
-    boolean isAllowedForContestMatchChanging();
+    boolean isAllowedForContestMatchAdding();
 
     boolean isAllowedForContestTeamsChanging();
 

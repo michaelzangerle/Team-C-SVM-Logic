@@ -27,7 +27,7 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     private boolean isAllowedForContestViewing = false;
     private boolean isAllowedForContestDetailsChanging = false;
     private boolean isAllowedForContestTeamsChanging = false;
-    private boolean isAllowedForContestMatchChanging = false;
+    private boolean isAllowedForContestMatchAdding = false;
     private boolean isAllowedForContestResultChanging = false;
     private boolean isAllowedForContestDeleting = false;
     private boolean isAllowedForContestAdding = false;
@@ -114,8 +114,8 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
     }
 
     @Override
-    public boolean isAllowedForContestMatchChanging() {
-        return isAllowedForContestMatchChanging;
+    public boolean isAllowedForContestMatchAdding() {
+        return isAllowedForContestMatchAdding;
     }
 
     @Override
@@ -163,8 +163,8 @@ public class TransferAuth implements ITransferAuth, IHasModel<IMember> {
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER))
             isAllowedForContestResultChanging = true;
 
-        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MATCH_MANAGER))
-            isAllowedForContestMatchChanging = true;
+        if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER))
+            isAllowedForContestMatchAdding = true;
 
         if (member.isIn(IUserPrivilege.Privileges.ADMIN) || member.isIn(IUserPrivilege.Privileges.MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_MANAGER) || member.isIn(IUserPrivilege.Privileges.CONTEST_TEAM_MANAGER))
             isAllowedForContestTeamsChanging = true;
