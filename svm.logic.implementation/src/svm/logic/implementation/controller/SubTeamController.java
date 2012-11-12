@@ -85,6 +85,8 @@ public class SubTeamController implements ISubTeamController {
 
         if (m != null)
             this.subTeam.addMember(m);
+        else
+            System.out.println("NULL addMember [subTeam]");
     }
 
     @Override
@@ -98,8 +100,10 @@ public class SubTeamController implements ISubTeamController {
             if (x.equals(toSearch)) m = x;
         }
 
-        if (m != null)
+        if (m != null) {
             this.subTeam.removeMember(m);
+        } else
+            System.out.println("NULL removeMember [subTeam]");
     }
 
     @Override
@@ -112,8 +116,12 @@ public class SubTeamController implements ISubTeamController {
             throw new NotSupportedException();
         }
         DomainFacade.reattachObjectToSession(sessionId, this.subTeam);
-        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getTeam());
-        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getContest());
+        try {
+            DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getTeam());
+            DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getContest());
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
     }
 
