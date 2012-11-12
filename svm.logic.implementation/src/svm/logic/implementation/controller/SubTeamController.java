@@ -79,7 +79,7 @@ public class SubTeamController implements ISubTeamController {
 
         IMember m = null;
         IMember toSearch = ((IHasModel<IMember>) member).getModel();
-        for (IMember x : team.getMembers()) {
+        for (IMember x : subTeam.getTeam().getMembers()) {
             if (x.equals(toSearch)) m = x;
         }
 
@@ -96,7 +96,7 @@ public class SubTeamController implements ISubTeamController {
 
         IMember m = null;
         IMember toSearch = ((IHasModel<IMember>) member).getModel();
-        for (IMember x : team.getMembers()) {
+        for (IMember x : subTeam.getTeam().getMembers()) {
             if (x.equals(toSearch)) m = x;
         }
 
