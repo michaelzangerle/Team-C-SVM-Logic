@@ -20,6 +20,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+import svm.persistence.abstraction.model.IMatchEntity;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -86,6 +87,9 @@ public class ContestController implements IContestController {
             contest = DomainFacade.getContestModelDAO().generateObject(sessionId);
         }
         DomainFacade.reattachObjectToSession(this.sessionId, contest);
+        for (IMatch m : contest.getMatches()) {
+            DomainFacade.reattachObjectToSession(sessionId, m);
+        }
         this.transferContest = (ITransferContest) TransferObjectCreator.getInstance(TransferContest.class, contest);
     }
 
@@ -230,9 +234,17 @@ public class ContestController implements IContestController {
         if (!user.isAllowedForContestDetailsChanging())
             throw new NotAllowException("Wrong privileges");
 
-        IMatch m = ((IHasModel<IMatch>) match).getModel();
-        m.setStart(start);
-        m.setEnd(start);
+        int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
+        int id2 = 0;
+        IMatch m = null;
+        for (IMatch x : contest.getMatches()) {
+            id2 = ((IHasEntity<IMatchEntity>) x).getEntity().getId();
+            if (id1 == id2) m = x;
+        }
+        if (m != null) {
+            m.setStart(start);
+            m.setEnd(start);
+        }
     }
 
     @Override
@@ -240,11 +252,19 @@ public class ContestController implements IContestController {
         if (!user.isAllowedForContestDetailsChanging())
             throw new NotAllowException("Wrong privileges");
 
+        int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
+        int id2 = 0;
+        IMatch m = null;
+        for (IMatch x : contest.getMatches()) {
+            id2 = ((IHasEntity<IMatchEntity>) x).getEntity().getId();
+            if (id1 == id2) m = x;
+        }
 
-        IMatch m = ((IHasModel<IMatch>) match).getModel();
-        m.setResult(home, away);
-        System.out.println(m.getAwayInternal().getName() + " - " + m.getHomeInternal().getName() + ": " + m.getHomeResult() + " : " + m.getAwayResult());
-        DomainFacade.reattachObjectToSession(sessionId, m);
+        if (m != null) {
+            m.setResult(home, away);
+            System.out.println(m.getAwayInternal().getName() + " - " + m.getHomeInternal().getName() + ": " +
+                    m.getHomeResult() + " : " + m.getAwayResult());
+        }
     }
 
     @Override
