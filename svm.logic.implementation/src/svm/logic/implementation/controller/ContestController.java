@@ -243,6 +243,8 @@ public class ContestController implements IContestController {
 
         IMatch m = ((IHasModel<IMatch>) match).getModel();
         m.setResult(home, away);
+        System.out.println(m.getAwayInternal().getName() + " - " + m.getHomeInternal().getName() + ": " + m.getHomeResult() + " : " + m.getAwayResult());
+        DomainFacade.reattachObjectToSession(sessionId, m);
     }
 
     @Override

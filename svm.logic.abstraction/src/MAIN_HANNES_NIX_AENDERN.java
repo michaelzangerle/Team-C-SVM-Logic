@@ -15,6 +15,7 @@ import svm.persistence.abstraction.exceptions.NoTransactionException;
 import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * ProjectTeam: Team C
@@ -22,8 +23,8 @@ import java.util.Date;
  */
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException {
-        testSubTeamController();
-        //testContestController();
+        //testSubTeamController();
+        testContestController();
     }
 
     public static void testSubTeamController() throws svm.persistence.abstraction.exceptions.NotSupportedException, IllegalGetInstanceException, NoSessionFoundException, IllegalAccessException, InstantiationException, RemoteException, ExistingTransactionException, NoTransactionException, NotAllowException, LogicException, DomainException {
@@ -75,19 +76,22 @@ public class MAIN_HANNES_NIX_AENDERN {
         searchController.abort();
         IContestController contestController = LogicFacade.getContestController(user, contest);
         contestController.start();
+        /*
+       ITransferTeam t1 = contestController.getTeams().get(0);
+       ITransferTeam t2 = contestController.getTeams().get(1);
+       ITransferTeam t3 = contestController.getTeams().get(0);
+       ITransferTeam t4 = contestController.getTeams().get(1);
 
-        ITransferTeam t1 = contestController.getTeams().get(0);
-        ITransferTeam t2 = contestController.getTeams().get(1);
-        ITransferTeam t3 = contestController.getTeams().get(0);
-        ITransferTeam t4 = contestController.getTeams().get(1);
+       contestController.addMatch(t1, t2, new Date(), new Date());
+       contestController.addMatch(t3, t4, new Date(), new Date());
+        */
+        for (ITransferMatch match : contestController.getMatches()) {
+            System.out.println(match.getName());
 
-        contestController.addMatch(t1, t2, new Date(), new Date());
-        contestController.addMatch(t3, t4, new Date(), new Date());
+            contestController.setDateForMatch(match, new Date());
+            contestController.setResult(match, new Random().nextInt(10), new Random().nextInt(10));
+        }
 
-        for (ITransferMatch match : contestController.getMatches()) System.out.println(match.getName());
-
-        ITransferMatch match = contestController.getMatches().get(0);
-        contestController.setDateForMatch(match, new Date());
         contestController.commit();
     }
 }
