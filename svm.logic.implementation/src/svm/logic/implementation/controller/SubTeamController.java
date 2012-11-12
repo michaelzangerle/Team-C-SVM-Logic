@@ -6,6 +6,7 @@ import svm.domain.abstraction.modelInterfaces.*;
 import svm.logic.abstraction.controller.ISubTeamController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
+import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
@@ -65,17 +66,23 @@ public class SubTeamController implements ISubTeamController {
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(String name) throws NotAllowException {
+        if(!user.isAllowedForContestSubTeamChanging())
+            throw new NotAllowException("Wrong privilege");
         subTeam.setName(name);
     }
 
     @Override
-    public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, NotSupportedException {
+    public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, NotSupportedException, NotAllowException {
+        if(!user.isAllowedForContestSubTeamChanging())
+            throw new NotAllowException("Wrong privilege");
         this.subTeam.addMember(((IHasModel<IMember>) member).getModel());
     }
 
     @Override
-    public void removeMember(ITransferMember member) {
+    public void removeMember(ITransferMember member) throws NotAllowException {
+        if(!user.isAllowedForContestSubTeamChanging())
+            throw new NotAllowException("Wrong privilege");
         this.subTeam.removeMember(((IHasModel<IMember>) member).getModel());
     }
 
