@@ -67,23 +67,43 @@ public class SubTeamController implements ISubTeamController {
 
     @Override
     public void setName(String name) throws NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
         subTeam.setName(name);
     }
 
     @Override
     public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, NotSupportedException, NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
-        this.subTeam.addMember(((IHasModel<IMember>) member).getModel());
+
+        IMember m = null;
+        IMember toSearch = ((IHasModel<IMember>) member).getModel();
+        for (IMember x : subTeam.getTeam().getMembers()) {
+            if (x.equals(toSearch)) m = x;
+        }
+
+        if (m != null)
+            this.subTeam.addMember(m);
+        else
+            System.out.println("NULL addMember [subTeam]");
     }
 
     @Override
     public void removeMember(ITransferMember member) throws NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
-        this.subTeam.removeMember(((IHasModel<IMember>) member).getModel());
+
+        IMember m = null;
+        IMember toSearch = ((IHasModel<IMember>) member).getModel();
+        for (IMember x : subTeam.getTeam().getMembers()) {
+            if (x.equals(toSearch)) m = x;
+        }
+
+        if (m != null) {
+            this.subTeam.removeMember(m);
+        } else
+            System.out.println("NULL removeMember [subTeam]");
     }
 
     @Override
@@ -96,8 +116,12 @@ public class SubTeamController implements ISubTeamController {
             throw new NotSupportedException();
         }
         DomainFacade.reattachObjectToSession(sessionId, this.subTeam);
-        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getTeam());
-        DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getContest());
+        try {
+            DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getTeam());
+            DomainFacade.reattachObjectToSession(sessionId, this.subTeam.getContest());
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
     }
 

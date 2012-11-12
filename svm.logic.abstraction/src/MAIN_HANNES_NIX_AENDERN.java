@@ -23,15 +23,15 @@ import java.util.Random;
  */
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException {
-        //testSubTeamController();
+        testSubTeamController();
         //testContestController();
         // testContestController();
 
-        ILoginController lc = LogicFacade.getLoginController();
+        /*ILoginController lc = LogicFacade.getLoginController();
         lc.start();
         lc.loginWithoutLdap("Contest_Match_Manager", "Pak3bGEh");
         ITransferAuth user = lc.getMember();
-        lc.abort();
+        lc.abort();*/
     }
 
     public static void testSubTeamController() throws svm.persistence.abstraction.exceptions.NotSupportedException, IllegalGetInstanceException, NoSessionFoundException, IllegalAccessException, InstantiationException, RemoteException, ExistingTransactionException, NoTransactionException, NotAllowException, LogicException, DomainException {
