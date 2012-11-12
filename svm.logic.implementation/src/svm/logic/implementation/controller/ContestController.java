@@ -249,7 +249,7 @@ public class ContestController implements IContestController {
 
     @Override
     public void setResult(ITransferMatch match, Integer home, Integer away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException, NotAllowException {
-        if (!user.isAllowedForContestDetailsChanging())
+        if (!user.isAllowedForContestResultChanging())
             throw new NotAllowException("Wrong privileges");
 
         int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
