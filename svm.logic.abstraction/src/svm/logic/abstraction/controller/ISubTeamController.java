@@ -3,6 +3,7 @@ package svm.logic.abstraction.controller;
 import svm.domain.abstraction.exception.DomainException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
+import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -19,11 +20,11 @@ public interface ISubTeamController extends IController {
 
     ITransferSubTeam getSubTeam() throws RemoteException;
 
-    void setName(String name) throws RemoteException;
+    void setName(String name) throws RemoteException, NotAllowException;
 
-    void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, RemoteException, NotSupportedException;
+    void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, RemoteException, NotSupportedException, NotAllowException;
 
-    void removeMember(ITransferMember member) throws RemoteException;
+    void removeMember(ITransferMember member) throws RemoteException, NotAllowException;
 
     List<ITransferMember> getMembersOfSubTeam() throws IllegalGetInstanceException;
 

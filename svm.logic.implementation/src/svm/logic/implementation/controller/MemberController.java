@@ -221,7 +221,7 @@ public class MemberController implements IMemberController {
 
     @Override
     public void addPrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, NoSessionFoundException, DomainAttributeException, IllegalAccessException, InstantiationException {
-        if (!user.isAllowedForMemberChanging())
+        if (!user.isAllowedForMemberAddingPrivileges())
             throw new NotAllowException("Wrong privilege");
 
         member.addPrivilege(((IHasModel<IUserPrivilege>) privilege).getModel());
@@ -229,7 +229,7 @@ public class MemberController implements IMemberController {
 
     @Override
     public void removePrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, DomainAttributeException {
-        if (!user.isAllowedForMemberChanging())
+        if (!user.isAllowedForMemberAddingPrivileges())
             throw new NotAllowException("Wrong privilege");
 
         member.removePrivilege(((IHasModel<IUserPrivilege>) privilege).getModel());
