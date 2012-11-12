@@ -196,7 +196,7 @@ public class ContestController implements IContestController {
 
     @Override
     public void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, NotSupportedException {
-        if (!user.isAllowedForContestDetailsChanging())
+        if (!user.isAllowedForContestMatchAdding())
             throw new NotAllowException("Wrong privileges");
 
         IMatchModelDAO matchDao = DomainFacade.getMatchModelDAO();
@@ -269,7 +269,7 @@ public class ContestController implements IContestController {
 
     @Override
     public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, NotAllowException {
-        if (!user.isAllowedForContestDetailsChanging())
+        if (!user.isAllowedForContestTeamsChanging())
             throw new NotAllowException("Wrong privileges");
 
 
@@ -286,7 +286,7 @@ public class ContestController implements IContestController {
     @Override
     public void removeTeam(ITransferTeam team) throws RemoteException, DomainException, NotAllowException {
 
-        if (!user.isAllowedForContestDetailsChanging())
+        if (!user.isAllowedForContestTeamsChanging())
             throw new NotAllowException("Wrong privileges");
 
 
