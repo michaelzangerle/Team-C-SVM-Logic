@@ -67,23 +67,39 @@ public class SubTeamController implements ISubTeamController {
 
     @Override
     public void setName(String name) throws NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
         subTeam.setName(name);
     }
 
     @Override
     public void addMember(ITransferMember member) throws LogicException, NoSessionFoundException, DomainException, IllegalAccessException, InstantiationException, NotSupportedException, NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
-        this.subTeam.addMember(((IHasModel<IMember>) member).getModel());
+
+        IMember m = null;
+        IMember toSearch = ((IHasModel<IMember>) member).getModel();
+        for (IMember x : team.getMembers()) {
+            if (x.equals(toSearch)) m = x;
+        }
+
+        if (m != null)
+            this.subTeam.addMember(m);
     }
 
     @Override
     public void removeMember(ITransferMember member) throws NotAllowException {
-        if(!user.isAllowedForContestSubTeamChanging())
+        if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
-        this.subTeam.removeMember(((IHasModel<IMember>) member).getModel());
+
+        IMember m = null;
+        IMember toSearch = ((IHasModel<IMember>) member).getModel();
+        for (IMember x : team.getMembers()) {
+            if (x.equals(toSearch)) m = x;
+        }
+
+        if (m != null)
+            this.subTeam.removeMember(m);
     }
 
     @Override

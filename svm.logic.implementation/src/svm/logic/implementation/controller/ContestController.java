@@ -20,7 +20,6 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
-import svm.persistence.abstraction.model.IMatchEntity;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -234,13 +233,12 @@ public class ContestController implements IContestController {
         if (!user.isAllowedForContestResultChanging())
             throw new NotAllowException("Wrong privileges");
 
-        int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
-        int id2 = 0;
         IMatch m = null;
+        IMatch toSearch = ((IHasModel<IMatch>) match).getModel();
         for (IMatch x : contest.getMatches()) {
-            id2 = ((IHasEntity<IMatchEntity>) x).getEntity().getId();
-            if (id1 == id2) m = x;
+            if (x.equals(toSearch)) m = x;
         }
+
         if (m != null) {
             m.setStart(start);
             m.setEnd(start);
@@ -252,12 +250,10 @@ public class ContestController implements IContestController {
         if (!user.isAllowedForContestResultChanging())
             throw new NotAllowException("Wrong privileges");
 
-        int id1 = ((IHasEntity<IMatchEntity>) ((IHasModel<IMatch>) match).getModel()).getEntity().getId();
-        int id2 = 0;
         IMatch m = null;
+        IMatch toSearch = ((IHasModel<IMatch>) match).getModel();
         for (IMatch x : contest.getMatches()) {
-            id2 = ((IHasEntity<IMatchEntity>) x).getEntity().getId();
-            if (id1 == id2) m = x;
+            if (x.equals(toSearch)) m = x;
         }
 
         if (m != null) {
