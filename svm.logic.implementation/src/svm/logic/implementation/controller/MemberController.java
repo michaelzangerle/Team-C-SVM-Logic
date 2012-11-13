@@ -36,6 +36,7 @@ public class MemberController implements IMemberController {
 
     public MemberController(ITransferAuth user) {
         this.user = user;
+        this.member = null;
     }
 
     public MemberController(IMember member, ITransferAuth user) {
@@ -177,8 +178,8 @@ public class MemberController implements IMemberController {
         if (this.member == null) {
             member = DomainFacade.getMemberModelDAO().generateObject(sessionId);
         }
-        DomainFacade.reattachObjectToSession(this.sessionId, member);
-        this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member);
+        DomainFacade.reattachObjectToSession(this.sessionId,this.member);
+        this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, this.member);
     }
 
     @Override

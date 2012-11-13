@@ -150,7 +150,8 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
         this.birthDate = member.getBirthDate();
         this.gender = member.getGender();
         this.entryDate = member.getEntryDate();
-        this.hasPaidFee = this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
+        Integer integer=new GregorianCalendar().get(Calendar.YEAR);
+        this.hasPaidFee = this.member.hasPaidFee(integer);
 
         if (!member.getContactDetails().isNull()) {
             this.phone1 = member.getContactDetails().getPhone1();
