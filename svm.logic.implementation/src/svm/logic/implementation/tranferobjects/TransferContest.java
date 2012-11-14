@@ -61,6 +61,16 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
     }
 
     @Override
+    public ITransferSport getSport() {
+        return (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, contest.getSport());
+    }
+
+    @Override
+    public boolean isFinished() {
+       return this.contest.isFinished();
+    }
+
+    @Override
     public String toString() {
 
         String format = "dd.MM.YY hh:mm";

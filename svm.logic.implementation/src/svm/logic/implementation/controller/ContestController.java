@@ -264,6 +264,19 @@ public class ContestController implements IContestController {
     }
 
     @Override
+    public void setSport(ITransferSport sport) throws NotAllowException {
+        if(!user.isAllowedForContestDetailsChanging())
+             throw new NotAllowException("Wrong privileges");
+
+        this.contest.setSport(((IHasModel<ISport>)sport).getModel());
+
+    }
+    @Override
+    public void setFinished(boolean finished) {
+       this.contest.setFinished(finished);
+    }
+
+    @Override
     public void addTeam(ITransferTeam team) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, NotAllowException {
         if (!user.isAllowedForContestTeamsChanging())
             throw new NotAllowException("Wrong privileges");

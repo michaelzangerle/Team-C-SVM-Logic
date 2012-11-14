@@ -18,4 +18,8 @@ public interface ITransferContest extends ITransfer {
     float getFee();
 
     ITransferContactDetails getContactDetails() throws IllegalGetInstanceException;
+
+    ITransferSport getSport();
+
+    boolean isFinished();
 }

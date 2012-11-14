@@ -6,10 +6,7 @@ import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.exception.NotAllowException;
-import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.abstraction.transferobjects.ITransferMatch;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.transferobjects.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import svm.persistence.abstraction.exceptions.NotSupportedException;
@@ -142,4 +139,8 @@ public interface IContestController extends IController {
     void addMatch(ITransferTeam home, ITransferTeam away, Date start, Date end) throws RemoteException, DomainException, NoSessionFoundException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, NotSupportedException;
 
     void setResult(ITransferMatch match, Integer home, Integer away) throws NoSessionFoundException, DomainException, InstantiationException, IllegalAccessException, NotAllowException;
+
+    void setSport(ITransferSport sport) throws NotAllowException;
+
+    void setFinished( boolean finished);
 }

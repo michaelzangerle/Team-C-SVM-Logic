@@ -194,8 +194,23 @@ public class SearchController implements ISearchController {
         List<ITransferUserPrivilege> result = new LinkedList<ITransferUserPrivilege>();
 
 
-        for (IUserPrivilege priv : DomainFacade.getUserPrivilegeDAO().getAll(sessionId)) {
+        for (IUserPrivilege priv : DomainFacade.getUserPrivilegeModelDAO().getAll(sessionId)) {
             result.add((ITransferUserPrivilege) TransferObjectCreator.getInstance(TransferUserPrivileges.class, priv));
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<ITransferSport> getSports() throws NotAllowException {
+        if(! user.isAllowedForSearching())
+            throw new NotAllowException("Wrong privilege");
+
+        List<ITransferSport> result = new LinkedList<ITransferSport>();
+
+
+        for (ISport s : DomainFacade.getSportModelDAO().getAll(sessionId)) {
+            result.add((ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, s));
         }
 
         return result;
