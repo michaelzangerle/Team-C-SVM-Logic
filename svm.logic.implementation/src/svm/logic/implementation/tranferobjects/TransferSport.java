@@ -32,4 +32,9 @@ public class TransferSport implements ITransferSport, IHasModel<ISport> {
         this.sport = (ISport) o;
         this.name = sport.getName();
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
