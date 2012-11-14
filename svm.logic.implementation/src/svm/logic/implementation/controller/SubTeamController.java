@@ -94,14 +94,23 @@ public class SubTeamController implements ISubTeamController {
         if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
 
+        System.out.println("subteamcontroller remove member start");
+
         IMember m = null;
         IMember toSearch = ((IHasModel<IMember>) member).getModel();
-        for (IMember x : subTeam.getTeam().getMembers()) {
-            if (x.equals(toSearch)) m = x;
+//        for (IMember x : subTeam.getTeam().getMembers()) {
+//            if (x.equals(toSearch))
+//                m = x;
+//        }
+
+        for (ISubTeamsHasMembers x : subTeam.getSubTeamMembers()) {
+            if (x.getMember().equals(toSearch))
+                m = x.getMember();
         }
 
         if (m != null) {
             this.subTeam.removeMember(m);
+            System.out.println("subteamcontroller remove member finsh");
         } else
             System.out.println("NULL removeMember [subTeam]");
     }
