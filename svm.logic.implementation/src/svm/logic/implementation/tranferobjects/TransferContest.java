@@ -5,6 +5,7 @@ import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferContactDetails;
 import svm.logic.abstraction.transferobjects.ITransferContest;
+import svm.logic.abstraction.transferobjects.ITransferSport;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
     private Date end;
     private float fee;
     private ITransferContactDetails contactDetails;
+    private ITransferSport sport;
 
     @Override
     public void setObject(Object obj) throws IllegalGetInstanceException {
@@ -32,6 +34,9 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
         this.fee = contest.getFee();
         if (!contest.getContactDetails().isNull()) {
             this.contactDetails = (ITransferContactDetails) TransferObjectCreator.getInstance(TransferContactDetails.class, contest.getContactDetails());
+        }
+        if (!contest.getSport().isNull()) {
+            this.sport = (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, contest.getSport());
         }
     }
 
@@ -61,13 +66,13 @@ public class TransferContest implements ITransferContest, IHasModel<IContest> {
     }
 
     @Override
-    public ITransferSport getSport() {
-        return (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, contest.getSport());
+    public ITransferSport getSport() throws IllegalGetInstanceException {
+        return sport;
     }
 
     @Override
     public boolean isFinished() {
-       return this.contest.isFinished();
+        return this.contest.getFinished();
     }
 
     @Override

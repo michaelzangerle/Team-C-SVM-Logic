@@ -202,7 +202,7 @@ public class SearchController implements ISearchController {
     }
 
     @Override
-    public List<ITransferSport> getSports() throws NotAllowException {
+    public List<ITransferSport> getSports() throws NotAllowException, NoSessionFoundException, IllegalGetInstanceException {
         if(! user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 

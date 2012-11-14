@@ -19,7 +19,7 @@ public interface ITransferContest extends ITransfer {
 
     ITransferContactDetails getContactDetails() throws IllegalGetInstanceException;
 
-    ITransferSport getSport();
+    ITransferSport getSport() throws IllegalGetInstanceException;
 
     boolean isFinished();
 }
