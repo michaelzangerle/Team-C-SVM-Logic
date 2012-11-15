@@ -1,9 +1,6 @@
 import svm.domain.abstraction.exception.DomainException;
 import svm.logic.abstraction.LogicFacade;
-import svm.logic.abstraction.controller.IContestController;
-import svm.logic.abstraction.controller.ILoginController;
-import svm.logic.abstraction.controller.ISearchController;
-import svm.logic.abstraction.controller.ISubTeamController;
+import svm.logic.abstraction.controller.*;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.exception.NotAllowException;
@@ -23,15 +20,9 @@ import java.util.Random;
  */
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException {
-        testSubTeamController();
-        //testContestController();
+        //testSubTeamController();
         // testContestController();
-
-        /*ILoginController lc = LogicFacade.getLoginController();
-        lc.start();
-        lc.loginWithoutLdap("Contest_Match_Manager", "Pak3bGEh");
-        ITransferAuth user = lc.getMember();
-        lc.abort();*/
+        testTeamController();
     }
 
     public static void testSubTeamController() throws svm.persistence.abstraction.exceptions.NotSupportedException, IllegalGetInstanceException, NoSessionFoundException, IllegalAccessException, InstantiationException, RemoteException, ExistingTransactionException, NoTransactionException, NotAllowException, LogicException, DomainException {
@@ -106,5 +97,25 @@ public class MAIN_HANNES_NIX_AENDERN {
         }
 
         contestController.commit();
+    }
+
+    public static void testTeamController() throws svm.persistence.abstraction.exceptions.NotSupportedException, IllegalGetInstanceException, NoSessionFoundException, IllegalAccessException, InstantiationException, RemoteException, ExistingTransactionException, NoTransactionException, NotAllowException, LogicException, DomainException {
+        ILoginController lc = LogicFacade.getLoginController();
+        lc.start();
+        lc.loginWithoutLdap("tf-test", "Pak3bGEh");
+        ITransferAuth user = lc.getMember();
+        lc.abort();
+
+        ISearchController searchController = LogicFacade.getSearchController(user);
+        searchController.start();
+        ITransferTeam team = searchController.getTeams().get(2);
+        searchController.abort();
+
+        ITeamController teamController = LogicFacade.getTeamController(user, team);
+        teamController.start();
+        for (ITransferContest t : teamController.getContests()) {
+            System.out.println(t);
+        }
+        teamController.commit();
     }
 }

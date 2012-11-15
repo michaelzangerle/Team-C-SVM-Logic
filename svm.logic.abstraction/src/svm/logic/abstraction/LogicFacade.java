@@ -107,4 +107,8 @@ public class LogicFacade {
     public static IContestController getTeamContestController(ITransferAuth user, ITransferContest contest) throws InstantiationException, IllegalAccessException {
         return ControllerFactory.getInstance().getContestController(user, contest);
     }
+
+    public static ITeamController getTeamController(ITransferAuth user, ITransferTeam team) {
+        return ControllerFactory.getInstance().getTeamController(user, team);
+    }
 }

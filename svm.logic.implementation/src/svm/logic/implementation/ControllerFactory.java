@@ -98,4 +98,8 @@ public class ControllerFactory {
     public ILoginController getLoginController() {
         return new LoginController();
     }
+
+    public ITeamController getTeamController(ITransferAuth user, ITransferTeam team) {
+        return new TeamController(((IHasModel<ITeam>) team).getModel(), user);
+    }
 }
