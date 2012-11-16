@@ -8,8 +8,8 @@ import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
-
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
@@ -142,5 +142,7 @@ public interface IContestController extends IController {
 
     void setSport(ITransferSport sport) throws NotAllowException;
 
-    void setFinished( boolean finished);
+    void setFinished(boolean finished);
+
+    List<ITransferTeam> getPossibleTeams() throws NoSessionFoundException, IllegalGetInstanceException;
 }

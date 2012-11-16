@@ -265,15 +265,16 @@ public class ContestController implements IContestController {
 
     @Override
     public void setSport(ITransferSport sport) throws NotAllowException {
-        if(!user.isAllowedForContestDetailsChanging())
-             throw new NotAllowException("Wrong privileges");
+        if (!user.isAllowedForContestDetailsChanging())
+            throw new NotAllowException("Wrong privileges");
 
-        this.contest.setSport(((IHasModel<ISport>)sport).getModel());
+        this.contest.setSport(((IHasModel<ISport>) sport).getModel());
 
     }
+
     @Override
     public void setFinished(boolean finished) {
-       this.contest.setFinished(finished);
+        this.contest.setFinished(finished);
     }
 
     @Override
@@ -339,6 +340,27 @@ public class ContestController implements IContestController {
         }
 
         return result;
+    }
+
+    @Override
+    public List<ITransferTeam> getPossibleTeams() throws NoSessionFoundException, IllegalGetInstanceException {
+        List<ITransferTeam> result = new LinkedList<ITransferTeam>();
+
+        for (ITeam team : DomainFacade.getTeamModelDAO().getAll(sessionId)) {
+            if (isPossible(team)) {
+                result.add((ITransferInternalTeam) TransferObjectCreator.getInstance(TransferInternalTeam.class, team));
+            }
+        }
+
+        for (IExternalTeam extTeam : DomainFacade.getExternalTeamModelDAO().getAll(sessionId)) {
+            result.add((ITransferExternalTeam) TransferObjectCreator.getInstance(TransferExternalTeam.class, extTeam));
+        }
+        return result;
+    }
+
+    private boolean isPossible(ITeam team) {
+        if (contest.getSport().isNull()) return true;
+        return team.getSport().equals(contest.getSport());
     }
 
 
