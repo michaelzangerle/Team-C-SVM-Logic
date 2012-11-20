@@ -6,6 +6,7 @@ import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.ITransferSport;
 import svm.logic.abstraction.transferobjects.ITransferUserPrivilege;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
@@ -116,4 +117,8 @@ public interface IMemberController extends IController {
     void removePrivilege(ITransferUserPrivilege privilege) throws NotAllowException, DomainParameterCheckException, DomainAttributeException;
 
     List<ITransferUserPrivilege> getPrivileges() throws IllegalGetInstanceException;
+
+    void setSport(ITransferSport sport) throws NotAllowException;
+
+    ITransferSport getSport();
 }
