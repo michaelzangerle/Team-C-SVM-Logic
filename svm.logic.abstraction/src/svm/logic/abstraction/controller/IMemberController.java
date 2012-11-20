@@ -120,5 +120,5 @@ public interface IMemberController extends IController {
 
     void setSport(ITransferSport sport) throws NotAllowException;
 
-    ITransferSport getSport();
+    ITransferSport getSport() throws IllegalGetInstanceException;
 }

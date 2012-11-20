@@ -5,12 +5,14 @@ import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.domain.abstraction.modelInterfaces.ILocation;
 import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.domain.abstraction.modelInterfaces.ISport;
 import svm.domain.abstraction.modelInterfaces.IUserPrivilege;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.implementation.tranferobjects.TransferSport;
 import svm.logic.implementation.tranferobjects.TransferUserPrivileges;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -236,17 +238,17 @@ public class MemberController implements IMemberController {
         member.removePrivilege(((IHasModel<IUserPrivilege>) privilege).getModel());
     }
 
-//    @Override
-//    public void setSport(ITransferSport sport) throws NotAllowException {
-//        if (!user.isAllowedForMemberAddingPrivileges())
-//            throw new NotAllowException("Wrong privilege");
-//
-//       // member.setSport(((IHasModel<ISport>) sport).getModel());
-//    }
-//
-//    @Override
-//    public ITransferSport getSport() {
-//
-//       return  (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
-//    }
+    @Override
+    public void setSport(ITransferSport sport) throws NotAllowException {
+        if (!user.isAllowedForMemberAddingPrivileges())
+            throw new NotAllowException("Wrong privilege");
+
+        member.setSport(((IHasModel<ISport>) sport).getModel());
+    }
+
+    @Override
+    public ITransferSport getSport() throws IllegalGetInstanceException {
+
+       return  (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
+    }
 }
