@@ -236,17 +236,17 @@ public class MemberController implements IMemberController {
         member.removePrivilege(((IHasModel<IUserPrivilege>) privilege).getModel());
     }
 
-    @Override
-    public void setSport(ITransferSport sport) throws NotAllowException {
-        if (!user.isAllowedForMemberAddingPrivileges())
-            throw new NotAllowException("Wrong privilege");
-
-       // member.setSport(((IHasModel<ISport>) sport).getModel());
-    }
-
-    @Override
-    public ITransferSport getSport() {
-
-       return  (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
-    }
+//    @Override
+//    public void setSport(ITransferSport sport) throws NotAllowException {
+//        if (!user.isAllowedForMemberAddingPrivileges())
+//            throw new NotAllowException("Wrong privilege");
+//
+//       // member.setSport(((IHasModel<ISport>) sport).getModel());
+//    }
+//
+//    @Override
+//    public ITransferSport getSport() {
+//
+//       return  (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
+//    }
 }
