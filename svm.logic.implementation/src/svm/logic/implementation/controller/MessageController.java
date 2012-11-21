@@ -2,8 +2,11 @@ package svm.logic.implementation.controller;
 
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.jmsobjects.IMessage;
+import svm.logic.abstraction.jmsobjects.INewMemberMessage;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
@@ -16,7 +19,6 @@ import javax.naming.NamingException;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Projectteam : Team C
@@ -33,23 +35,33 @@ public class MessageController implements IMessageController{
     private TopicSession ts;
     private TopicSubscriber topicSubTeamSubscriber;
     private TopicSubscriber topicMemberSubscriber;
-    private String propertyUrl="file:///C:/temp2/";
 
-    public MessageController(ITransferAuth user,String propertyUrl) {
+    public MessageController(ITransferAuth user) {
         this.user = user;
-        this.propertyUrl=propertyUrl;
     }
 
     @Override
-    public List<TransferMessage> update(ITransferMember member){
-        List<TransferMessage> messages=new LinkedList<TransferMessage>();
+    public List<IMessage> update(ITransferMember member){
+        List<IMessage> messages=new LinkedList<IMessage>();
         try {
-            ObjectMessage topicMemberMessage= (ObjectMessage)topicMemberSubscriber.receive();
+            ObjectMessage topicMemberMessage;
+            do{
 
-           messages.add(new TransferMessageMember());
+                topicMemberMessage= (ObjectMessage)topicMemberSubscriber.receiveNoWait();
+                IMessage message=(IMessage)topicMemberMessage;
 
-            ObjectMessage topicSubTeamMessage= (ObjectMessage)topicSubTeamSubscriber.receive();
-            messages.add(new TransferMessageSubTeam());
+
+
+            }while(topicMember!=null);
+
+            ObjectMessage topicSubTeamMessage;
+            do{
+                topicSubTeamMessage= (ObjectMessage)topicSubTeamSubscriber.receiveNoWait();
+                IMessage message=(IMessage )topicSubTeamMessage;
+
+            }while(topicMember!=null);
+
+            return messages;
 
         } catch (JMSException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -66,10 +78,10 @@ public class MessageController implements IMessageController{
             context = this.getInitialContext();
 
         //Hole topic factory
-         tcf = (TopicConnectionFactory) context.lookup("ConnectionFactory");
+         tcf = (TopicConnectionFactory) context.lookup(SvmJMSPublisher.factoryName);
         //Hole Topic
-        topicMember= (Topic) context.lookup("topic/member");
-        topicSubTeam = (Topic) context.lookup("topic/contest");
+        topicMember= (Topic) context.lookup(SvmJMSPublisher.memberTopic);
+        topicSubTeam = (Topic) context.lookup(SvmJMSPublisher.subTeamTopic);
         //Create Topic verbindung
         tc = tcf.createTopicConnection();
 
@@ -121,10 +133,6 @@ public class MessageController implements IMessageController{
     }
 
     public Context getInitialContext() throws NamingException {
-
-        Properties props = new Properties();
-        props.setProperty("java.naming.factory.initial", "com.sun.jndi.fscontext.RefFSContextFactory");
-        props.setProperty("java.naming.provider.url",propertyUrl);
-        return new InitialContext(SvmJMSPublischer);
+        return new InitialContext(SvmJMSPublisher.getContextTable());
     }
 }
