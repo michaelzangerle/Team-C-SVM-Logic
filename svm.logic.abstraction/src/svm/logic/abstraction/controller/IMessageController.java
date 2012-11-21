@@ -1,9 +1,11 @@
 package svm.logic.abstraction.controller;
 
+import svm.logic.abstraction.jmsobjects.IMessage;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -12,5 +14,5 @@ import java.util.List;
  */
 public interface IMessageController extends Serializable, Remote, IController {
 
-    List<TransferMessage> update(ITransferMember member);
+    List<IMessage> update(ITransferMember member) throws RemoteException;
 }
