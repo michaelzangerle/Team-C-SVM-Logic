@@ -8,4 +8,5 @@ public interface ITransferSport extends ITransfer {
 
     String getName();
 
+    ITransferDepartment getDepartment();
 }

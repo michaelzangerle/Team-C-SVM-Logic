@@ -6,4 +6,6 @@ package svm.logic.abstraction.transferobjects;
  */
 public interface ITransferDepartment extends ITransfer {
     String getName();
+
+    ITransferMember getDepartmentHead();
 }

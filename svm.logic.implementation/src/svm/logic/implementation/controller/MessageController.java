@@ -4,8 +4,10 @@ import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.IMessage;
+import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -40,7 +42,7 @@ public class MessageController implements IMessageController{
     }
 
     @Override
-    public List<IMessage> update(ITransferMember member) throws RemoteException {
+    public List<IMessage> updateMemberMessages(ITransferMember member) throws RemoteException {
 
         List<IMessage> messages=new LinkedList<IMessage>();
         try {
@@ -49,16 +51,9 @@ public class MessageController implements IMessageController{
 
                 topicMemberMessage= (ObjectMessage)topicMemberSubscriber.receiveNoWait();
                 IMemberMessage message=(IMemberMessage)topicMemberMessage;
-                message.getMember().getSport()
-
-
-
-            }while(topicMember!=null);
-            ObjectMessage topicSubTeamMessage;
-            do{
-
-                topicSubTeamMessage= (ObjectMessage)topicSubTeamSubscriber.receiveNoWait();
-                IMessage message=(IMessage )topicSubTeamMessage;
+                ITransferMember messageMember=message.getMember().getSport().getDepartment().getDepartmentHead();
+                if(((TransferMember)member).getModel().equals(((TransferMember)messageMember).getModel()))
+                    messages.add((IMemberMessage)topicMemberMessage);
 
             }while(topicMember!=null);
 
@@ -70,6 +65,37 @@ public class MessageController implements IMessageController{
         }
     }
 
+    @Override
+    public List<ISubTeamMessage> updateSubTeamMessages(ITransferMember member) throws RemoteException {
+
+        List<ISubTeamMessage> messages=new LinkedList<ISubTeamMessage>();
+        try {
+
+        ObjectMessage topicSubTeamMessage;
+        do{
+
+            topicSubTeamMessage= (ObjectMessage)topicSubTeamSubscriber.receiveNoWait();
+            ISubTeamMessage message=(ISubTeamMessage)topicSubTeamMessage;
+            List<ITransferMember> memberList= message.getSubTeam().getSubTeamMembers();
+            for(ITransferMember m:memberList)
+            {
+                if(((TransferMember)m).getModel().equals(((TransferMember)member).getModel()))
+                {
+                    messages.add((ISubTeamMessage)topicSubTeamMessage);
+                }
+            }
+
+
+        }while(topicMember!=null);
+
+            return messages;
+
+        }catch (JMSException e) {
+                e.printStackTrace();
+                throw new RemoteException(e.getMessage(),e);
+            }
+
+    }
 
     @Override
     public void start() throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, NotSupportedException, InstantiationException, IllegalAccessException {
