@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="JMS">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/svm.logic.implementation/lib/fscontext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/svm.logic.implementation/lib/imq.jar!/" />
+      <root url="jar://$PROJECT_DIR$/svm.logic.implementation/lib/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/svm.logic.implementation/lib/jms.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
