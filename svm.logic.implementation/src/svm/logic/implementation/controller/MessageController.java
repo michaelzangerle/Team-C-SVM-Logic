@@ -52,9 +52,9 @@ public class MessageController implements IMessageController{
 
 
             }while(topicMember!=null);
-
             ObjectMessage topicSubTeamMessage;
             do{
+
                 topicSubTeamMessage= (ObjectMessage)topicSubTeamSubscriber.receiveNoWait();
                 IMessage message=(IMessage )topicSubTeamMessage;
 
