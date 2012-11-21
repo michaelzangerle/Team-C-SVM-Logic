@@ -19,7 +19,6 @@
     </orderEntry>
     <orderEntry type="library" name="svm.domain.abstraction" level="project" />
     <orderEntry type="library" name="svm.exceptions" level="project" />
-    <orderEntry type="library" name="fscontext" level="project" />
     <orderEntry type="library" name="JMS" level="project" />
   </component>
 </module>

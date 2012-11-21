@@ -6,6 +6,10 @@
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.abstraction.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.implementation.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/fscontext.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/imq.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/javax.jms.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/jms.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
