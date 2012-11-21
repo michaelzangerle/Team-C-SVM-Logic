@@ -1,13 +1,16 @@
 package svm.logic.jms;
 
 import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.MessageType;
-import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.implementation.tranferobjects.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.logic.jms.objects.MemberMessage;
+import svm.logic.jms.objects.SubTeamMessage;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -92,7 +95,11 @@ public class SvmJMSPublisher {
         memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member));
     }
 
-    public void sendMemberAddToSubTeam(ITransferMember member, ITransferContest contest) {
+    public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam) throws JMSException, IllegalGetInstanceException {
+        sendMemberAddToSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam));
+    }
 
+    public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member, subTeam));
     }
 }
