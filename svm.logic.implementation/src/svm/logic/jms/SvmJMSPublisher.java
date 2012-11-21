@@ -2,7 +2,8 @@ package svm.logic.jms;
 
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.jmsobjects.MemberMessageType;
+import svm.logic.abstraction.jmsobjects.MessageType;
+import svm.logic.abstraction.transferobjects.ITransferContest;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
@@ -88,6 +89,10 @@ public class SvmJMSPublisher {
     }
 
     public void sendNewMember(ITransferMember member) throws JMSException {
-        memberTopicSession.sendMessage(new MemberMessage(MemberMessageType.NEW, member));
+        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member));
+    }
+
+    public void sendMemberAddToSubTeam(ITransferMember member, ITransferContest contest) {
+
     }
 }
