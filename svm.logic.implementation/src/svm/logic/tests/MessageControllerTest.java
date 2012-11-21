@@ -40,7 +40,7 @@ public class MessageControllerTest{
      ITransferDepartment department=memberList.get(0).getSport().getDepartment();
        ITransferMember member=memberList.get(0).getSport().getDepartment().getDepartmentHead();
        System.out.println("Departement Head of Department "+department.getName()+" is "+member.getFirstName()+" "+ member.getLastName());
-       searchController.abort();
+       searchController.commit();
     }
 
 }
