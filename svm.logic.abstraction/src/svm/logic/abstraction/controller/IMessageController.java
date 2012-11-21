@@ -5,6 +5,7 @@ import svm.logic.abstraction.transferobjects.ITransferMember;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ import java.util.List;
  */
 public interface IMessageController extends Serializable, Remote, IController {
 
-    List<IMessage> update(ITransferMember member);
+    List<IMessage> update(ITransferMember member) throws RemoteException;
 }

@@ -3,7 +3,6 @@ package svm.logic.implementation.controller;
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMessage;
-import svm.logic.abstraction.jmsobjects.INewMemberMessage;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.jms.SvmJMSPublisher;
@@ -26,9 +25,8 @@ import java.util.List;
  */
 public class MessageController implements IMessageController{
     private Integer sessionId;
-    private ITransferMessage transferMessage;
     private ITransferAuth user;
-    private  TopicConnectionFactory tcf;
+    private TopicConnectionFactory tcf;
     private TopicConnection tc;
     private Topic topicMember;
     private Topic topicSubTeam;
@@ -41,7 +39,8 @@ public class MessageController implements IMessageController{
     }
 
     @Override
-    public List<IMessage> update(ITransferMember member){
+    public List<IMessage> update(ITransferMember member) throws RemoteException {
+
         List<IMessage> messages=new LinkedList<IMessage>();
         try {
             ObjectMessage topicMemberMessage;
@@ -64,7 +63,8 @@ public class MessageController implements IMessageController{
             return messages;
 
         } catch (JMSException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new RemoteException(e.getMessage(),e);
         }
     }
 
