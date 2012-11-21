@@ -48,4 +48,6 @@ public interface ITransferMember extends ITransfer {
     ITransferLocation getLocation() throws IllegalGetInstanceException;
 
     boolean getPaid() throws DomainParameterCheckException;
+
+    ITransferSport getSport();
 }

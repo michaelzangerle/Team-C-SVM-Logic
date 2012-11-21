@@ -6,6 +6,7 @@ import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferLocation;
 import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.abstraction.transferobjects.ITransferSport;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     private String coordLat;
     private String coordLong;
     private boolean hasPaidFee;
+    private ITransferSport sport;
 
     @Override
     public IMember getModel() {
@@ -138,6 +140,10 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
         //return this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
         return hasPaidFee;
     }
+    @Override
+    public ITransferSport getSport() {
+        return sport;
+    }
 
     @Override
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
@@ -166,6 +172,11 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
             if (!member.getContactDetails().getLocation().isNull()) {
                 this.location = (ITransferLocation) TransferObjectCreator.getInstance(TransferLocation.class, this.member.getContactDetails().getLocation());
             }
+        }
+
+        if(!member.getSport().isNull())
+        {
+            this.sport=(ITransferSport) TransferObjectCreator.getInstance(TransferSport.class,this.member.getSport());
         }
     }
 
