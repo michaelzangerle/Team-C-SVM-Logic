@@ -6,6 +6,8 @@ package svm.logic.abstraction.jmsobjects;
  */
 public enum MessageType {
     NEW,
+    ADDED,
+    REMOVED,
     CHANGE,
     DELETE;
 }
