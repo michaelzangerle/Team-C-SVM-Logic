@@ -6,7 +6,6 @@ import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferSport;
-import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 /**
  * Projectteam: Team C
@@ -39,11 +38,6 @@ public class TransferSport implements ITransferSport, IHasModel<ISport> {
     public void setObject(Object o) throws IllegalGetInstanceException, DomainParameterCheckException {
         this.sport = (ISport) o;
         this.name = sport.getName();
-
-        if(!this.sport.getDepartment().isNull())
-        {
-            this.department=(ITransferDepartment) TransferObjectCreator.getInstance(TransferDepartment.class,sport.getDepartment());
-        }
     }
 
     @Override

@@ -1,10 +1,12 @@
 package svm.logic.implementation.controller;
 
+import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.IMessage;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
+import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.tranferobjects.TransferMember;
@@ -51,8 +53,10 @@ public class MessageController implements IMessageController{
 
                 topicMemberMessage= (ObjectMessage)topicMemberSubscriber.receiveNoWait();
                 IMemberMessage message=(IMemberMessage)topicMemberMessage;
-                ITransferMember messageMember=message.getMember().getSport().getDepartment().getDepartmentHead();
-                if(((TransferMember)member).getModel().equals(((TransferMember)messageMember).getModel()))
+
+                IMember messageMember=(IMember)((IHasModel)message.getMember()).getModel();
+                messageMember=messageMember.getSport().getDepartment().getDepartmentHead();
+                if(((TransferMember)member).getModel().equals(messageMember))
                     messages.add((IMemberMessage)topicMemberMessage);
 
             }while(topicMember!=null);

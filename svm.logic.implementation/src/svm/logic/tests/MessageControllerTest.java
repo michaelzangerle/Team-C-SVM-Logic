@@ -1,11 +1,13 @@
 package svm.logic.tests;
 
+import svm.domain.abstraction.modelInterfaces.IDepartment;
+import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
+import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.ITransferDepartment;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.implementation.ControllerFactory;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -37,8 +39,10 @@ public class MessageControllerTest{
     ISearchController searchController= factory.getSearchController(user);
        searchController.start();
        List<ITransferMember> memberList= searchController.getMembers("Thomas","Feilhauer");
-     ITransferDepartment department=memberList.get(0).getSport().getDepartment();
-       ITransferMember member=memberList.get(0).getSport().getDepartment().getDepartmentHead();
+        ITransferMember tm=memberList.get(0);
+       IMember memberModel=(IMember)((IHasModel<IMember>)tm).getModel();
+     IDepartment department=memberModel.getSport().getDepartment();
+       IMember member=memberModel.getSport().getDepartment().getDepartmentHead();
        System.out.println("Departement Head of Department "+department.getName()+" is "+member.getFirstName()+" "+ member.getLastName());
        searchController.commit();
     }
