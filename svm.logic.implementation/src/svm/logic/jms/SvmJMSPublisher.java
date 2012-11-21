@@ -1,7 +1,12 @@
 package svm.logic.jms;
 
 import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.logic.jms.objects.NewMemberMessage;
+import svm.logic.abstraction.exception.IllegalGetInstanceException;
+import svm.logic.abstraction.jmsobjects.MemberMessageType;
+import svm.logic.abstraction.transferobjects.ITransferMember;
+import svm.logic.implementation.tranferobjects.TransferMember;
+import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import svm.logic.jms.objects.MemberMessage;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -34,9 +39,13 @@ public class SvmJMSPublisher {
     }
 
     private SvmJMSPublisher instance;
+
     public static final String subTeamTopic = "svm/subTeam";
     public static final String memberTopic = "svm/member";
     public static final String factoryName = "java:tf";
+
+    public static final String provider = "file:///C:/temp";
+    public static final String initialFactory = "com.sun.jndi.fscontext.RefFSContextFactory";
 
     public SvmJMSPublisher getInstance() throws NamingException, JMSException {
         if (instance == null) instance = new SvmJMSPublisher();
@@ -45,8 +54,8 @@ public class SvmJMSPublisher {
 
     public static Hashtable<String, String> getContextTable() {
         Hashtable<String, String> map = new Hashtable<String, String>();
-        map.put("java.naming.provider.url", "file:///C:/temp");
-        map.put("java.naming.factory.initial", "com.sun.jndi.fscontext.RefFSContextFactory");
+        map.put("java.naming.provider.url", provider);
+        map.put("java.naming.factory.initial", initialFactory);
         return map;
     }
 
@@ -74,7 +83,11 @@ public class SvmJMSPublisher {
         memberTopicSession = new MyTopicSession(memberTopic);
     }
 
-    public void sendNewMember(IMember member) throws JMSException {
-        memberTopicSession.sendMessage(new NewMemberMessage());
+    public void sendNewMember(IMember member) throws JMSException, IllegalGetInstanceException {
+        sendNewMember((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
+    }
+
+    public void sendNewMember(ITransferMember member) throws JMSException {
+        memberTopicSession.sendMessage(new MemberMessage(MemberMessageType.NEW, member));
     }
 }
