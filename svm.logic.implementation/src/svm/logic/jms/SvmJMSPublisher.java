@@ -34,9 +34,13 @@ public class SvmJMSPublisher {
     }
 
     private SvmJMSPublisher instance;
+
     public static final String subTeamTopic = "svm/subTeam";
     public static final String memberTopic = "svm/member";
     public static final String factoryName = "java:tf";
+
+    public static final String provider = "file:///C:/temp";
+    public static final String initialFactory = "com.sun.jndi.fscontext.RefFSContextFactory";
 
     public SvmJMSPublisher getInstance() throws NamingException, JMSException {
         if (instance == null) instance = new SvmJMSPublisher();
@@ -45,8 +49,8 @@ public class SvmJMSPublisher {
 
     public static Hashtable<String, String> getContextTable() {
         Hashtable<String, String> map = new Hashtable<String, String>();
-        map.put("java.naming.provider.url", "file:///C:/temp");
-        map.put("java.naming.factory.initial", "com.sun.jndi.fscontext.RefFSContextFactory");
+        map.put("java.naming.provider.url", provider);
+        map.put("java.naming.factory.initial", initialFactory);
         return map;
     }
 
