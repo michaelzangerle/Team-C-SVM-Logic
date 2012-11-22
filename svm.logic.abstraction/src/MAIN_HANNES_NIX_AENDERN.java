@@ -6,6 +6,9 @@ import svm.logic.abstraction.controller.*;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.LogicException;
 import svm.logic.abstraction.exception.NotAllowException;
+import svm.logic.abstraction.jmsobjects.IMemberMessage;
+import svm.logic.abstraction.jmsobjects.IMessageObserver;
+import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.*;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -15,7 +18,6 @@ import javax.jms.JMSException;
 import javax.transaction.NotSupportedException;
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,11 +27,10 @@ import java.util.Random;
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException, JMSException, InterruptedException {
         System.out.println("Start");
-        // testSubTeamController();
+        testSubTeamController();
         // testContestController();
         // testTeamController();
-        testJMS();
-        Thread.sleep(2000);
+        //testJMS();
         testMessageController();
         System.out.println("End");
     }
@@ -65,8 +66,13 @@ public class MAIN_HANNES_NIX_AENDERN {
         }
         ITransferMember m1 = subTeamController.getMemberOfTeam().get(0);
         ITransferMember m2 = subTeamController.getMemberOfTeam().get(1);
-        subTeamController.addMember(m1);
-        subTeamController.addMember(m2);
+        try {
+            subTeamController.addMember(m1);
+            subTeamController.addMember(m2);
+        } catch (Exception ex) {
+            subTeamController.removeMember(m1);
+            subTeamController.removeMember(m2);
+        }
         subTeamController.commit();
         contestController.commit();
     }
@@ -150,11 +156,20 @@ public class MAIN_HANNES_NIX_AENDERN {
         memberController.commit();
     }
 
-    public static void testMessageController() throws svm.persistence.abstraction.exceptions.NotSupportedException, ExistingTransactionException, IllegalGetInstanceException, NoSessionFoundException, NoTransactionException, InstantiationException, IllegalAccessException, RemoteException, JMSException {
+    public static void testMessageController() throws svm.persistence.abstraction.exceptions.NotSupportedException, ExistingTransactionException, IllegalGetInstanceException, NoSessionFoundException, NoTransactionException, InstantiationException, IllegalAccessException, RemoteException, JMSException, InterruptedException {
         ITransferAuth user = login();
         IMessageController messageController = LogicFacade.getMessageController(user);
+        messageController.addObserver(new IMessageObserver() {
+            @Override
+            public void updateMemberMessage(IMemberMessage message) {
+                System.out.println(message.getMember().getFirstName());
+            }
+
+            @Override
+            public void updateSubTeamMessage(ISubTeamMessage message) {
+                System.out.println(message.getSubTeam());
+            }
+        });
         messageController.start();
-        List<?> x = messageController.updateMemberMessages();
-        messageController.commit();
     }
 }

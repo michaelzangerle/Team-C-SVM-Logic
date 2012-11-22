@@ -39,7 +39,7 @@ public class SvmJMSPublisher {
         public void sendMessage(Serializable obj) throws JMSException {
             ObjectMessage message = topicSession.createObjectMessage();
             message.setObject(obj);
-            topicPublisher.send(message);
+            topicPublisher.publish(message);
         }
     }
 

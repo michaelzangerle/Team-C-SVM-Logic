@@ -2,11 +2,10 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.domain.abstraction.modelInterfaces.ISubTeam;
-import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
+import svm.logic.abstraction.jmsobjects.IMessageObserver;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
@@ -21,6 +20,7 @@ import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,81 +29,19 @@ import java.util.List;
  * Projectteam : Team C
  * Date: 21.11.12
  */
-public class MessageController implements IMessageController {
-    private Integer sessionId;
+public class MessageController implements IMessageController, MessageListener {
     private ITransferAuth user;
     private TopicConnectionFactory tcf;
-    private TopicConnection tc;
+    private TopicConnection tc1;
     private Topic topicMember;
     private Topic topicSubTeam;
-    private TopicSession ts;
-    private TopicSubscriber topicSubTeamSubscriber;
-    private TopicSubscriber topicMemberSubscriber;
+    private TopicSession ts1;
+    private List<IMessageObserver> observers = new LinkedList<IMessageObserver>();
+    private TopicConnection tc2;
+    private TopicSession ts2;
 
     public MessageController(ITransferAuth user) {
         this.user = user;
-    }
-
-    @Override
-    public List<IMemberMessage> updateMemberMessages() throws RemoteException, NoSessionFoundException, JMSException {
-        List<IMemberMessage> messages = new LinkedList<IMemberMessage>();
-
-
-        ObjectMessage topicMemberMessage;
-        topicMemberSubscriber = ts.createDurableSubscriber(topicMember, user.getUsername());
-        do {
-
-            topicMemberMessage = (ObjectMessage) topicMemberSubscriber.receiveNoWait();
-            if (topicMemberMessage != null) {
-                IMemberMessage message = (IMemberMessage) topicMemberMessage.getObject();
-
-                IMember messageMember = (IMember) ((IHasModel) message.getMember()).getModel();
-                int sessionId = DomainFacade.generateSessionId();
-                DomainFacade.reattachObjectToSession(sessionId, messageMember);
-                if (!messageMember.getSport().isNull()) {
-                    DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
-                    DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
-                    messageMember = messageMember.getSport().getDepartment().getDepartmentHead();
-                    if (((TransferAuth) user).getModel().equals(messageMember))
-                        messages.add((IMemberMessage) topicMemberMessage.getObject());
-                }
-                DomainFacade.closeSession(sessionId);
-            }
-        } while (topicMemberMessage != null);
-        topicMemberSubscriber.close();
-        return messages;
-    }
-
-    @Override
-    public List<ISubTeamMessage> updateSubTeamMessages() throws RemoteException {
-
-        List<ISubTeamMessage> messages = new LinkedList<ISubTeamMessage>();
-        try {
-            topicSubTeamSubscriber = ts.createDurableSubscriber(topicSubTeam, user.getUsername());
-            ObjectMessage topicSubTeamMessage;
-            do {
-
-                topicSubTeamMessage = (ObjectMessage) topicSubTeamSubscriber.receiveNoWait();
-                if (topicSubTeamMessage != null) {
-                    ISubTeamMessage message = (ISubTeamMessage) topicSubTeamMessage.getObject();
-                    List<ISubTeamsHasMembers> memberList = (List<ISubTeamsHasMembers>) ((IHasModel<ISubTeam>) message.getSubTeam()).getModel().getSubTeamMembers();
-                    for (ISubTeamsHasMembers m : memberList) {
-                        if (m.getMember().equals(((TransferAuth) user).getModel())) {
-                            messages.add((ISubTeamMessage) topicSubTeamMessage.getObject());
-                        }
-                    }
-                }
-
-            } while (topicSubTeamMessage != null);
-
-            topicSubTeamSubscriber.close();
-            return messages;
-
-        } catch (JMSException e) {
-            e.printStackTrace();
-            throw new RemoteException(e.getMessage(), e);
-        }
-
     }
 
     @Override
@@ -120,15 +58,21 @@ public class MessageController implements IMessageController {
             topicMember = (Topic) context.lookup(SvmJMSPublisher.memberTopic);
             topicSubTeam = (Topic) context.lookup(SvmJMSPublisher.subTeamTopic);
             //Create Topic verbindung
-            tc = tcf.createTopicConnection();
+            tc1 = tcf.createTopicConnection();
+            tc2 = tcf.createTopicConnection();
 
             //Setzen der Client ID
             String id = user.getUsername();
-            tc.setClientID(id);
-            tc.start();
+            tc1.setClientID(id + "" + SvmJMSPublisher.subTeamTopic);
+            tc1.start();
+            tc2.setClientID(id + "" + SvmJMSPublisher.memberTopic);
+            tc2.start();
             //Topic Session starten
-            ts = tc.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
+            ts1 = tc1.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
+            ts2 = tc2.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 
+            ts1.createDurableSubscriber(topicSubTeam, id).setMessageListener(this);
+            ts2.createDurableSubscriber(topicMember, id).setMessageListener(this);
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RemoteException(e.getMessage(), e);
@@ -141,8 +85,9 @@ public class MessageController implements IMessageController {
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException, RemoteException {
         try {
-            ts.close();
-            tc.close();
+            ts1.setMessageListener(null);
+            ts1.close();
+            tc1.close();
         } catch (JMSException e) {
             e.printStackTrace();
             throw new RemoteException(e.getMessage(), e);
@@ -151,18 +96,78 @@ public class MessageController implements IMessageController {
 
     @Override
     public void abort() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException, RemoteException {
+        commit();
+    }
+
+    private Context getInitialContext() throws NamingException {
+        return new InitialContext(SvmJMSPublisher.getContextTable());
+    }
+
+    @Override
+    public void onMessage(Message message) {
+        ObjectMessage msg = (ObjectMessage) message;
         try {
-            topicMemberSubscriber.close();
-            topicSubTeamSubscriber.close();
-            ts.close();
-            tc.close();
+            Serializable x = msg.getObject();
+            if (x instanceof IMemberMessage) {
+                receiveMemberMessage((IMemberMessage) x);
+            } else if (x instanceof ISubTeamMessage) {
+                receiveSubTeamMessage((ISubTeamMessage) x);
+            }
         } catch (JMSException e) {
-            e.printStackTrace();
-            throw new RemoteException(e.getMessage(), e);
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (NoSessionFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
-    public Context getInitialContext() throws NamingException {
-        return new InitialContext(SvmJMSPublisher.getContextTable());
+    private void receiveSubTeamMessage(ISubTeamMessage x) throws NoSessionFoundException {
+        if (mySubTeamMessage(x)) {
+            informObserver(x);
+        }
+    }
+
+    private boolean mySubTeamMessage(ISubTeamMessage message) throws NoSessionFoundException {
+        return (((IHasModel<IMember>) message.getMember()).getModel().equals(((TransferAuth) user).getModel()));
+    }
+
+    private void receiveMemberMessage(IMemberMessage x) throws NoSessionFoundException {
+        if (myMemberMessage(x)) {
+            informObserver(x);
+        }
+    }
+
+    private boolean myMemberMessage(IMemberMessage message) throws NoSessionFoundException {
+        int sessionId = DomainFacade.generateSessionId();
+        try {
+            IMember messageMember = ((IHasModel<IMember>) message.getMember()).getModel();
+            DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
+            DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
+            messageMember = messageMember.getSport().getDepartment().getDepartmentHead();
+            return (((TransferAuth) user).getModel().equals(messageMember));
+        } finally {
+            DomainFacade.closeSession(sessionId);
+        }
+    }
+
+    private void informObserver(IMemberMessage message) {
+        for (IMessageObserver o : observers) {
+            o.updateMemberMessage(message);
+        }
+    }
+
+    private void informObserver(ISubTeamMessage message) {
+        for (IMessageObserver o : observers) {
+            o.updateSubTeamMessage(message);
+        }
+    }
+
+    @Override
+    public void addObserver(IMessageObserver o) throws RemoteException {
+        this.observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(IMessageObserver o) throws RemoteException {
+        this.observers.remove(o);
     }
 }

@@ -91,8 +91,8 @@ public class SubTeamController implements ISubTeamController {
 
         if (m != null) {
             this.subTeam.addMember(m);
-            if (!this.removedMember.contains(m)) {
-                this.removedMember.add(m);
+            if (!this.addedMember.contains(m)) {
+                this.addedMember.add(m);
             }
         } else {
             System.out.println("NULL addMember [subTeam]");
@@ -116,8 +116,8 @@ public class SubTeamController implements ISubTeamController {
 
         if (m != null) {
             this.subTeam.removeMember(m);
-            if (!addedMember.contains(m)) {
-                addedMember.add(m);
+            if (!removedMember.contains(m)) {
+                removedMember.add(m);
             }
             System.out.println("subteamcontroller remove member finsh");
         } else {
