@@ -30,8 +30,8 @@ public class MAIN_HANNES_NIX_AENDERN {
         testSubTeamController();
         // testContestController();
         // testTeamController();
-        //testJMS();
-        testMessageController();
+        testJMS();
+        //testMessageController();
         System.out.println("End");
     }
 
