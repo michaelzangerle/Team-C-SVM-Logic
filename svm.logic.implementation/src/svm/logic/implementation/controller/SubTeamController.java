@@ -14,11 +14,14 @@ import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.tranferobjects.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +38,9 @@ public class SubTeamController implements ISubTeamController {
     private ITransferSubTeam transferSubTeam;
     private Integer sessionId;
     private ITransferAuth user;
+
+    private List<IMember> addedMember;
+    private List<IMember> removedMember;
 
     public SubTeamController(ITeam team, IContest contest, ITransferAuth user) throws NoSessionFoundException, IllegalAccessException, InstantiationException, NotSupportedException {
         this.team = team;
@@ -83,10 +89,14 @@ public class SubTeamController implements ISubTeamController {
             if (x.equals(toSearch)) m = x;
         }
 
-        if (m != null)
+        if (m != null) {
             this.subTeam.addMember(m);
-        else
+            if (!this.removedMember.contains(m)) {
+                this.removedMember.add(m);
+            }
+        } else {
             System.out.println("NULL addMember [subTeam]");
+        }
     }
 
     @Override
@@ -94,14 +104,10 @@ public class SubTeamController implements ISubTeamController {
         if (!user.isAllowedForContestSubTeamChanging())
             throw new NotAllowException("Wrong privilege");
 
-        System.out.println("subteamcontroller remove member start");
+        System.out.println("subTeamController remove member start");
 
         IMember m = null;
         IMember toSearch = ((IHasModel<IMember>) member).getModel();
-//        for (IMember x : subTeam.getTeam().getMembers()) {
-//            if (x.equals(toSearch))
-//                m = x;
-//        }
 
         for (ISubTeamsHasMembers x : subTeam.getSubTeamMembers()) {
             if (x.getMember().equals(toSearch))
@@ -110,9 +116,13 @@ public class SubTeamController implements ISubTeamController {
 
         if (m != null) {
             this.subTeam.removeMember(m);
+            if (!addedMember.contains(m)) {
+                addedMember.add(m);
+            }
             System.out.println("subteamcontroller remove member finsh");
-        } else
+        } else {
             System.out.println("NULL removeMember [subTeam]");
+        }
     }
 
     @Override
@@ -132,6 +142,8 @@ public class SubTeamController implements ISubTeamController {
             System.out.println("ERROR");
         }
         this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam);
+        this.addedMember = new LinkedList<IMember>();
+        this.removedMember = new LinkedList<IMember>();
     }
 
     @Override
@@ -140,6 +152,31 @@ public class SubTeamController implements ISubTeamController {
         DomainFacade.getSubTeamModelDAO().saveOrUpdate(sessionId, this.subTeam);
         DomainFacade.commitTransaction(sessionId);
         DomainFacade.closeSession(sessionId);
+        for (IMember m : addedMember) {
+            try {
+                SvmJMSPublisher.getInstance().sendMemberAddToSubTeam(m, subTeam);
+            } catch (JMSException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalGetInstanceException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (NamingException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        addedMember.clear();
+
+        for (IMember m : removedMember) {
+            try {
+                SvmJMSPublisher.getInstance().sendMemberRemoveFormSubTeam(m, subTeam);
+            } catch (JMSException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalGetInstanceException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (NamingException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        removedMember.clear();
     }
 
     @Override

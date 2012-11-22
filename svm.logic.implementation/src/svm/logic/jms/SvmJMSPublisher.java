@@ -23,6 +23,7 @@ import java.util.Hashtable;
  * Date: 21.11.12
  */
 public class SvmJMSPublisher {
+
     private class MyTopicSession {
         private Topic topic;
         private TopicSession topicSession;
@@ -42,7 +43,7 @@ public class SvmJMSPublisher {
         }
     }
 
-    private SvmJMSPublisher instance;
+    private static SvmJMSPublisher instance;
 
     public static final String subTeamTopic = "svm/subTeam";
     public static final String memberTopic = "svm/member";
@@ -51,7 +52,7 @@ public class SvmJMSPublisher {
     public static final String provider = "file:///C:/temp";
     public static final String initialFactory = "com.sun.jndi.fscontext.RefFSContextFactory";
 
-    public SvmJMSPublisher getInstance() throws NamingException, JMSException {
+    public static SvmJMSPublisher getInstance() throws NamingException, JMSException {
         if (instance == null) instance = new SvmJMSPublisher();
         return instance;
     }
@@ -101,5 +102,13 @@ public class SvmJMSPublisher {
 
     public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
         subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member, subTeam));
+    }
+
+    public void sendMemberRemoveFormSubTeam(IMember member, ISubTeam subTeam) throws IllegalGetInstanceException, JMSException {
+        sendMemberRemoveFormSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam));
+    }
+
+    public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member, subTeam));
     }
 }

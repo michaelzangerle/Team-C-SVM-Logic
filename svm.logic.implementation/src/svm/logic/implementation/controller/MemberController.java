@@ -15,11 +15,14 @@ import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.tranferobjects.TransferSport;
 import svm.logic.implementation.tranferobjects.TransferUserPrivileges;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +37,8 @@ public class MemberController implements IMemberController {
     private Integer sessionId;
     private ITransferMember transferMember;
     private ITransferAuth user;
+
+    private boolean isNewMember = false;
 
 
     public MemberController(ITransferAuth user) {
@@ -179,8 +184,9 @@ public class MemberController implements IMemberController {
         this.sessionId = DomainFacade.generateSessionId();
         if (this.member == null) {
             member = DomainFacade.getMemberModelDAO().generateObject(sessionId);
+            isNewMember = true;
         }
-        DomainFacade.reattachObjectToSession(this.sessionId,this.member);
+        DomainFacade.reattachObjectToSession(this.sessionId, this.member);
         this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, this.member);
     }
 
@@ -190,6 +196,18 @@ public class MemberController implements IMemberController {
         DomainFacade.getMemberModelDAO().saveOrUpdate(sessionId, member);
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
+        if (isNewMember) {
+            try {
+                SvmJMSPublisher.getInstance().sendNewMember(member);
+            } catch (JMSException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalGetInstanceException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (NamingException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            isNewMember = false;
+        }
     }
 
     @Override
@@ -249,6 +267,6 @@ public class MemberController implements IMemberController {
     @Override
     public ITransferSport getSport() throws IllegalGetInstanceException {
 
-       return  (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
+        return (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
     }
 }
