@@ -1,6 +1,6 @@
 package svm.logic.abstraction.controller;
 
-import svm.logic.abstraction.jmsobjects.IMessage;
+import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface IMessageController extends Serializable, Remote, IController {
 
-    List<IMessage> updateMemberMessages() throws RemoteException, NoSessionFoundException, JMSException;
+    List<IMemberMessage> updateMemberMessages() throws RemoteException, NoSessionFoundException, JMSException;
 
     List<ISubTeamMessage> updateSubTeamMessages() throws RemoteException;
 }

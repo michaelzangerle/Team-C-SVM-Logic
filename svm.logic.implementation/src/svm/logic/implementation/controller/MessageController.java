@@ -7,7 +7,6 @@ import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
-import svm.logic.abstraction.jmsobjects.IMessage;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
@@ -46,8 +45,8 @@ public class MessageController implements IMessageController {
     }
 
     @Override
-    public List<IMessage> updateMemberMessages() throws RemoteException, NoSessionFoundException, JMSException {
-        List<IMessage> messages = new LinkedList<IMessage>();
+    public List<IMemberMessage> updateMemberMessages() throws RemoteException, NoSessionFoundException, JMSException {
+        List<IMemberMessage> messages = new LinkedList<IMemberMessage>();
 
 
         ObjectMessage topicMemberMessage;
