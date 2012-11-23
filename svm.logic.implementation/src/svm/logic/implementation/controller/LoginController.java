@@ -5,7 +5,7 @@ import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.ILoginController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.impl.TransferAuth;
+import svm.logic.implementation.transferobject.TransferAuth;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;

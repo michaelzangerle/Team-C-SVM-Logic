@@ -1,0 +1,15 @@
+package svm.logic.implementation.transferobject;
+
+import svm.logic.abstraction.transferobjects.IHasModel;
+import svm.logic.abstraction.transferobjects.ITransferTeam;
+
+/**
+ * Projectteam: Team C
+ * Date: 05.11.12
+ */
+public abstract class TransferTeam implements ITransferTeam, IHasModel {
+
+    @Override
+    public abstract String getName();
+
+}

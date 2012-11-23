@@ -8,8 +8,8 @@ import svm.logic.abstraction.jmsobjects.objects.MemberMessage;
 import svm.logic.abstraction.jmsobjects.objects.SubTeamMessage;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
-import svm.logic.abstraction.transferobjects.impl.TransferMember;
-import svm.logic.abstraction.transferobjects.impl.TransferSubTeam;
+import svm.logic.implementation.transferobject.TransferMember;
+import svm.logic.implementation.transferobject.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 
 import javax.jms.*;
