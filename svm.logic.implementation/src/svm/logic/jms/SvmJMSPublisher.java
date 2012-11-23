@@ -9,8 +9,8 @@ import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.implementation.tranferobjects.TransferMember;
 import svm.logic.implementation.tranferobjects.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
-import svm.logic.jms.objects.MemberMessage;
-import svm.logic.jms.objects.SubTeamMessage;
+import svm.logic.abstraction.jmsobjects.objects.MemberMessage;
+import svm.logic.abstraction.jmsobjects.objects.SubTeamMessage;
 
 import javax.jms.*;
 import javax.naming.InitialContext;

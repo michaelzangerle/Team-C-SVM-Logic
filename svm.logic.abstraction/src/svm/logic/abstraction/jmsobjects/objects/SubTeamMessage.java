@@ -1,4 +1,4 @@
-package svm.logic.jms.objects;
+package svm.logic.abstraction.jmsobjects.objects;
 
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.jmsobjects.MessageType;
