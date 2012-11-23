@@ -143,11 +143,12 @@ public class MessageController implements IMessageController, MessageListener {
     private boolean myMemberMessage(IMemberMessage message) throws NoSessionFoundException {
         int sessionId = DomainFacade.generateSessionId();
         try {
-
-            IMember messageMember = ((IHasModel<IMember>) DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember())).getModel();
+            IMember messageMember = DomainFacade.getMemberModelDAO().getByUID(sessionId,message.getMember());
+          //  IMember messageMember = ((IHasModel<IMember>) DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember())).getModel();
             DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
             DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
             messageMember = messageMember.getSport().getDepartment().getDepartmentHead();
+
             return (((TransferAuth) user).getModel().equals(messageMember));
         } finally {
             DomainFacade.closeSession(sessionId);
