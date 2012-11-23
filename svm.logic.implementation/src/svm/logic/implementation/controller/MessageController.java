@@ -61,6 +61,7 @@ public class MessageController implements IMessageController, MessageListener {
             tc1 = tcf.createTopicConnection();
             tc2 = tcf.createTopicConnection();
 
+
             //Setzen der Client ID
             String id = user.getUsername();
             tc1.setClientID(id + "" + SvmJMSPublisher.subTeamTopic);
