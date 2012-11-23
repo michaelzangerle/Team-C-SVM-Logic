@@ -27,11 +27,17 @@ import java.util.Random;
 public class MAIN_HANNES_NIX_AENDERN {
     public static void main(String[] args) throws RemoteException, IllegalGetInstanceException, NoSessionFoundException, ExistingTransactionException, NoTransactionException, InstantiationException, IllegalAccessException, LogicException, NotAllowException, DomainException, NotSupportedException, svm.persistence.abstraction.exceptions.NotSupportedException, JMSException, InterruptedException {
         System.out.println("Start");
-        testSubTeamController();
-        // testContestController();
-        // testTeamController();
-        testJMS();
-        //testMessageController();
+        if (args.length == 1) {
+            if (args[0].equals("subTeam")) testSubTeamController();
+            else if (args[0].equals("newMember")) testJMS();
+            else if (args[0].equals("getMessage")) testMessageController();
+        } else {
+
+            // testContestController();
+            // testTeamController();
+            //testMessageController();
+
+        }
         System.out.println("End");
     }
 
@@ -162,12 +168,12 @@ public class MAIN_HANNES_NIX_AENDERN {
         messageController.addObserver(new IMessageObserver() {
             @Override
             public void updateMemberMessage(IMemberMessage message) {
-                System.out.println(message.getMember().getFirstName());
+                System.out.println("MemberMessage new Member: " + message.getMember().getFirstName());
             }
 
             @Override
             public void updateSubTeamMessage(ISubTeamMessage message) {
-                System.out.println(message.getSubTeam());
+                System.out.println("SubTeamMessage: " + message);
             }
         });
         messageController.start();
