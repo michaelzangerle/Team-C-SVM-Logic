@@ -1,4 +1,4 @@
-package svm.logic.implementation.tranferobjects;
+package svm.logic.abstraction.transferobjects.impl;
 
 import svm.domain.abstraction.modelInterfaces.IExternalTeam;
 import svm.logic.abstraction.transferobjects.ITransferExternalTeam;

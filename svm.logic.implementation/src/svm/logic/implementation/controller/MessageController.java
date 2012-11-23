@@ -9,7 +9,7 @@ import svm.logic.abstraction.jmsobjects.IMessageObserver;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.implementation.tranferobjects.TransferAuth;
+import svm.logic.abstraction.transferobjects.impl.TransferAuth;
 import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;

@@ -1,4 +1,4 @@
-package svm.logic.implementation.tranferobjects;
+package svm.logic.abstraction.transferobjects.impl;
 
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferTeam;

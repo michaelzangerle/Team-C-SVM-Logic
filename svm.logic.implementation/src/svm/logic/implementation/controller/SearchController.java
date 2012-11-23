@@ -7,7 +7,7 @@ import svm.logic.abstraction.controller.ISearchController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
 import svm.logic.abstraction.transferobjects.*;
-import svm.logic.implementation.tranferobjects.*;
+import svm.logic.abstraction.transferobjects.impl.*;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
