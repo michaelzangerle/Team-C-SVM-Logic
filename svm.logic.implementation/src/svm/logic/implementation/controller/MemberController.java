@@ -3,10 +3,7 @@ package svm.logic.implementation.controller;
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
-import svm.domain.abstraction.modelInterfaces.ILocation;
-import svm.domain.abstraction.modelInterfaces.IMember;
-import svm.domain.abstraction.modelInterfaces.ISport;
-import svm.domain.abstraction.modelInterfaces.IUserPrivilege;
+import svm.domain.abstraction.modelInterfaces.*;
 import svm.logic.abstraction.controller.IMemberController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
@@ -268,5 +265,14 @@ public class MemberController implements IMemberController {
     public ITransferSport getSport() throws IllegalGetInstanceException {
 
         return (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, member.getSport());
+    }
+
+    @Override
+    public void addMemberToTeam(ITransferTeam team) throws NotSupportedException, NoSessionFoundException, InstantiationException, IllegalAccessException {
+       if(team!=null)
+       {
+           ITeam teamModel=((IHasModel<ITeam>) team).getModel();
+           teamModel.addMemberToTeam(this.member);
+       }
     }
 }

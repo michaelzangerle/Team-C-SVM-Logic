@@ -4,10 +4,7 @@ import svm.domain.abstraction.exception.DomainAttributeException;
 import svm.domain.abstraction.exception.DomainParameterCheckException;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.exception.NotAllowException;
-import svm.logic.abstraction.transferobjects.ITransferLocation;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferSport;
-import svm.logic.abstraction.transferobjects.ITransferUserPrivilege;
+import svm.logic.abstraction.transferobjects.*;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
 
@@ -121,4 +118,6 @@ public interface IMemberController extends IController {
     void setSport(ITransferSport sport) throws NotAllowException;
 
     ITransferSport getSport() throws IllegalGetInstanceException;
+
+    void addMemberToTeam(ITransferTeam team) throws NotSupportedException, NoSessionFoundException, InstantiationException, IllegalAccessException;
 }
