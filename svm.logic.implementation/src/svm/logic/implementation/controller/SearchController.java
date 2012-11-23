@@ -52,7 +52,7 @@ public class SearchController implements ISearchController {
      */
     @Override
     public List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department) throws NoSessionFoundException, IllegalGetInstanceException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferMember> result = new LinkedList<ITransferMember>();
@@ -65,7 +65,7 @@ public class SearchController implements ISearchController {
 
     @Override
     public List<ITransferMember> getMembers(String firstName, String lastName, ITransferDepartment department, Boolean paid) throws NoSessionFoundException, IllegalGetInstanceException, RemoteException, DomainParameterCheckException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferMember> result = new LinkedList<ITransferMember>();
@@ -94,7 +94,7 @@ public class SearchController implements ISearchController {
      */
     @Override
     public List<ITransferMember> getMembers(String firstName, String lastName) throws NoSessionFoundException, IllegalGetInstanceException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferMember> result = new LinkedList<ITransferMember>();
@@ -113,7 +113,7 @@ public class SearchController implements ISearchController {
      */
     @Override
     public List<ITransferMember> getMembers(Date birthDateFrom, Date birthDateTo) throws NoSessionFoundException, IllegalGetInstanceException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferMember> result = new LinkedList<ITransferMember>();
@@ -129,7 +129,7 @@ public class SearchController implements ISearchController {
      */
     @Override
     public List<ITransferDepartment> getDepartments() throws IllegalGetInstanceException, NoSessionFoundException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferDepartment> result = new LinkedList<ITransferDepartment>();
@@ -145,7 +145,7 @@ public class SearchController implements ISearchController {
      */
     @Override
     public List<ITransferLocation> getLocations() throws IllegalGetInstanceException, NoSessionFoundException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferLocation> result = new LinkedList<ITransferLocation>();
@@ -158,7 +158,7 @@ public class SearchController implements ISearchController {
 
     @Override
     public List<ITransferContest> getContests() throws IllegalGetInstanceException, NoSessionFoundException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferContest> result = new LinkedList<ITransferContest>();
@@ -171,7 +171,7 @@ public class SearchController implements ISearchController {
 
     @Override
     public List<ITransferTeam> getTeams() throws IllegalGetInstanceException, NoSessionFoundException, NotAllowException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferTeam> result = new LinkedList<ITransferTeam>();
@@ -188,7 +188,7 @@ public class SearchController implements ISearchController {
 
     @Override
     public List<ITransferUserPrivilege> getUserPrivileges() throws NotAllowException, IllegalGetInstanceException, NoSessionFoundException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferUserPrivilege> result = new LinkedList<ITransferUserPrivilege>();
@@ -203,7 +203,7 @@ public class SearchController implements ISearchController {
 
     @Override
     public List<ITransferSport> getSports() throws NotAllowException, NoSessionFoundException, IllegalGetInstanceException {
-        if(! user.isAllowedForSearching())
+        if (!user.isAllowedForSearching())
             throw new NotAllowException("Wrong privilege");
 
         List<ITransferSport> result = new LinkedList<ITransferSport>();
@@ -214,5 +214,15 @@ public class SearchController implements ISearchController {
         }
 
         return result;
+    }
+
+    @Override
+    public ITransferMember getMemberByUID(int uid) throws RemoteException, NoSessionFoundException, IllegalGetInstanceException {
+        return (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, DomainFacade.getMemberModelDAO().getByUID(sessionId, uid));
+    }
+
+    @Override
+    public ITransferSubTeam getSubTeam(int uid) throws RemoteException, NoSessionFoundException, IllegalGetInstanceException {
+        return (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, DomainFacade.getSubTeamModelDAO().getByUID(sessionId, uid));
     }
 }

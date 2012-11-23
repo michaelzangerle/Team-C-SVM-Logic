@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public interface ITransferMember extends ITransfer {
 
+    int getUID();
+
     String getUsername();
 
     String getFirstName();

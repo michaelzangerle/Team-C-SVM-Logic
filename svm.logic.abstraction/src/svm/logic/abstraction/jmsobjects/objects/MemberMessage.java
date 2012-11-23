@@ -2,7 +2,6 @@ package svm.logic.abstraction.jmsobjects.objects;
 
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.MessageType;
-import svm.logic.abstraction.transferobjects.ITransferMember;
 
 /**
  * ProjectTeam: Team C
@@ -10,9 +9,9 @@ import svm.logic.abstraction.transferobjects.ITransferMember;
  */
 public class MemberMessage implements IMemberMessage {
     private MessageType type;
-    private ITransferMember member;
+    private int member;
 
-    public MemberMessage(MessageType type, ITransferMember member) {
+    public MemberMessage(MessageType type, int member) {
         this.type = type;
         this.member = member;
     }
@@ -23,7 +22,7 @@ public class MemberMessage implements IMemberMessage {
     }
 
     @Override
-    public ITransferMember getMember() {
+    public int getMember() {
         return member;
     }
 }

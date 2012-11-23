@@ -168,7 +168,7 @@ public class MAIN_HANNES_NIX_AENDERN {
         messageController.addObserver(new IMessageObserver() {
             @Override
             public void updateMemberMessage(IMemberMessage message) {
-                System.out.println("MemberMessage new Member: " + message.getMember().getFirstName());
+                System.out.println("MemberMessage new Member: " + message.getMember());
             }
 
             @Override

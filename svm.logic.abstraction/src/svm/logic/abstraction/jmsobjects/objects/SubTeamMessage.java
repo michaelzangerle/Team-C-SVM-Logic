@@ -2,8 +2,6 @@ package svm.logic.abstraction.jmsobjects.objects;
 
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.jmsobjects.MessageType;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 
 /**
  * ProjectTeam: Team C
@@ -12,10 +10,10 @@ import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 public class SubTeamMessage implements ISubTeamMessage {
 
     private MessageType type;
-    private ITransferMember member;
-    private ITransferSubTeam subTeam;
+    private int member;
+    private int subTeam;
 
-    public SubTeamMessage(MessageType type, ITransferMember member, ITransferSubTeam subTeam) {
+    public SubTeamMessage(MessageType type, int member, int subTeam) {
         this.type = type;
         this.member = member;
         this.subTeam = subTeam;
@@ -27,12 +25,12 @@ public class SubTeamMessage implements ISubTeamMessage {
     }
 
     @Override
-    public ITransferMember getMember() {
+    public int getMember() {
         return member;
     }
 
     @Override
-    public ITransferSubTeam getSubTeam() {
+    public int getSubTeam() {
         return subTeam;
     }
 }

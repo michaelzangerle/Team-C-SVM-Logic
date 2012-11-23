@@ -39,10 +39,16 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
     private String coordLong;
     private boolean hasPaidFee;
     private ITransferSport sport;
+    private int uid;
 
     @Override
     public IMember getModel() {
         return this.member;
+    }
+
+    @Override
+    public int getUID() {
+        return uid;
     }
 
     @Override
@@ -140,6 +146,7 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
         //return this.member.hasPaidFee(new GregorianCalendar().get(Calendar.YEAR));
         return hasPaidFee;
     }
+
     @Override
     public ITransferSport getSport() {
         return sport;
@@ -156,8 +163,9 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
         this.birthDate = member.getBirthDate();
         this.gender = member.getGender();
         this.entryDate = member.getEntryDate();
-        Integer integer=new GregorianCalendar().get(Calendar.YEAR);
+        Integer integer = new GregorianCalendar().get(Calendar.YEAR);
         this.hasPaidFee = this.member.hasPaidFee(integer);
+        this.uid = this.member.getUID();
 
         if (!member.getContactDetails().isNull()) {
             this.phone1 = member.getContactDetails().getPhone1();
@@ -174,9 +182,8 @@ public class TransferMember implements ITransferMember, IHasModel<IMember> {
             }
         }
 
-        if(!member.getSport().isNull())
-        {
-            this.sport=(ITransferSport) TransferObjectCreator.getInstance(TransferSport.class,this.member.getSport());
+        if (!member.getSport().isNull()) {
+            this.sport = (ITransferSport) TransferObjectCreator.getInstance(TransferSport.class, this.member.getSport());
         }
     }
 

@@ -9,7 +9,7 @@ import svm.logic.abstraction.jmsobjects.IMessageObserver;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
 import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.impl.*;
+import svm.logic.abstraction.transferobjects.impl.TransferAuth;
 import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -128,7 +128,10 @@ public class MessageController implements IMessageController, MessageListener {
     }
 
     private boolean mySubTeamMessage(ISubTeamMessage message) throws NoSessionFoundException {
-        return (((IHasModel<IMember>) message.getMember()).getModel().equals(((TransferAuth) user).getModel()));
+        int sessionId = DomainFacade.generateSessionId();
+        IMember member = DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember());
+        DomainFacade.closeSession(sessionId);
+        return (((IHasModel<IMember>) member).getModel().equals(((TransferAuth) user).getModel()));
     }
 
     private void receiveMemberMessage(IMemberMessage x) throws NoSessionFoundException {
@@ -140,7 +143,8 @@ public class MessageController implements IMessageController, MessageListener {
     private boolean myMemberMessage(IMemberMessage message) throws NoSessionFoundException {
         int sessionId = DomainFacade.generateSessionId();
         try {
-            IMember messageMember = ((IHasModel<IMember>) message.getMember()).getModel();
+
+            IMember messageMember = ((IHasModel<IMember>) DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember())).getModel();
             DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
             DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
             messageMember = messageMember.getSport().getDepartment().getDepartmentHead();

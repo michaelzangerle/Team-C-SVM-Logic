@@ -2,10 +2,7 @@ package svm.logic.abstraction.transferobjects.impl;
 
 import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
-
-import java.util.List;
 
 /**
  * ProjectTeam: Team C
@@ -15,11 +12,14 @@ public class TransferSubTeam implements ITransferSubTeam, IHasModel<ISubTeam> {
 
     private ISubTeam subTeam;
 
-    private List<ITransferMember> subTeamMembers;
+    private int uid;
+    private String name;
 
     @Override
     public void setObject(Object o) {
         this.subTeam = (ISubTeam) o;
+        uid = subTeam.getUID();
+        name = subTeam.getName();
     }
 
     @Override
@@ -27,13 +27,19 @@ public class TransferSubTeam implements ITransferSubTeam, IHasModel<ISubTeam> {
         return subTeam;
     }
 
-    @Override
-    public List<ITransferMember> getSubTeamMembers() {
-        return subTeamMembers;
-    }
 
     @Override
     public String toString() {
         return this.subTeam.getName();
+    }
+
+    @Override
+    public int getUID() {
+        return uid;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

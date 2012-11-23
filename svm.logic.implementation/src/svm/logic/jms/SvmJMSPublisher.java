@@ -4,13 +4,13 @@ import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.MessageType;
+import svm.logic.abstraction.jmsobjects.objects.MemberMessage;
+import svm.logic.abstraction.jmsobjects.objects.SubTeamMessage;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.abstraction.transferobjects.impl.TransferMember;
 import svm.logic.abstraction.transferobjects.impl.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
-import svm.logic.abstraction.jmsobjects.objects.MemberMessage;
-import svm.logic.abstraction.jmsobjects.objects.SubTeamMessage;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -93,7 +93,7 @@ public class SvmJMSPublisher {
     }
 
     public void sendNewMember(ITransferMember member) throws JMSException {
-        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member));
+        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID()));
     }
 
     public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam) throws JMSException, IllegalGetInstanceException {
@@ -101,7 +101,7 @@ public class SvmJMSPublisher {
     }
 
     public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member, subTeam));
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member.getUID(), subTeam.getUID()));
     }
 
     public void sendMemberRemoveFormSubTeam(IMember member, ISubTeam subTeam) throws IllegalGetInstanceException, JMSException {
@@ -109,6 +109,6 @@ public class SvmJMSPublisher {
     }
 
     public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member, subTeam));
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID()));
     }
 }
