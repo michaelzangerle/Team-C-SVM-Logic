@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TEST_JMS">
+    <output-path>$PROJECT_DIR$/out/artifacts/TEST_JMS</output-path>
+    <root id="archive" name="TEST_JMS.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/svm.logic.abstraction/src/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="svm.logic.abstraction" />
+      <element id="module-output" name="svm.logic.implementation" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.abstraction.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.domain.implementation.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/svm.exceptions.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/fscontext.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/imq.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/javax.jms.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/svm.logic.implementation/lib/jms.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
