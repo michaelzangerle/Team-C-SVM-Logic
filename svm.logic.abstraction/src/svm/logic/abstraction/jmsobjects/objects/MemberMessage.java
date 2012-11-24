@@ -15,6 +15,7 @@ public class MemberMessage implements IMemberMessage {
     public MemberMessage(MessageType type, int member, int receiver) {
         this.type = type;
         this.member = member;
+        this.receiver = receiver;
     }
 
     @Override

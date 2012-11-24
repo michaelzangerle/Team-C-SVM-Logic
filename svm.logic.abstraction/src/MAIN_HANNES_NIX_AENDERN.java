@@ -174,6 +174,6 @@ public class MAIN_HANNES_NIX_AENDERN {
             }
         });
         messageController.start();
-        messageController.updateMessages();
+        // messageController.updateMessages();
     }
 }
