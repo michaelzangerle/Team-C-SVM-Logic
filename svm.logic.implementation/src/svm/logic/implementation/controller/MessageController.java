@@ -88,9 +88,9 @@ public class MessageController implements IMessageController, MessageListener {
             ts2 = tc2.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 
             subscriber1 = ts1.createDurableSubscriber(topicSubTeam, id);
-            //subscriber1.setMessageListener(this);
+            subscriber1.setMessageListener(this);
             subscriber2 = ts2.createDurableSubscriber(topicMember, id);
-            //subscriber2.setMessageListener(this);
+            subscriber2.setMessageListener(this);
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RemoteException(e.getMessage(), e);
