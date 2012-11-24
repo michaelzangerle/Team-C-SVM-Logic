@@ -1,15 +1,12 @@
 package svm.logic.implementation.controller;
 
-import svm.domain.abstraction.DomainFacade;
-import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.logic.abstraction.controller.IMessageCheckController;
 import svm.logic.abstraction.controller.IMessageController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.IMessageObserver;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
-import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.implementation.transferobject.TransferAuth;
 import svm.logic.jms.SvmJMSPublisher;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
@@ -39,9 +36,11 @@ public class MessageController implements IMessageController, MessageListener {
     private List<IMessageObserver> observers = new LinkedList<IMessageObserver>();
     private TopicConnection tc2;
     private TopicSession ts2;
+    private IMessageCheckController checkController;
 
-    public MessageController(ITransferAuth user) {
+    public MessageController(ITransferAuth user, IMessageCheckController checkController) {
         this.user = user;
+        this.checkController = checkController;
     }
 
     @Override
@@ -122,36 +121,14 @@ public class MessageController implements IMessageController, MessageListener {
     }
 
     private void receiveSubTeamMessage(ISubTeamMessage x) throws NoSessionFoundException {
-        if (mySubTeamMessage(x)) {
+        if (checkController.mySubTeamMessage(x)) {
             informObserver(x);
         }
-    }
-
-    private boolean mySubTeamMessage(ISubTeamMessage message) throws NoSessionFoundException {
-        int sessionId = DomainFacade.generateSessionId();
-        IMember member = DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember());
-        DomainFacade.closeSession(sessionId);
-        return (((IHasModel<IMember>) member).getModel().equals(((TransferAuth) user).getModel()));
     }
 
     private void receiveMemberMessage(IMemberMessage x) throws NoSessionFoundException {
-        if (myMemberMessage(x)) {
+        if (checkController.myMemberMessage(x)) {
             informObserver(x);
-        }
-    }
-
-    private boolean myMemberMessage(IMemberMessage message) throws NoSessionFoundException {
-        int sessionId = DomainFacade.generateSessionId();
-        try {
-            IMember messageMember = DomainFacade.getMemberModelDAO().getByUID(sessionId,message.getMember());
-          //  IMember messageMember = ((IHasModel<IMember>) DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember())).getModel();
-            DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
-            DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
-            messageMember = messageMember.getSport().getDepartment().getDepartmentHead();
-
-            return (((TransferAuth) user).getModel().equals(messageMember));
-        } finally {
-            DomainFacade.closeSession(sessionId);
         }
     }
 

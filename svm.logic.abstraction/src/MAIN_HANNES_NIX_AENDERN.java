@@ -32,11 +32,8 @@ public class MAIN_HANNES_NIX_AENDERN {
             else if (args[0].equals("newMember")) testJMS();
             else if (args[0].equals("getMessage")) testMessageController();
         } else {
-
-            // testContestController();
-            // testTeamController();
-            //testMessageController();
-
+            testJMS();
+            testMessageController();
         }
         System.out.println("End");
     }
@@ -164,7 +161,7 @@ public class MAIN_HANNES_NIX_AENDERN {
 
     public static void testMessageController() throws svm.persistence.abstraction.exceptions.NotSupportedException, ExistingTransactionException, IllegalGetInstanceException, NoSessionFoundException, NoTransactionException, InstantiationException, IllegalAccessException, RemoteException, JMSException, InterruptedException {
         ITransferAuth user = login();
-        IMessageController messageController = LogicFacade.getMessageController(user);
+        IMessageController messageController = LogicFacade.getMessageController(user, LogicFacade.getMessageCheckController(user));
         messageController.addObserver(new IMessageObserver() {
             @Override
             public void updateMemberMessage(IMemberMessage message) {
