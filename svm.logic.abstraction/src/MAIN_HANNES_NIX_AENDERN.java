@@ -161,7 +161,7 @@ public class MAIN_HANNES_NIX_AENDERN {
 
     public static void testMessageController() throws svm.persistence.abstraction.exceptions.NotSupportedException, ExistingTransactionException, IllegalGetInstanceException, NoSessionFoundException, NoTransactionException, InstantiationException, IllegalAccessException, RemoteException, JMSException, InterruptedException {
         ITransferAuth user = login();
-        IMessageController messageController = LogicFacade.getMessageController(user, LogicFacade.getMessageCheckController(user));
+        IMessageController messageController = LogicFacade.getMessageController(user);
         messageController.addObserver(new IMessageObserver() {
             @Override
             public void updateMemberMessage(IMemberMessage message) {
@@ -174,5 +174,6 @@ public class MAIN_HANNES_NIX_AENDERN {
             }
         });
         messageController.start();
+        messageController.updateMessages();
     }
 }

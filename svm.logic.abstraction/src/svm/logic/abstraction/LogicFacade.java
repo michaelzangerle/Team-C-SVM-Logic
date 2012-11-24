@@ -112,8 +112,8 @@ public class LogicFacade {
         return ControllerFactory.getInstance().getTeamController(user, team);
     }
 
-    public static IMessageController getMessageController(ITransferAuth user, IMessageCheckController checkController) {
-        return ControllerFactory.getInstance().getMessageController(user, checkController);
+    public static IMessageController getMessageController(ITransferAuth user) {
+        return ControllerFactory.getInstance().getMessageController(user);
     }
 
     public static IMessageCheckController getMessageCheckController(ITransferAuth user) {
