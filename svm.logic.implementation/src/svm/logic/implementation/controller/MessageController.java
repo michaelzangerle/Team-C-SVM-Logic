@@ -37,10 +37,26 @@ public class MessageController implements IMessageController, MessageListener {
     private TopicConnection tc2;
     private TopicSession ts2;
     private IMessageCheckController checkController;
+    private TopicSubscriber subscriber1;
+    private TopicSubscriber subscriber2;
 
     public MessageController(ITransferAuth user, IMessageCheckController checkController) {
         this.user = user;
         this.checkController = checkController;
+    }
+
+    @Override
+    public void updateMessages() throws JMSException {
+        checkMessages(subscriber1);
+        checkMessages(subscriber2);
+    }
+
+    private void checkMessages(TopicSubscriber sub) throws JMSException {
+        Message m;
+        do {
+            m = sub.receiveNoWait();
+            if (m != null) onMessage(m);
+        } while (m != null);
     }
 
     @Override
@@ -71,8 +87,10 @@ public class MessageController implements IMessageController, MessageListener {
             ts1 = tc1.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
             ts2 = tc2.createTopicSession(false, TopicSession.AUTO_ACKNOWLEDGE);
 
-            ts1.createDurableSubscriber(topicSubTeam, id).setMessageListener(this);
-            ts2.createDurableSubscriber(topicMember, id).setMessageListener(this);
+            subscriber1 = ts1.createDurableSubscriber(topicSubTeam, id);
+            //subscriber1.setMessageListener(this);
+            subscriber2 = ts2.createDurableSubscriber(topicMember, id);
+            //subscriber2.setMessageListener(this);
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RemoteException(e.getMessage(), e);

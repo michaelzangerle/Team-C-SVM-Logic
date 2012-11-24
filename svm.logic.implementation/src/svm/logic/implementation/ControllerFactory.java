@@ -103,8 +103,8 @@ public class ControllerFactory {
         return new TeamController(((IHasModel<ITeam>) team).getModel(), user);
     }
 
-    public IMessageController getMessageController(ITransferAuth user, IMessageCheckController checkController) {
-        return new MessageController(user, checkController);
+    public IMessageController getMessageController(ITransferAuth user) {
+        return new MessageController(user, getMessageCheckController(user));
     }
 
     public IMessageCheckController getMessageCheckController(ITransferAuth user) {
