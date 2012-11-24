@@ -10,8 +10,9 @@ import svm.logic.abstraction.jmsobjects.MessageType;
 public class MemberMessage implements IMemberMessage {
     private MessageType type;
     private int member;
+    private int receiver;
 
-    public MemberMessage(MessageType type, int member) {
+    public MemberMessage(MessageType type, int member, int receiver) {
         this.type = type;
         this.member = member;
     }
@@ -24,5 +25,10 @@ public class MemberMessage implements IMemberMessage {
     @Override
     public int getMember() {
         return member;
+    }
+
+    @Override
+    public int getReceiverUID() {
+        return receiver;
     }
 }

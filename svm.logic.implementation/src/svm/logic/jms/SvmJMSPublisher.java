@@ -1,16 +1,19 @@
 package svm.logic.jms;
 
+import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.MessageType;
 import svm.logic.abstraction.jmsobjects.objects.MemberMessage;
 import svm.logic.abstraction.jmsobjects.objects.SubTeamMessage;
+import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferMember;
 import svm.logic.abstraction.transferobjects.ITransferSubTeam;
 import svm.logic.implementation.transferobject.TransferMember;
 import svm.logic.implementation.transferobject.TransferSubTeam;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
+import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -88,12 +91,18 @@ public class SvmJMSPublisher {
         memberTopicSession = new MyTopicSession(memberTopic);
     }
 
-    public void sendNewMember(IMember member) throws JMSException, IllegalGetInstanceException {
+    public void sendNewMember(IMember member) throws JMSException, IllegalGetInstanceException, NoSessionFoundException {
         sendNewMember((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member));
     }
 
-    public void sendNewMember(ITransferMember member) throws JMSException {
-        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID()));
+    public void sendNewMember(ITransferMember member) throws JMSException, NoSessionFoundException {
+        IMember messageMember = ((IHasModel<IMember>) member).getModel();
+        int sessionId = DomainFacade.generateSessionId();
+        DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport());
+        DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
+        int receiver = messageMember.getSport().getDepartment().getDepartmentHead().getUID();
+        DomainFacade.closeSession(sessionId);
+        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID(), receiver));
     }
 
     public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam) throws JMSException, IllegalGetInstanceException {

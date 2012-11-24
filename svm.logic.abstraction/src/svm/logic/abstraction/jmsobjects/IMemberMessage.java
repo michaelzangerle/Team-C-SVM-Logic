@@ -9,4 +9,5 @@ public interface IMemberMessage extends IMessage {
     MessageType getType();
 
     int getMember();
+
 }

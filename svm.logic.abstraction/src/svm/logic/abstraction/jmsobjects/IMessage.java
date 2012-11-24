@@ -8,4 +8,5 @@ import java.rmi.Remote;
  * Date: 21.11.12
  */
 public interface IMessage extends Serializable, Remote {
+    int getReceiverUID();
 }
