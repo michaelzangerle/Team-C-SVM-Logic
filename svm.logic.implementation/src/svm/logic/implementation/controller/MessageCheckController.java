@@ -1,12 +1,9 @@
 package svm.logic.implementation.controller;
 
-import svm.domain.abstraction.DomainFacade;
-import svm.domain.abstraction.modelInterfaces.IMember;
 import svm.logic.abstraction.controller.IMessageCheckController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
 import svm.logic.abstraction.jmsobjects.IMemberMessage;
 import svm.logic.abstraction.jmsobjects.ISubTeamMessage;
-import svm.logic.abstraction.transferobjects.IHasModel;
 import svm.logic.abstraction.transferobjects.ITransferAuth;
 import svm.logic.implementation.transferobject.TransferAuth;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -30,6 +27,8 @@ public class MessageCheckController implements IMessageCheckController {
 
     @Override
     public boolean myMemberMessage(IMemberMessage message) throws NoSessionFoundException {
+        return (((TransferAuth) user).getModel().getUID() == message.getReceiverUID());
+        /* ALT
         int sessionId = DomainFacade.generateSessionId();
         try {
             IMember messageMember = DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember());
@@ -41,14 +40,18 @@ public class MessageCheckController implements IMessageCheckController {
         } finally {
             DomainFacade.closeSession(sessionId);
         }
+        */
     }
 
     @Override
     public boolean mySubTeamMessage(ISubTeamMessage message) throws NoSessionFoundException {
+        return (((TransferAuth) user).getModel().getUID() == message.getReceiverUID());
+        /* ALT
         int sessionId = DomainFacade.generateSessionId();
         IMember member = DomainFacade.getMemberModelDAO().getByUID(sessionId, message.getMember());
         DomainFacade.closeSession(sessionId);
         return (((IHasModel<IMember>) member).getModel().equals(((TransferAuth) user).getModel()));
+        */
     }
 
     @Override
