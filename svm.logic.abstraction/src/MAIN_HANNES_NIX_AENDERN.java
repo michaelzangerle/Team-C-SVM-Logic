@@ -31,6 +31,8 @@ public class MAIN_HANNES_NIX_AENDERN {
             if (args[0].equals("subTeam")) testSubTeamController();
             else if (args[0].equals("newMember")) testJMS();
             else if (args[0].equals("getMessage")) testMessageController();
+
+            System.exit(0);
         } else {
             testJMS();
             testMessageController();
