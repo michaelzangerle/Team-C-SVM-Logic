@@ -269,10 +269,14 @@ public class MemberController implements IMemberController {
 
     @Override
     public void addMemberToTeam(ITransferTeam team) throws NotSupportedException, NoSessionFoundException, InstantiationException, IllegalAccessException {
-       if(team!=null)
-       {
-           ITeam teamModel=((IHasModel<ITeam>) team).getModel();
-           teamModel.addMemberToTeam(this.member);
-       }
+        try {
+            DomainFacade.reattachObjectToSession(sessionId, ((IHasModel<ITeam>) team).getModel());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (team != null) {
+            ITeam teamModel = ((IHasModel<ITeam>) team).getModel();
+            teamModel.addMemberToTeam(this.member);
+        }
     }
 }
