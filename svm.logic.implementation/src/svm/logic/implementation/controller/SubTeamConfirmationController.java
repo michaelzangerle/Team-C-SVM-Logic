@@ -2,14 +2,13 @@ package svm.logic.implementation.controller;
 
 import svm.domain.abstraction.DomainFacade;
 import svm.domain.abstraction.modelInterfaces.IMember;
+import svm.domain.abstraction.modelInterfaces.ISubTeam;
 import svm.domain.abstraction.modelInterfaces.ISubTeamsHasMembers;
 import svm.logic.abstraction.controller.ISubTeamConfirmationController;
 import svm.logic.abstraction.exception.IllegalGetInstanceException;
-import svm.logic.abstraction.transferobjects.IHasModel;
-import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferSubTeamHasMember;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.transferobject.TransferMember;
+import svm.logic.implementation.transferobject.TransferSubTeam;
 import svm.logic.implementation.transferobject.TransferSubTeamHasMember;
 import svm.logic.implementation.transferobjectcreator.TransferObjectCreator;
 import svm.persistence.abstraction.exceptions.ExistingTransactionException;
@@ -26,11 +25,15 @@ import java.util.List;
 public class SubTeamConfirmationController implements ISubTeamConfirmationController {
 
     private IMember member;
+    private ISubTeam subteam;
     private Integer sessionId;
+
     private ITransferMember transferMember;
     private ITransferAuth user;
+    private ITransferSubTeam transferSubTeam;
 
-    public SubTeamConfirmationController(IMember member, ITransferAuth user) {
+    public SubTeamConfirmationController(ITransferAuth user, IMember member, ISubTeam subteam) {
+        this.subteam = subteam;
         this.member = member;
         this.user = user;
     }
@@ -41,37 +44,32 @@ public class SubTeamConfirmationController implements ISubTeamConfirmationContro
     }
 
     @Override
-    public List<ITransferSubTeamHasMember> getSubTeamsOfMember() throws IllegalGetInstanceException {
-        List<ITransferSubTeamHasMember> result = new LinkedList<ITransferSubTeamHasMember>();
+    public void setConfirmation(boolean confirm, String comment) {
 
         for (ISubTeamsHasMembers tmp : this.member.getSubTeamsHasMembersForPerson()) {
-            result.add((ITransferSubTeamHasMember) TransferObjectCreator.getInstance(TransferSubTeamHasMember.class, tmp));
+            if(tmp.getSubTeam().equals(this.subteam)){
+                tmp.setComment(comment);
+                tmp.setConfirmed(confirm);
+                return;
+            }
         }
-
-        return result;
-
-    }
-
-    @Override
-    public void setConfirmationForSubTeam(ITransferSubTeamHasMember subTeamHasMember, boolean confirmation, String comment) {
-        //TODO UserPrivileges
-        ISubTeamsHasMembers tmp = ((IHasModel<ISubTeamsHasMembers>) subTeamHasMember).getModel();
-        tmp.setComment(comment);
-        tmp.setConfirmed(confirmation);
     }
 
     @Override
     public void start() throws NoSessionFoundException, IllegalGetInstanceException {
         this.sessionId = DomainFacade.generateSessionId();
         DomainFacade.reattachObjectToSession(this.sessionId, member);
+        DomainFacade.reattachObjectToSession(this.sessionId, subteam);
 
         this.transferMember = (ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member);
+        this.transferSubTeam = (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subteam);
     }
 
     @Override
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
         DomainFacade.startTransaction(this.sessionId);
         DomainFacade.getMemberModelDAO().saveOrUpdate(sessionId, member);
+        DomainFacade.getSubTeamModelDAO().saveOrUpdate(sessionId, subteam);
         DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
     }

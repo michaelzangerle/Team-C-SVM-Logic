@@ -192,8 +192,8 @@ public class MemberController implements IMemberController {
     public void commit() throws ExistingTransactionException, NoSessionFoundException, NoTransactionException {
         DomainFacade.startTransaction(this.sessionId);
         DomainFacade.getMemberModelDAO().saveOrUpdate(sessionId, member);
-        DomainFacade.commitTransaction(this.sessionId);
         HibernateUtil.getSession(sessionId).flush();
+        DomainFacade.commitTransaction(this.sessionId);
         DomainFacade.closeSession(this.sessionId);
         if (isNewMember) {
             try {
@@ -271,6 +271,11 @@ public class MemberController implements IMemberController {
 
     @Override
     public void addMemberToTeam(ITransferTeam team) throws NotSupportedException, NoSessionFoundException, InstantiationException, IllegalAccessException {
+        try {
+            DomainFacade.reattachObjectToSession(sessionId, ((IHasModel<ITeam>) team).getModel());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         if (team != null) {
             ITeam teamModel = ((IHasModel<ITeam>) team).getModel();
             teamModel.addMemberToTeam(this.member);
