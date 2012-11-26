@@ -14,21 +14,7 @@ import java.util.List;
  */
 public interface ISubTeamConfirmationController extends IController {
 
-    /**
-     * Returns all subteams of a member
-     *
-     * @return
-     */
-    List<ITransferSubTeamHasMember> getSubTeamsOfMember() throws IllegalGetInstanceException, RemoteException;
-
-    /**
-     * Sets the confirmation flag and a comment for a specific subteam-contest relation
-     *
-     * @param subTeam
-     * @param confirmation
-     * @param comment
-     */
-    void setConfirmationForSubTeam(ITransferSubTeamHasMember subTeam, boolean confirmation, String comment) throws RemoteException;
-
     ITransferMember getMember() throws RemoteException;
+
+    void setConfirmation(boolean confirm, String comment);
 }

@@ -1,10 +1,7 @@
 package svm.logic.abstraction;
 
 import svm.logic.abstraction.controller.*;
-import svm.logic.abstraction.transferobjects.ITransferAuth;
-import svm.logic.abstraction.transferobjects.ITransferContest;
-import svm.logic.abstraction.transferobjects.ITransferMember;
-import svm.logic.abstraction.transferobjects.ITransferTeam;
+import svm.logic.abstraction.transferobjects.*;
 import svm.logic.implementation.ControllerFactory;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
@@ -78,8 +75,8 @@ public class LogicFacade {
      *
      * @return ISubTeamConfirmationController
      */
-    public static ISubTeamConfirmationController getSubTeamConfirmationController(ITransferAuth user, ITransferMember member) {
-        return ControllerFactory.getInstance().getSubTeamConfirmationController(user, member);
+    public static ISubTeamConfirmationController getSubTeamConfirmationController(ITransferAuth user, ITransferMember member,ITransferSubTeam subteam) {
+        return ControllerFactory.getInstance().getSubTeamConfirmationController(user, member,subteam);
     }
 
     /**
