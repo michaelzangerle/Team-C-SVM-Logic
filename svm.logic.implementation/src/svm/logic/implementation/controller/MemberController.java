@@ -17,6 +17,7 @@ import svm.persistence.abstraction.exceptions.ExistingTransactionException;
 import svm.persistence.abstraction.exceptions.NoSessionFoundException;
 import svm.persistence.abstraction.exceptions.NoTransactionException;
 import svm.persistence.abstraction.exceptions.NotSupportedException;
+import svm.persistence.hibernate.HibernateUtil;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -192,6 +193,7 @@ public class MemberController implements IMemberController {
         DomainFacade.startTransaction(this.sessionId);
         DomainFacade.getMemberModelDAO().saveOrUpdate(sessionId, member);
         DomainFacade.commitTransaction(this.sessionId);
+        HibernateUtil.getSession(sessionId).flush();
         DomainFacade.closeSession(this.sessionId);
         if (isNewMember) {
             try {
@@ -269,10 +271,9 @@ public class MemberController implements IMemberController {
 
     @Override
     public void addMemberToTeam(ITransferTeam team) throws NotSupportedException, NoSessionFoundException, InstantiationException, IllegalAccessException {
-       if(team!=null)
-       {
-           ITeam teamModel=((IHasModel<ITeam>) team).getModel();
-           teamModel.addMemberToTeam(this.member);
-       }
+        if (team != null) {
+            ITeam teamModel = ((IHasModel<ITeam>) team).getModel();
+            teamModel.addMemberToTeam(this.member);
+        }
     }
 }
