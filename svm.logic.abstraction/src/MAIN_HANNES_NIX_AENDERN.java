@@ -34,7 +34,8 @@ public class MAIN_HANNES_NIX_AENDERN {
 
             System.exit(0);
         } else {
-            testJMS();
+            testSubTeamController();
+            //testJMS();
             testMessageController();
         }
         System.out.println("End");
