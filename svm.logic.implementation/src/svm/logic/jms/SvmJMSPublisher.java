@@ -118,6 +118,6 @@ public class SvmJMSPublisher {
     }
 
     public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().toString()));
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().getName()));
     }
 }
