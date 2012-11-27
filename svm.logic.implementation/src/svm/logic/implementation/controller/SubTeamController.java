@@ -151,10 +151,11 @@ public class SubTeamController implements ISubTeamController {
         DomainFacade.startTransaction(sessionId);
         DomainFacade.getSubTeamModelDAO().saveOrUpdate(sessionId, this.subTeam);
         DomainFacade.commitTransaction(sessionId);
+        String text = subTeam.getContest().getName();
         DomainFacade.closeSession(sessionId);
         for (IMember m : addedMember) {
             try {
-                SvmJMSPublisher.getInstance().sendMemberAddToSubTeam(m, subTeam);
+                SvmJMSPublisher.getInstance().sendMemberAddToSubTeam(m, subTeam, text);
             } catch (JMSException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IllegalGetInstanceException e) {
@@ -167,7 +168,7 @@ public class SubTeamController implements ISubTeamController {
 
         for (IMember m : removedMember) {
             try {
-                SvmJMSPublisher.getInstance().sendMemberRemoveFormSubTeam(m, subTeam);
+                SvmJMSPublisher.getInstance().sendMemberRemoveFormSubTeam(m, subTeam, text);
             } catch (JMSException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IllegalGetInstanceException e) {

@@ -102,22 +102,22 @@ public class SvmJMSPublisher {
         DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
         int receiver = messageMember.getSport().getDepartment().getDepartmentHead().getUID();
         DomainFacade.closeSession(sessionId);
-        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID(), receiver, "Member "+member+" added!"));
+        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID(), receiver, "Member " + member + " added!"));
     }
 
-    public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam) throws JMSException, IllegalGetInstanceException {
-        sendMemberAddToSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam));
+    public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam, String text) throws JMSException, IllegalGetInstanceException {
+        sendMemberAddToSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam), text);
     }
 
-    public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().toString()));
+    public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam, String text) throws JMSException {
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member.getUID(), subTeam.getUID(), text));
     }
 
-    public void sendMemberRemoveFormSubTeam(IMember member, ISubTeam subTeam) throws IllegalGetInstanceException, JMSException {
-        sendMemberRemoveFormSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam));
+    public void sendMemberRemoveFormSubTeam(IMember member, ISubTeam subTeam, String text) throws IllegalGetInstanceException, JMSException {
+        sendMemberRemoveFormSubTeam((ITransferMember) TransferObjectCreator.getInstance(TransferMember.class, member), (ITransferSubTeam) TransferObjectCreator.getInstance(TransferSubTeam.class, subTeam), text);
     }
 
-    public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().getName()));
+    public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam, String text) throws JMSException {
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID(), text));
     }
 }
