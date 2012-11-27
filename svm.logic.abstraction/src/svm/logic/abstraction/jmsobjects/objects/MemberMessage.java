@@ -11,11 +11,13 @@ public class MemberMessage implements IMemberMessage {
     private MessageType type;
     private int member;
     private int receiver;
+    private String text;
 
-    public MemberMessage(MessageType type, int member, int receiver) {
+    public MemberMessage(MessageType type, int member, int receiver,String text) {
         this.type = type;
         this.member = member;
         this.receiver = receiver;
+        this.text = text;
     }
 
     @Override
@@ -31,5 +33,11 @@ public class MemberMessage implements IMemberMessage {
     @Override
     public int getReceiverUID() {
         return receiver;
+    }
+
+
+    @Override
+    public String toString(){
+        return this.text;
     }
 }

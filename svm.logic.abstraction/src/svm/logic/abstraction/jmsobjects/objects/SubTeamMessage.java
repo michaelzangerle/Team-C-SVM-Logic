@@ -13,12 +13,14 @@ public class SubTeamMessage implements ISubTeamMessage {
     private int member;
     private int subTeam;
     private int receiver;
+    private String text;
 
-    public SubTeamMessage(MessageType type, int member, int subTeam) {
+    public SubTeamMessage(MessageType type, int member, int subTeam, String text) {
         this.type = type;
         this.member = member;
         this.subTeam = subTeam;
         this.receiver = member;
+        this.text = text;
     }
 
     @Override
@@ -40,4 +42,10 @@ public class SubTeamMessage implements ISubTeamMessage {
     public int getReceiverUID() {
         return receiver;
     }
+
+    @Override
+    public String toString(){
+        return this.text;
+    }
+
 }

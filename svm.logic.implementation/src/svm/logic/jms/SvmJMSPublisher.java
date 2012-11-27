@@ -102,7 +102,7 @@ public class SvmJMSPublisher {
         DomainFacade.reattachObjectToSession(sessionId, messageMember.getSport().getDepartment());
         int receiver = messageMember.getSport().getDepartment().getDepartmentHead().getUID();
         DomainFacade.closeSession(sessionId);
-        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID(), receiver));
+        memberTopicSession.sendMessage(new MemberMessage(MessageType.NEW, member.getUID(), receiver, "Member "+member+" added!"));
     }
 
     public void sendMemberAddToSubTeam(IMember member, ISubTeam subTeam) throws JMSException, IllegalGetInstanceException {
@@ -110,7 +110,7 @@ public class SvmJMSPublisher {
     }
 
     public void sendMemberAddToSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member.getUID(), subTeam.getUID()));
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.ADDED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().toString()));
     }
 
     public void sendMemberRemoveFormSubTeam(IMember member, ISubTeam subTeam) throws IllegalGetInstanceException, JMSException {
@@ -118,6 +118,6 @@ public class SvmJMSPublisher {
     }
 
     public void sendMemberRemoveFormSubTeam(ITransferMember member, ITransferSubTeam subTeam) throws JMSException {
-        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID()));
+        subTeamTopicSession.sendMessage(new SubTeamMessage(MessageType.REMOVED, member.getUID(), subTeam.getUID(),((IHasModel<ISubTeam>) subTeam).getModel().getContest().toString()));
     }
 }
